@@ -34,14 +34,16 @@
   /* NAV */
   nav { display: flex; align-items: center; justify-content: space-between; padding: 28px 0; animation: fadeDown 0.8s ease both; }
   .logo { display: flex; align-items: center; gap: 14px; }
-  .logo-s { width: 160px; height: 192px; background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url("logo.png"); flex-shrink: 0; }
+  .logo-s { width: 96px; height: 96px; background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url("logo.png"); flex-shrink: 0; }
   .logo-wordmark { font-family: 'DM Sans', sans-serif; }
   .logo-wordmark strong { font-weight: 700; font-size: 1.5rem; display: block; line-height: 1; }
   .logo-wordmark span { font-size: 0.85rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
   .nav-badge { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border: 1px solid rgba(255,255,255,0.12); padding: 6px 14px; border-radius: 100px; }
 
   /* HERO */
-  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 60px 0 80px; }
+  .hero-logo-center { display: flex; justify-content: center; margin: 32px 0 16px; }
+  .hero-logo-circle { width: 220px; height: 220px; background: url("logo.png") no-repeat center; background-size: contain; }
+  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 40px 0 80px; }
   .hero-left { animation: fadeUp 1s ease 0.2s both; }
   .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent1); margin-bottom: 24px; }
   .eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent1); }
@@ -162,6 +164,8 @@
     .wrapper { padding: 0 20px; }
     nav { padding: 16px 0; flex-wrap: wrap; gap: 12px; }
     .logo-s { width: 80px; height: 96px; }
+    .hero-logo-center { margin: 24px 0 12px; }
+    .hero-logo-circle { width: 180px; height: 180px; }
     .logo-wordmark strong { font-size: 1.1rem; }
     .nav-badge { font-size: 0.65rem; padding: 5px 10px; }
     .hero { display: flex; flex-direction: column; gap: 40px; padding: 32px 0 48px; text-align: center; }
@@ -187,6 +191,7 @@
     .wrapper { padding: 0 16px; }
     nav { padding: 12px 0; }
     .logo-s { width: 64px; height: 76px; }
+    .hero-logo-circle { width: 150px; height: 150px; }
     .logo-wordmark strong { font-size: 1rem; }
     .hero { padding: 24px 0 36px; gap: 28px; }
     .hero-right { height: 320px; }
@@ -234,6 +239,10 @@
     </div>
     <span class="nav-badge">Version 2.0 is live ✨</span>
   </nav>
+
+  <div class="hero-logo-center">
+    <div class="hero-logo-circle"></div>
+  </div>
 
   <section class="hero">
     <div class="hero-left">
