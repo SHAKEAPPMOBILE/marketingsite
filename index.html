@@ -29,11 +29,6 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
     opacity: 0.4;
   }
-  .grid-lines {
-    position: fixed; inset: 0; z-index: 0;
-    background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 80px 80px; pointer-events: none;
-  }
   .wrapper { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 40px; }
 
   /* NAV */
@@ -132,6 +127,11 @@
   .feature:last-child { border-right: none; }
   .feature:hover { background: rgba(255,255,255,0.05); }
   .feature-icon { font-size: 1.6rem; margin-bottom: 16px; }
+  .site-footer { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 24px; padding: 48px 24px 32px; margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .site-footer a { color: var(--muted); font-size: 0.9rem; text-decoration: none; transition: color 0.2s; }
+  .site-footer a:hover { color: var(--text); }
+  .site-footer .footer-email { margin-left: 0; }
+  .site-footer .footer-copy { width: 100%; text-align: center; margin: 16px 0 0; padding: 0; font-size: 0.8rem; color: var(--muted); }
   .feature-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
   .feature-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
 
@@ -159,8 +159,6 @@
 </head>
 <body>
 <div class="bg-layer"></div>
-<div class="grid-lines"></div>
-
 <!-- APP OVERLAY -->
 <div class="app-overlay" id="appOverlay">
   <div class="overlay-bar">
@@ -192,14 +190,13 @@
     <div class="hero-left">
       <div class="eyebrow">Version 2.0 is live</div>
       <h1>Meet real<br>people <em>IRL.</em><br>No swiping.</h1>
-      <p class="hero-desc">Join dinners, drinks, sports & experiences around you. Shake up your social life — just show up.</p>
+      <p class="hero-desc">Join lunches, dinners, drinks, hikes, brunch & other activities around you. Shake up your social life — just show up.</p>
       <div class="cta-row">
         <a href="#" class="btn-primary">↓ Download App</a>
         <a href="https://shake-web-app.netlify.app/" class="btn-secondary" target="_blank" rel="noopener noreferrer">Open Web App →</a>
       </div>
       <div class="stats-row">
-        <div><div class="stat-num">148+</div><div class="stat-label">Early Members</div></div>
-        <div><div class="stat-num">5★</div><div class="stat-label">App Store</div></div>
+        <div><div class="stat-num">2k+</div><div class="stat-label">Early Members (just starting out!)</div></div>
         <div><div class="stat-num">IRL</div><div class="stat-label">Activities Only</div></div>
       </div>
     </div>
@@ -261,6 +258,14 @@
       <div class="feature-desc">No pressure, no profile games. Just real people, real moments.</div>
     </div>
   </div>
+
+  <footer class="site-footer">
+    <a href="https://shake-web-app.netlify.app/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+    <a href="https://shake-web-app.netlify.app/community-guidelines" target="_blank" rel="noopener noreferrer">Community Guidelines</a>
+    <a href="https://shake-web-app.netlify.app/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+    <a href="mailto:contact@shakeapp.today" class="footer-email">contact@shakeapp.today</a>
+    <p class="footer-copy">© 2026 SHAKE. All rights reserved.</p>
+  </footer>
 </div>
 
 <script>
