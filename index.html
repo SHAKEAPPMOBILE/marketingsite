@@ -131,11 +131,14 @@
   .chat-preview-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
   .chat-preview-image-wrapper { flex: 1.2; display: flex; justify-content: center; }
   .chat-preview-image { width: 100%; max-width: 420px; border-radius: 32px; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 24px 80px rgba(0,0,0,0.65); }
-  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin: 0 0 100px; border: 1px solid rgba(255,255,255,0.07); border-radius: 24px; overflow: hidden; animation: fadeUp 1s ease 0.6s both; }
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin: 0 0 80px; border: 1px solid rgba(255,255,255,0.07); border-radius: 24px; overflow: hidden; animation: fadeUp 1s ease 0.6s both; }
   .feature { padding: 36px 32px; background: rgba(255,255,255,0.02); transition: background 0.3s; border-right: 1px solid rgba(255,255,255,0.07); }
   .feature:last-child { border-right: none; }
   .feature:hover { background: rgba(255,255,255,0.05); }
   .feature-icon { font-size: 1.6rem; margin-bottom: 16px; }
+  .earn-row { max-width: 1280px; margin: 0 auto 80px; padding: 0 40px; display: flex; align-items: center; gap: 16px; font-size: 0.95rem; color: var(--text); animation: fadeUp 1s ease 0.65s both; }
+  .earn-row img { width: 56px; height: 56px; flex-shrink: 0; filter: drop-shadow(0 12px 40px rgba(0,0,0,0.7)); }
+  .earn-row span { font-weight: 500; }
   .site-footer { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 24px; padding: 48px 24px 32px; margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
   .site-footer a { color: var(--muted); font-size: 0.9rem; text-decoration: none; transition: color 0.2s; }
   .site-footer a:hover { color: var(--text); }
@@ -186,7 +189,7 @@
     .chat-preview-text { text-align: center; max-width: 100%; }
     .chat-preview-image-wrapper { width: 100%; }
     .chat-preview-image { max-width: 360px; }
-    .features { grid-template-columns: 1fr; margin: 10px 0 60px; }
+    .features { grid-template-columns: 1fr; margin: 10px 0 40px; }
     .feature { padding: 28px 20px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
     .feature:last-child { border-bottom: none; }
     .site-footer { flex-direction: column; gap: 16px; padding: 36px 20px 28px; margin-top: 20px; }
@@ -331,6 +334,11 @@
       <div class="feature-name">Just Show Up</div>
       <div class="feature-desc">No pressure, no profile games. Just real people, real moments.</div>
     </div>
+  </div>
+
+  <div class="earn-row">
+    <img src="coin.png" alt="Shake coin">
+    <p><span>Make money with paid activities.</span> With SHAKE you can earn by sharing your talents with others.</p>
   </div>
 
   <footer class="site-footer">
