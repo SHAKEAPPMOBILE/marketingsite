@@ -32,8 +32,8 @@
   .wrapper { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 40px; }
 
   /* NAV */
-  nav { display: flex; align-items: center; justify-content: center; gap: 32px; padding: 28px 0; animation: fadeDown 0.8s ease both; }
-  .logo { display: flex; align-items: center; gap: 14px; }
+  nav { position: relative; display: flex; align-items: center; justify-content: flex-end; padding: 28px 0; animation: fadeDown 0.8s ease both; }
+  .logo { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
   .logo-s { width: 96px; height: 96px; background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url("logo.png"); flex-shrink: 0; }
   .logo-wordmark { font-family: 'DM Sans', sans-serif; }
   .logo-wordmark strong { font-weight: 700; font-size: 1.5rem; display: block; line-height: 1; }
@@ -237,7 +237,6 @@
 
   <section class="hero">
     <div class="hero-left">
-      <div class="eyebrow">Version 2.0 is live</div>
       <h1>Meet real<br>people <em>IRL.</em><br>No swiping.</h1>
       <p class="hero-desc">Join lunches, dinners, drinks, hikes, brunch & other activities around you. Shake up your social life — just show up.</p>
       <div class="cta-row">
@@ -299,7 +298,7 @@
     <div class="feature">
       <div class="feature-icon">📍</div>
       <div class="feature-name">Local First</div>
-      <div class="feature-desc">Dinners, sports, drinks and experiences happening near you, today.</div>
+      <div class="feature-desc">lunches, dinners, drinks, hikes, brunch & other activities happening around you.</div>
     </div>
     <div class="feature">
       <div class="feature-icon">✨</div>
