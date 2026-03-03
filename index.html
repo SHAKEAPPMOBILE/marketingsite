@@ -34,7 +34,7 @@
   /* NAV */
   nav { display: flex; align-items: center; justify-content: space-between; padding: 28px 0; animation: fadeDown 0.8s ease both; }
   .logo { display: flex; align-items: center; gap: 14px; }
-  .logo-s { width: 96px; height: 96px; background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url("logo.png"); flex-shrink: 0; }
+  .logo-s { width: 96px; height: 96px; background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url("logo.png"); flex-shrink: 0; mix-blend-mode: lighten; }
   .logo-wordmark { font-family: 'DM Sans', sans-serif; }
   .logo-wordmark strong { font-weight: 700; font-size: 1.5rem; display: block; line-height: 1; }
   .logo-wordmark span { font-size: 0.85rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
@@ -143,7 +143,7 @@
   @keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
   .overlay-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(6,6,10,0.95); flex-shrink: 0; }
   .overlay-logo { display: flex; align-items: center; gap: 10px; }
-  .overlay-logo-s { width: 30px; height: 36px; background: url("logo.png") no-repeat center; background-size: contain; }
+  .overlay-logo-s { width: 30px; height: 36px; background: url("logo.png") no-repeat center; background-size: contain; mix-blend-mode: lighten; }
   .overlay-logo-text strong { font-weight: 700; font-size: 1rem; display: block; line-height: 1; }
   .overlay-logo-text span { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
   .overlay-close { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: var(--text); font-size: 1rem; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
