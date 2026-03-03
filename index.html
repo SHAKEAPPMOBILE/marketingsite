@@ -32,7 +32,7 @@
   .wrapper { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 40px; }
 
   /* NAV */
-  nav { position: relative; display: flex; align-items: center; justify-content: flex-end; padding: 28px 0; animation: fadeDown 0.8s ease both; }
+  nav { position: relative; display: flex; align-items: center; justify-content: flex-end; padding: 48px 0 28px; animation: fadeDown 0.8s ease both; }
   .logo { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
   .logo-s { width: 96px; height: 96px; background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url("logo.png"); flex-shrink: 0; }
   .logo-wordmark { font-family: 'DM Sans', sans-serif; }
@@ -160,7 +160,7 @@
 
   @media (max-width: 768px) {
     .wrapper { padding: 0 20px; }
-    nav { padding: 16px 0; flex-wrap: wrap; gap: 12px; }
+    nav { padding: 32px 0 16px; flex-wrap: wrap; gap: 12px; }
     .logo-s { width: 80px; height: 96px; }
     .logo-wordmark strong { font-size: 1.1rem; }
     .nav-badge { font-size: 0.65rem; padding: 5px 10px; }
@@ -185,7 +185,7 @@
 
   @media (max-width: 480px) {
     .wrapper { padding: 0 16px; }
-    nav { padding: 12px 0; }
+    nav { padding: 24px 0 12px; }
     .logo-s { width: 64px; height: 76px; }
     .logo-wordmark strong { font-size: 1rem; }
     .hero { padding: 24px 0 36px; gap: 28px; }
