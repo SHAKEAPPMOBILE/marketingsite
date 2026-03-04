@@ -82,7 +82,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #7c5cfc;
+    background: var(--accent2);
     color: #0b0b10;
     font-family: 'Syne', sans-serif;
     font-weight: 700;
@@ -101,8 +101,8 @@
     background: #6d4ae8;
   }
   .stats-row { display: flex; gap: 40px; margin-top: 52px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); }
-  .stat-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; }
-  .stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 2px; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; color: #0b0b10; }
+  .stat-label { font-size: 0.78rem; color: #0b0b10; letter-spacing: 0.05em; text-transform: uppercase; margin-top: 2px; }
 
   /* PHONE AREA */
   .hero-right { position: relative; height: 620px; animation: fadeUp 1s ease 0.4s both; }
@@ -176,14 +176,14 @@
   .feature:last-child { border-right: none; }
   .feature:hover { background: rgba(255,255,255,0.16); }
   .feature-icon { font-size: 1.6rem; margin-bottom: 16px; color: #0b0b10; }
-  .earn-row { max-width: 1280px; margin: 0 auto 80px; padding: 0 40px; display: flex; align-items: center; gap: 16px; font-size: 0.95rem; color: #0b0b10; animation: fadeUp 1s ease 0.65s both; }
+  .earn-row { max-width: 1280px; margin: 0 auto 80px; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 16px; font-size: 0.95rem; color: #0b0b10; animation: fadeUp 1s ease 0.65s both; text-align: center; }
   .earn-row img { width: 56px; height: 56px; flex-shrink: 0; filter: drop-shadow(0 12px 40px rgba(0,0,0,0.7)); }
   .earn-row span { font-weight: 500; color: #0b0b10; }
   .site-footer { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 24px; padding: 48px 24px 32px; margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); color: #0b0b10; }
   .site-footer a { color: #0b0b10; font-size: 0.9rem; text-decoration: none; transition: color 0.2s; }
   .site-footer a:hover { color: #111827; }
   .site-footer .footer-email { margin-left: 0; }
-  .site-footer .footer-copy { width: 100%; text-align: center; margin: 16px 0 0; padding: 0; font-size: 0.8rem; color: var(--muted); }
+  .site-footer .footer-copy { width: 100%; text-align: center; margin: 16px 0 0; padding: 0; font-size: 0.8rem; color: #0b0b10; }
   .feature-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px; color: #0b0b10; }
   .feature-desc { font-size: 0.82rem; color: #0b0b10; line-height: 1.6; }
 
@@ -343,8 +343,10 @@
       </div>
     </div>
   </section>
+</div>
 
-  <div class="gradient-section">
+<div class="gradient-section">
+  <div class="wrapper">
     <div class="features">
       <div class="feature">
         <div class="feature-icon">🤝</div>
@@ -376,6 +378,7 @@
       <p class="footer-copy">© 2026 SHAKE. All rights reserved.</p>
     </footer>
   </div>
+</div>
 </div>
 
 <script>
