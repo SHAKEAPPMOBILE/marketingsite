@@ -15,8 +15,8 @@
     --text: #f0ede8;
     --muted: rgba(240,237,232,0.45);
   }
-  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
-  .bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  body { background: #ffffff; color: #0b0b10; font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .bg-layer { display: none; position: fixed; inset: 0; z-index: 0; pointer-events: none; }
   .bg-layer::before {
     content: ''; position: absolute; inset: 0;
     background:
@@ -30,6 +30,33 @@
     opacity: 0.4;
   }
   .wrapper { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+  /* New: white hero section at top */
+  .hero-section {
+    background: #ffffff;
+  }
+
+  .hero-section nav,
+  .hero-section .hero {
+    color: #0b0b10;
+  }
+
+  .hero-section .hero-desc {
+    color: #4b5563;
+  }
+
+  /* Gradient background from stats row downward */
+  .gradient-section {
+    position: relative;
+    background:
+      radial-gradient(circle at 8% 0%, rgba(139,92,246,0.65) 0%, transparent 55%),
+      radial-gradient(circle at 92% 18%, rgba(236,72,153,0.6) 0%, transparent 55%),
+      radial-gradient(circle at 50% 100%, rgba(56,189,248,0.5) 0%, transparent 60%);
+    color: var(--text);
+    margin-top: 24px;
+    padding-top: 32px;
+    padding-bottom: 40px;
+  }
 
   /* NAV */
   nav { position: relative; display: flex; align-items: center; justify-content: flex-end; padding: 48px 0 28px; animation: fadeDown 0.8s ease both; }
@@ -78,7 +105,7 @@
   /* Center phone - chats list - main focus */
   .phone-main {
     width: 210px; height: 420px;
-    left: 50%; top: 50%;
+    left: 50%; top: 56%;
     transform: translate(-50%, -50%);
     z-index: 3;
     animation: float1 6s ease-in-out infinite;
@@ -87,7 +114,7 @@
   /* Left phone - chat screen */
   .phone-left {
     width: 175px; height: 370px;
-    left: 0%; top: 50%;
+    left: 0%; top: 56%;
     transform: translateY(-50%) rotate(-7deg);
     z-index: 2;
     animation: float2 7s ease-in-out infinite;
@@ -96,7 +123,7 @@
   /* Right phone - meet screen */
   .phone-right {
     width: 175px; height: 370px;
-    right: 0%; top: 50%;
+    right: 0%; top: 56%;
     transform: translateY(-50%) rotate(7deg);
     z-index: 2;
     animation: float3 5.5s ease-in-out infinite;
@@ -229,7 +256,7 @@
   <iframe class="app-frame" src="https://shake-social.netlify.app" id="appFrame"></iframe>
 </div>
 
-<div class="wrapper">
+<div class="wrapper hero-section">
   <nav>
     <div class="logo">
       <div class="logo-s"></div>
@@ -243,7 +270,7 @@
 
   <section class="hero">
     <div class="hero-left">
-      <h1>Meet real<br>people <em>IRL.</em><br>No swiping.</h1>
+      <h1>Meet real<br>people <em>IRL.</em><br>Swipe activities, not people.</h1>
       <p class="hero-desc">Join lunches, dinners, drinks, hikes, brunch & other activities around you. Shake up your social life — just show up.</p>
       <div class="cta-row">
         <a href="#" class="btn-primary">↓ Download App</a>
@@ -297,36 +324,38 @@
     </div>
   </section>
 
-  <div class="features">
-    <div class="feature">
-      <div class="feature-icon">🤝</div>
-      <div class="feature-name">No Swiping</div>
-      <div class="feature-desc">Join real activities and meet people face to face. No algorithms, no games.</div>
+  <div class="gradient-section">
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">🤝</div>
+        <div class="feature-name">Swipe activities, not people</div>
+        <div class="feature-desc">Join real activities and meet people face to face. No algorithms, no games.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📍</div>
+        <div class="feature-name">Local First</div>
+        <div class="feature-desc">lunches, dinners, drinks, hikes, brunch & other activities happening around you.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">✨</div>
+        <div class="feature-name">Just Show Up</div>
+        <div class="feature-desc">No pressure, no profile games. Just real people, real moments.</div>
+      </div>
     </div>
-    <div class="feature">
-      <div class="feature-icon">📍</div>
-      <div class="feature-name">Local First</div>
-      <div class="feature-desc">lunches, dinners, drinks, hikes, brunch & other activities happening around you.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">✨</div>
-      <div class="feature-name">Just Show Up</div>
-      <div class="feature-desc">No pressure, no profile games. Just real people, real moments.</div>
-    </div>
-  </div>
 
-  <div class="earn-row">
-    <img src="coin.png" alt="Shake coin">
-    <p><span>Make money with paid activities.</span> With SHAKE you can earn by sharing your talents with others.</p>
-  </div>
+    <div class="earn-row">
+      <img src="coin.png" alt="Shake coin">
+      <p><span>Make money with paid activities.</span> With SHAKE you can earn by sharing your talents with others.</p>
+    </div>
 
-  <footer class="site-footer">
-    <a href="https://shake-web-app.netlify.app/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-    <a href="https://shake-web-app.netlify.app/community-guidelines" target="_blank" rel="noopener noreferrer">Community Guidelines</a>
-    <a href="https://shake-web-app.netlify.app/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a>
-    <a href="mailto:contact@shakeapp.today" class="footer-email">contact@shakeapp.today</a>
-    <p class="footer-copy">© 2026 SHAKE. All rights reserved.</p>
-  </footer>
+    <footer class="site-footer">
+      <a href="https://shake-web-app.netlify.app/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+      <a href="https://shake-web-app.netlify.app/community-guidelines" target="_blank" rel="noopener noreferrer">Community Guidelines</a>
+      <a href="https://shake-web-app.netlify.app/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+      <a href="mailto:contact@shakeapp.today" class="footer-email">contact@shakeapp.today</a>
+      <p class="footer-copy">© 2026 SHAKE. All rights reserved.</p>
+    </footer>
+  </div>
 </div>
 
 <script>
