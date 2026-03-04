@@ -15,7 +15,7 @@
     --text: #f0ede8;
     --muted: rgba(240,237,232,0.45);
   }
-  body { background: #ffffff; color: #0b0b10; font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
   .bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
   .bg-layer::before {
     content: ''; position: absolute; inset: 0;
@@ -210,148 +210,6 @@
     .site-footer a { font-size: 0.8rem; }
     .footer-copy { font-size: 0.7rem; }
   }
-
-  /* New: white landing hero with avatar carousel */
-  .landing-hero {
-    background: #ffffff;
-    color: #111827;
-    padding: 72px 0 80px;
-  }
-  .landing-hero-inner {
-    max-width: 920px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .landing-logo {
-    width: 88px;
-    height: auto;
-    margin: 0 auto 20px;
-  }
-  .landing-eyebrow {
-    font-size: 0.8rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #6b7280;
-    margin-bottom: 10px;
-  }
-  .landing-subtitle {
-    font-size: 1rem;
-    color: #4b5563;
-    max-width: 520px;
-    margin: 0 auto 24px;
-    line-height: 1.6;
-  }
-  .landing-cta-row {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 16px;
-  }
-  .landing-btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 14px 32px;
-    border-radius: 999px;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    background: #7c5cfc;
-    color: #ffffff;
-    text-decoration: none;
-    box-shadow: 0 18px 35px rgba(124,92,252,0.4);
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
-  }
-  .landing-btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 24px 45px rgba(124,92,252,0.55);
-  }
-  .landing-terms {
-    font-size: 0.78rem;
-    color: #9ca3af;
-    margin-bottom: 32px;
-  }
-  .landing-terms a {
-    color: #6b21a8;
-    text-decoration: none;
-  }
-  .landing-terms a:hover {
-    text-decoration: underline;
-  }
-  .avatar-strip {
-    position: relative;
-    overflow: hidden;
-    margin: 0 auto;
-    max-width: 960px;
-    padding: 10px 0;
-  }
-  .avatar-strip-1 { margin-top: 8px; }
-  .avatar-strip-2 { margin-top: 10px; }
-  .avatar-track {
-    display: inline-flex;
-    gap: 16px;
-    animation: avatar-scroll 40s linear infinite;
-  }
-  .avatar-track-reverse {
-    animation-name: avatar-scroll-reverse;
-  }
-  .avatar-dot {
-    width: 44px;
-    height: 44px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #f97316, #db2777);
-    box-shadow: 0 10px 20px rgba(15,23,42,0.18);
-  }
-  .avatar-dot.alt {
-    background: linear-gradient(135deg, #22c55e, #0ea5e9);
-  }
-  .avatar-dot.neutral {
-    background: linear-gradient(135deg, #e5e7eb, #9ca3af);
-  }
-  .avatar-dot-lg {
-    width: 52px;
-    height: 52px;
-  }
-  @keyframes avatar-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-  @keyframes avatar-scroll-reverse {
-    0% { transform: translateX(-50%); }
-    100% { transform: translateX(0); }
-  }
-  @media (max-width: 768px) {
-    .landing-hero {
-      padding: 56px 0 60px;
-    }
-    .landing-logo {
-      width: 72px;
-    }
-    .landing-subtitle {
-      font-size: 0.95rem;
-      padding: 0 10px;
-    }
-    .avatar-dot, .avatar-dot-lg {
-      width: 40px;
-      height: 40px;
-    }
-  }
-
-  /* Gradient app section (keeps existing phones + features) */
-  .gradient-section {
-    position: relative;
-    background:
-      radial-gradient(circle at 8% 0%, rgba(139,92,246,0.65) 0%, transparent 55%),
-      radial-gradient(circle at 92% 18%, rgba(236,72,153,0.6) 0%, transparent 55%),
-      radial-gradient(circle at 50% 100%, rgba(56,189,248,0.5) 0%, transparent 60%);
-    color: var(--text);
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-
-  /* Hide old full-page gradient background */
-  .bg-layer {
-    display: none;
-  }
 </style>
 </head>
 <body>
@@ -383,61 +241,6 @@
     <span class="nav-badge">Version 2.0 is live ✨</span>
   </nav>
 
-  <!-- New white landing section with avatar carousel, matching the web app feel -->
-  <section class="landing-hero">
-    <div class="landing-hero-inner">
-      <img src="logo.png" alt="Shake Social logo" class="landing-logo">
-      <p class="landing-eyebrow">Connection happens offline.</p>
-      <h1 class="landing-title">Real people. Real plans. No swiping.</h1>
-      <p class="landing-subtitle">See who&rsquo;s around and join curated lunches, drinks, hikes &amp; more. One tap, then just show up.</p>
-      <div class="landing-cta-row">
-        <a href="https://shake-web-app.netlify.app/" class="landing-btn-primary" target="_blank" rel="noopener noreferrer">Let&rsquo;s Shake!</a>
-      </div>
-      <div class="landing-terms">
-        By continuing, you agree to our
-        <a href="https://shake-web-app.netlify.app/terms-of-service" target="_blank" rel="noopener noreferrer">terms</a>
-        and
-        <a href="https://shake-web-app.netlify.app/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
-      </div>
-
-      <!-- Simple two-row avatar carousel -->
-      <div class="avatar-strip avatar-strip-1">
-        <div class="avatar-track">
-          <div class="avatar-dot avatar-dot-lg"></div>
-          <div class="avatar-dot alt"></div>
-          <div class="avatar-dot neutral"></div>
-          <div class="avatar-dot"></div>
-          <div class="avatar-dot alt avatar-dot-lg"></div>
-          <div class="avatar-dot neutral"></div>
-          <div class="avatar-dot"></div>
-          <div class="avatar-dot alt"></div>
-          <div class="avatar-dot neutral avatar-dot-lg"></div>
-          <div class="avatar-dot"></div>
-          <div class="avatar-dot alt"></div>
-          <div class="avatar-dot neutral"></div>
-        </div>
-      </div>
-      <div class="avatar-strip avatar-strip-2">
-        <div class="avatar-track avatar-track-reverse">
-          <div class="avatar-dot alt avatar-dot-lg"></div>
-          <div class="avatar-dot"></div>
-          <div class="avatar-dot neutral"></div>
-          <div class="avatar-dot alt"></div>
-          <div class="avatar-dot neutral avatar-dot-lg"></div>
-          <div class="avatar-dot"></div>
-          <div class="avatar-dot alt"></div>
-          <div class="avatar-dot neutral"></div>
-          <div class="avatar-dot avatar-dot-lg"></div>
-          <div class="avatar-dot alt"></div>
-          <div class="avatar-dot neutral"></div>
-          <div class="avatar-dot"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Gradient app preview section (existing hero + features) -->
-  <div class="gradient-section">
   <section class="hero">
     <div class="hero-left">
       <h1>Meet real<br>people <em>IRL.</em><br>No swiping.</h1>
@@ -497,7 +300,7 @@
   <div class="features">
     <div class="feature">
       <div class="feature-icon">🤝</div>
-      <div class="feature-name">Swipe activities, not people</div>
+      <div class="feature-name">No Swiping</div>
       <div class="feature-desc">Join real activities and meet people face to face. No algorithms, no games.</div>
     </div>
     <div class="feature">
@@ -516,8 +319,6 @@
     <img src="coin.png" alt="Shake coin">
     <p><span>Make money with paid activities.</span> With SHAKE you can earn by sharing your talents with others.</p>
   </div>
-
-  </div> <!-- end .gradient-section -->
 
   <footer class="site-footer">
     <a href="https://shake-web-app.netlify.app/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
