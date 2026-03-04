@@ -52,7 +52,7 @@
       radial-gradient(circle at 8% 0%, rgba(139,92,246,0.65) 0%, transparent 55%),
       radial-gradient(circle at 92% 18%, rgba(236,72,153,0.6) 0%, transparent 55%),
       radial-gradient(circle at 50% 100%, rgba(56,189,248,0.5) 0%, transparent 60%);
-    color: var(--text);
+    color: #0b0b10;
     margin-top: 24px;
     padding-top: 32px;
     padding-bottom: 40px;
@@ -64,7 +64,7 @@
   .logo-s { width: 96px; height: 96px; background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url("logo.png"); flex-shrink: 0; }
   .logo-wordmark { font-family: 'DM Sans', sans-serif; }
   .logo-wordmark strong { font-weight: 700; font-size: 1.5rem; display: block; line-height: 1; }
-  .logo-wordmark span { font-size: 0.85rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  .logo-wordmark span { font-size: 0.85rem; color: #0b0b10; letter-spacing: 0.08em; text-transform: uppercase; }
   .nav-badge { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border: 1px solid rgba(255,255,255,0.12); padding: 6px 14px; border-radius: 100px; }
 
   /* HERO */
@@ -78,8 +78,28 @@
   .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
   .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--accent1); color: #0a0a0e; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; padding: 14px 28px; border-radius: 100px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 0 30px rgba(240,192,96,0.3); }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(240,192,96,0.5); }
-  .btn-secondary { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.15); color: var(--text); font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem; padding: 14px 28px; border-radius: 100px; text-decoration: none; transition: border-color 0.2s, background 0.2s; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); cursor: pointer; }
-  .btn-secondary:hover { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.05); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #7c5cfc;
+    color: #0b0b10;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 14px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    box-shadow: 0 0 30px rgba(124,92,252,0.35);
+    cursor: pointer;
+    border: none;
+  }
+  .btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(124,92,252,0.55);
+    background: #6d4ae8;
+  }
   .stats-row { display: flex; gap: 40px; margin-top: 52px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); }
   .stat-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; }
   .stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 2px; }
@@ -152,20 +172,20 @@
 
   /* FEATURES */
   .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin: 0 0 80px; border: 1px solid rgba(255,255,255,0.07); border-radius: 24px; overflow: hidden; animation: fadeUp 1s ease 0.6s both; }
-  .feature { padding: 36px 32px; background: rgba(255,255,255,0.02); transition: background 0.3s; border-right: 1px solid rgba(255,255,255,0.07); }
+  .feature { padding: 36px 32px; background: rgba(255,255,255,0.08); transition: background 0.3s; border-right: 1px solid rgba(255,255,255,0.07); color: #0b0b10; }
   .feature:last-child { border-right: none; }
-  .feature:hover { background: rgba(255,255,255,0.05); }
-  .feature-icon { font-size: 1.6rem; margin-bottom: 16px; }
-  .earn-row { max-width: 1280px; margin: 0 auto 80px; padding: 0 40px; display: flex; align-items: center; gap: 16px; font-size: 0.95rem; color: var(--text); animation: fadeUp 1s ease 0.65s both; }
+  .feature:hover { background: rgba(255,255,255,0.16); }
+  .feature-icon { font-size: 1.6rem; margin-bottom: 16px; color: #0b0b10; }
+  .earn-row { max-width: 1280px; margin: 0 auto 80px; padding: 0 40px; display: flex; align-items: center; gap: 16px; font-size: 0.95rem; color: #0b0b10; animation: fadeUp 1s ease 0.65s both; }
   .earn-row img { width: 56px; height: 56px; flex-shrink: 0; filter: drop-shadow(0 12px 40px rgba(0,0,0,0.7)); }
-  .earn-row span { font-weight: 500; }
-  .site-footer { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 24px; padding: 48px 24px 32px; margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
-  .site-footer a { color: var(--muted); font-size: 0.9rem; text-decoration: none; transition: color 0.2s; }
-  .site-footer a:hover { color: var(--text); }
+  .earn-row span { font-weight: 500; color: #0b0b10; }
+  .site-footer { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 24px; padding: 48px 24px 32px; margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); color: #0b0b10; }
+  .site-footer a { color: #0b0b10; font-size: 0.9rem; text-decoration: none; transition: color 0.2s; }
+  .site-footer a:hover { color: #111827; }
   .site-footer .footer-email { margin-left: 0; }
   .site-footer .footer-copy { width: 100%; text-align: center; margin: 16px 0 0; padding: 0; font-size: 0.8rem; color: var(--muted); }
-  .feature-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
-  .feature-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+  .feature-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px; color: #0b0b10; }
+  .feature-desc { font-size: 0.82rem; color: #0b0b10; line-height: 1.6; }
 
   /* APP OVERLAY */
   .app-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.9); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); flex-direction: column; }
