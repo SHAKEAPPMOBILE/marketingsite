@@ -398,10 +398,10 @@
   var rightSlides = ['right-mockup-1.png','right-mockup-2.png','right-mockup-3.png'];
   var rightEl = document.getElementById('right-phone-carousel');
   var rightIdx = 0;
-  setInterval(function(){
+  setInterval(function() {
     rightIdx = (rightIdx + 1) % rightSlides.length;
     rightEl.src = rightSlides[rightIdx];
-  }, 3000);
+  }, 6000);
 
   var slides = ['mockup-1.png','mockup-2.png','mockup-3.png','mockup-4.png','mockup-5.png','mockup-6.png','mockup-7.png','mockup-8.png','mockup-9.png'];
   var el = document.getElementById('left-phone-carousel');
@@ -411,18 +411,6 @@
     i = (i + 1) % slides.length;
     el.src = slides[i];
   }, 500);
-})();
-</script>
-<script>
-(function() {
-  var slides = ['mockup-10.png'];
-  var el = document.getElementById('right-phone-carousel');
-  if (!el) return;
-  var i = 0;
-  setInterval(function() {
-    i = (i + 1) % slides.length;
-    el.src = slides[i];
-  }, 3200);
 })();
 </script>
 </body>
