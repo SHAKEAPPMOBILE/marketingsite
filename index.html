@@ -34,6 +34,8 @@
   /* New: white hero section at top */
   .hero-section {
     background: #ffffff;
+    position: relative;
+    overflow: hidden;
   }
 
   .hero-section nav,
@@ -68,8 +70,8 @@
   .nav-badge { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #000000; border: 1px solid rgba(0,0,0,0.15); padding: 6px 14px; border-radius: 100px; }
 
   /* HERO */
-  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 60px 0 80px; }
-  .hero-left { animation: fadeUp 1s ease 0.2s both; }
+  .hero { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 60px 0 80px; }
+  .hero-left { position: relative; z-index: 3; animation: fadeUp 1s ease 0.2s both; }
   .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent1); margin-bottom: 24px; }
   .eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent1); }
   h1 { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 800; line-height: 1.0; letter-spacing: -0.04em; margin-bottom: 28px; }
@@ -105,7 +107,7 @@
   .stat-label { font-size: 0.78rem; color: #0b0b10; letter-spacing: 0.05em; text-transform: uppercase; margin-top: 2px; }
 
   /* PHONE AREA */
-  .hero-right { position: relative; height: 620px; animation: fadeUp 1s ease 0.4s both; }
+  .hero-right { position: relative; z-index: 3; height: 620px; animation: fadeUp 1s ease 0.4s both; }
   .orb { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: 1; }
   .orb-purple { width: 300px; height: 300px; background: rgba(124,92,252,0.3); top: 50%; left: 50%; transform: translate(-50%,-50%); }
   .orb-yellow { width: 200px; height: 200px; background: rgba(240,192,96,0.2); bottom: 10%; left: 10%; }
@@ -120,7 +122,55 @@
     background: #000;
     z-index: 2;
   }
-  .phone-frame img { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; -o-object-position: top; object-position: top; display: block; }
+  .phone-frame img { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; -o-object-position: top; object-position: top; display: block; opacity: 1; transition: opacity 0.45s ease, transform 0.45s ease; }
+  .phone-frame img.is-fading { opacity: 0.22; transform: scale(1.01); }
+
+  /* Floating decorative icons */
+  .floating-icon {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+    animation: floatDecor var(--float-duration, 4.2s) ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+  }
+  .floating-icon.rotate-drift { animation-name: floatDecorRotate; }
+  .floating-icon.image-icon {
+    width: var(--icon-size, 80px);
+    height: var(--icon-size, 80px);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 10px 30px rgba(15,23,42,0.18);
+    padding: 10px;
+    opacity: 0.75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .floating-icon.image-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+  }
+  .floating-icon.emoji-icon {
+    font-size: var(--emoji-size, 2.2rem);
+    line-height: 1;
+    opacity: 0.85;
+    filter: drop-shadow(0 8px 22px rgba(15,23,42,0.16));
+  }
+  .fi-1 { top: 16px; left: 8px; }
+  .fi-2 { top: 102px; left: 39%; }
+  .fi-3 { top: 14px; right: 14px; }
+  .fi-4 { top: 228px; left: 10px; }
+  .fi-5 { top: 314px; left: 40%; }
+  .fi-6 { top: 206px; right: 26px; }
+  .fi-7 { bottom: 8px; left: 18%; }
+  .fi-8 { bottom: 26px; right: 12%; }
+  .fi-9 { top: 66px; left: 33%; }
+  .fi-10 { top: 178px; left: 31%; }
+  .fi-11 { top: 88px; right: 34%; }
+  .fi-12 { bottom: 68px; right: 32%; }
 
   /* Center phone - chats list - main focus */
   .phone-main {
@@ -202,6 +252,14 @@
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes floatDecor {
+    0%, 100% { transform: translateY(-12px); }
+    50% { transform: translateY(12px); }
+  }
+  @keyframes floatDecorRotate {
+    0%, 100% { transform: translateY(-12px) rotate(-5deg); }
+    50% { transform: translateY(12px) rotate(5deg); }
+  }
   @keyframes float1 { 0%,100% { transform: translate(-50%,-50%); } 50% { transform: translate(-50%,calc(-50% - 14px)); } }
   @keyframes float2 { 0%,100% { transform: translateY(-50%) rotate(-7deg); } 50% { transform: translateY(calc(-50% - 9px)) rotate(-7deg); } }
   @keyframes float3 { 0%,100% { transform: translateY(-50%) rotate(7deg); } 50% { transform: translateY(calc(-50% - 11px)) rotate(7deg); } }
@@ -289,6 +347,19 @@
   </nav>
 
   <section class="hero">
+    <div class="floating-icon image-icon rotate-drift fi-1" style="--icon-size: 74px; --float-duration: 3.8s; --float-delay: 0.1s;"><img src="public/assets/icons/brunch-icon.jpg" alt="Brunch icon"></div>
+    <div class="floating-icon image-icon fi-2" style="--icon-size: 62px; --float-duration: 4.6s; --float-delay: 1.4s;"><img src="public/assets/icons/dinner-icon.jpg" alt="Dinner icon"></div>
+    <div class="floating-icon image-icon rotate-drift fi-3" style="--icon-size: 86px; --float-duration: 5.4s; --float-delay: 0.9s;"><img src="public/assets/icons/drinks-icon.jpg" alt="Drinks icon"></div>
+    <div class="floating-icon image-icon fi-4" style="--icon-size: 70px; --float-duration: 3.4s; --float-delay: 2.2s;"><img src="public/assets/icons/hike-icon.jpg" alt="Hike icon"></div>
+    <div class="floating-icon image-icon rotate-drift fi-5" style="--icon-size: 92px; --float-duration: 5.8s; --float-delay: 3.1s;"><img src="public/assets/icons/lunch-icon.jpg" alt="Lunch icon"></div>
+    <div class="floating-icon image-icon fi-6" style="--icon-size: 66px; --float-duration: 4.1s; --float-delay: 1.9s;"><img src="public/assets/icons/show-icon.jpg" alt="Show icon"></div>
+    <div class="floating-icon image-icon rotate-drift fi-7" style="--icon-size: 78px; --float-duration: 5.1s; --float-delay: 2.7s;"><img src="public/assets/icons/sports-icon.jpg" alt="Sports icon"></div>
+    <span class="floating-icon emoji-icon fi-8" style="--emoji-size: 2rem; --float-duration: 4.7s; --float-delay: 0.6s;">📍</span>
+    <span class="floating-icon emoji-icon rotate-drift fi-9" style="--emoji-size: 2.4rem; --float-duration: 3.7s; --float-delay: 3.4s;">⚡</span>
+    <span class="floating-icon emoji-icon fi-10" style="--emoji-size: 2.2rem; --float-duration: 5.6s; --float-delay: 1.2s;">✨</span>
+    <span class="floating-icon emoji-icon rotate-drift fi-11" style="--emoji-size: 2.8rem; --float-duration: 4.3s; --float-delay: 2.4s;">🤝</span>
+    <span class="floating-icon emoji-icon fi-12" style="--emoji-size: 1.9rem; --float-duration: 3.9s; --float-delay: 3.8s;">🎉</span>
+
     <div class="hero-left">
       <h1>Meet real<br>people <em>IRL.</em><br>Swipe activities, not people.</h1>
       <p class="hero-desc">Join lunches, dinners, drinks, hikes, brunch & other activities around you. Shake up your social life — just show up.</p>
@@ -328,7 +399,7 @@
       <!-- Left phone: CHAT screen -->
       <!-- Left phone: rotating mockups carousel -->
       <div class="phone-frame phone-left">
-        <img id="left-phone-carousel" src="mockup-1.png" alt="App mockup">
+        <img id="left-phone-carousel" src="public/assets/screen10.png" alt="App mockup">
       </div>
 
 
@@ -339,7 +410,7 @@
 
       <!-- Right phone: MEET screen -->
       <div class="phone-frame phone-right">
-        <img id="right-phone-carousel" src="right-mockup-1.png" alt="Meet screen">
+        <img id="right-phone-carousel" src="public/assets/screen1.png" alt="Meet screen">
       </div>
     </div>
   </section>
@@ -396,23 +467,42 @@
 </script>
 <script>
 (function() {
-  
-  var rightSlides = ['right-mockup-1.png','right-mockup-2.png','right-mockup-3.png'];
-  var rightEl = document.getElementById('right-phone-carousel');
-  var rightIdx = 0;
-  setInterval(function() {
-    rightIdx = (rightIdx + 1) % rightSlides.length;
-    rightEl.src = rightSlides[rightIdx];
-  }, 6000);
+  function setupCarousel(el, slides, intervalMs) {
+    if (!el || !slides || !slides.length) return;
+    var idx = 0;
+    el.src = slides[idx];
 
-  var slides = ['mockup-1.png','mockup-2.png','mockup-3.png','mockup-4.png','mockup-5.png','mockup-6.png','mockup-7.png','mockup-8.png','mockup-9.png'];
-  var el = document.getElementById('left-phone-carousel');
-  if (!el) return;
-  var i = 0;
-  setInterval(function() {
-    i = (i + 1) % slides.length;
-    el.src = slides[i];
-  }, 500);
+    setInterval(function() {
+      el.classList.add('is-fading');
+      setTimeout(function() {
+        idx = (idx + 1) % slides.length;
+        el.src = slides[idx];
+        el.classList.remove('is-fading');
+      }, 220);
+    }, intervalMs);
+  }
+
+  setupCarousel(
+    document.getElementById('right-phone-carousel'),
+    [
+      'public/assets/screen1.png',
+      'public/assets/screen2.png',
+      'public/assets/screen3.png',
+      'public/assets/screen4.png',
+      'public/assets/screen5.png'
+    ],
+    3000
+  );
+
+  setupCarousel(
+    document.getElementById('left-phone-carousel'),
+    [
+      'public/assets/screen10.png',
+      'public/assets/screen11.png',
+      'public/assets/screen12.png'
+    ],
+    3000
+  );
 })();
 </script>
 </body>
