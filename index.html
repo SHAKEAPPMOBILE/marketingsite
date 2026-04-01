@@ -134,38 +134,12 @@
     animation-delay: var(--float-delay, 0s);
   }
   .floating-icon.rotate-drift { animation-name: floatDecorRotate; }
-  .floating-icon.image-icon {
-    width: var(--icon-size, 80px);
-    height: var(--icon-size, 80px);
-    border-radius: 50%;
-    background: rgba(255,255,255,0.95);
-    box-shadow: 0 10px 30px rgba(15,23,42,0.18);
-    padding: 10px;
-    opacity: 0.75;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .floating-icon.image-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    display: block;
-  }
   .floating-icon.emoji-icon {
     font-size: var(--emoji-size, 2.2rem);
     line-height: 1;
     opacity: 0.85;
     filter: drop-shadow(0 8px 22px rgba(15,23,42,0.16));
   }
-  .fi-1 { top: 16px; left: 8px; }
-  .fi-2 { top: 102px; left: 39%; }
-  .fi-3 { top: 14px; right: 14px; }
-  .fi-4 { top: 228px; left: 10px; }
-  .fi-5 { top: 314px; left: 40%; }
-  .fi-6 { top: 206px; right: 26px; }
-  .fi-7 { bottom: 8px; left: 18%; }
   .fi-8 { bottom: 26px; right: 12%; }
   .fi-9 { top: 66px; left: 33%; }
   .fi-10 { top: 178px; left: 31%; }
@@ -347,13 +321,6 @@
   </nav>
 
   <section class="hero">
-    <div class="floating-icon image-icon rotate-drift fi-1" style="--icon-size: 74px; --float-duration: 3.8s; --float-delay: 0.1s;"><img src="assets/icons/brunch-icon.jpg" alt="Brunch icon"></div>
-    <div class="floating-icon image-icon fi-2" style="--icon-size: 62px; --float-duration: 4.6s; --float-delay: 1.4s;"><img src="assets/icons/dinner-icon.jpg" alt="Dinner icon"></div>
-    <div class="floating-icon image-icon rotate-drift fi-3" style="--icon-size: 86px; --float-duration: 5.4s; --float-delay: 0.9s;"><img src="assets/icons/drinks-icon.jpg" alt="Drinks icon"></div>
-    <div class="floating-icon image-icon fi-4" style="--icon-size: 70px; --float-duration: 3.4s; --float-delay: 2.2s;"><img src="assets/icons/hike-icon.jpg" alt="Hike icon"></div>
-    <div class="floating-icon image-icon rotate-drift fi-5" style="--icon-size: 92px; --float-duration: 5.8s; --float-delay: 3.1s;"><img src="assets/icons/lunch-icon.jpg" alt="Lunch icon"></div>
-    <div class="floating-icon image-icon fi-6" style="--icon-size: 66px; --float-duration: 4.1s; --float-delay: 1.9s;"><img src="assets/icons/show-icon.jpg" alt="Show icon"></div>
-    <div class="floating-icon image-icon rotate-drift fi-7" style="--icon-size: 78px; --float-duration: 5.1s; --float-delay: 2.7s;"><img src="assets/icons/sports-icon.jpg" alt="Sports icon"></div>
     <span class="floating-icon emoji-icon fi-8" style="--emoji-size: 2rem; --float-duration: 4.7s; --float-delay: 0.6s;">📍</span>
     <span class="floating-icon emoji-icon rotate-drift fi-9" style="--emoji-size: 2.4rem; --float-duration: 3.7s; --float-delay: 3.4s;">⚡</span>
     <span class="floating-icon emoji-icon fi-10" style="--emoji-size: 2.2rem; --float-duration: 5.6s; --float-delay: 1.2s;">✨</span>
