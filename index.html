@@ -69,6 +69,26 @@
     background: transparent;
     z-index: 6;
     pointer-events: none;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      black 0%,
+      black 30%,
+      transparent 42%,
+      transparent 58%,
+      black 70%,
+      black 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      black 0%,
+      black 30%,
+      transparent 42%,
+      transparent 58%,
+      black 70%,
+      black 100%
+    );
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
   }
   .divider-icon-strip-track {
     display: flex;
@@ -88,7 +108,7 @@
   }
   .divider-avatar {
     position: absolute;
-    top: -72px;
+    top: -35px;
     left: 50%;
     transform: translateX(-50%);
     width: 70px;
