@@ -137,7 +137,7 @@
   .hero-desc { font-size: 1.05rem; line-height: 1.7; color: var(--muted); max-width: 420px; margin-bottom: 40px; }
   .cta-row {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     position: relative;
     min-height: 52px;
@@ -167,6 +167,7 @@
     text-decoration: none;
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     box-shadow: 0 12px 28px rgba(17,24,39,0.2);
+    margin-left: 72px;
   }
   .btn-shake-toggle:hover { transform: scale(1.05); }
   .cta-options {
@@ -179,6 +180,7 @@
     transform: translateY(8px);
     position: absolute;
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    margin-left: 72px;
   }
   .cta-row.is-open .btn-shake-toggle {
     opacity: 0;
@@ -239,26 +241,6 @@
   }
   .phone-frame img { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; -o-object-position: top; object-position: top; display: block; opacity: 1; transition: opacity 0.45s ease, transform 0.45s ease; }
   .phone-frame img.is-fading { opacity: 0.22; transform: scale(1.01); }
-
-  /* Floating decorative icons */
-  .floating-icon {
-    position: absolute;
-    z-index: 2;
-    pointer-events: none;
-    animation: floatDecor var(--float-duration, 4.2s) ease-in-out infinite;
-    animation-delay: var(--float-delay, 0s);
-  }
-  .floating-icon.rotate-drift { animation-name: floatDecorRotate; }
-  .floating-icon.emoji-icon {
-    font-size: var(--emoji-size, 2.2rem);
-    line-height: 1;
-    opacity: 0.85;
-    filter: drop-shadow(0 8px 22px rgba(15,23,42,0.16));
-  }
-  .fi-9 { top: 8px; left: 33%; }
-  .fi-10 { top: 178px; left: 31%; }
-  .fi-11 { top: 88px; right: 34%; }
-  .fi-12 { top: 192px; right: 20%; }
 
   /* Center phone - chats list - main focus */
   .phone-main {
@@ -340,14 +322,6 @@
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes floatDecor {
-    0%, 100% { transform: translateY(-12px); }
-    50% { transform: translateY(12px); }
-  }
-  @keyframes floatDecorRotate {
-    0%, 100% { transform: translateY(-12px) rotate(-5deg); }
-    50% { transform: translateY(12px) rotate(5deg); }
-  }
   @keyframes float1 { 0%,100% { transform: translate(-50%,-50%); } 50% { transform: translate(-50%,calc(-50% - 14px)); } }
   @keyframes float2 { 0%,100% { transform: translateY(-50%) rotate(-7deg); } 50% { transform: translateY(calc(-50% - 9px)) rotate(-7deg); } }
   @keyframes float3 { 0%,100% { transform: translateY(-50%) rotate(7deg); } 50% { transform: translateY(calc(-50% - 11px)) rotate(7deg); } }
@@ -368,17 +342,12 @@
     .hero { display: flex; flex-direction: column; gap: 32px; padding: 48px 0 56px; text-align: center; }
     .hero-left { order: 1; margin-top: 28px; }
     .hero-right { order: 2; height: 420px; overflow: hidden; }
-    .floating-icon { z-index: 4; }
-    .fi-9 { top: 22px; left: 8%; }
-    .fi-10 { top: 138px; left: 6%; }
-    .fi-11 { top: 42px; right: 8%; }
-    .fi-12 { top: 150px; right: 6%; }
     .eyebrow { justify-content: center; margin-bottom: 16px; }
     h1 { font-size: clamp(2rem, 8vw, 3.25rem); margin-bottom: 20px; }
     .hero-desc { max-width: 100%; font-size: 1rem; margin-bottom: 28px; margin-left: auto; margin-right: auto; }
     .cta-row { width: 100%; max-width: 320px; margin: 0 auto; }
-    .btn-shake-toggle { width: 100%; }
-    .cta-options { width: 100%; flex-direction: column; align-items: stretch; }
+    .btn-shake-toggle { width: 100%; margin-left: 0; }
+    .cta-options { width: 100%; flex-direction: column; align-items: stretch; margin-left: 0; }
     .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 12px 20px; font-size: 0.85rem; }
     .stats-row { justify-content: center; gap: 28px; margin-top: 32px; padding-top: 28px; flex-wrap: wrap; }
     .stat-num { font-size: 1.5rem; }
@@ -400,10 +369,6 @@
     .hero { padding: 52px 0 32px; gap: 28px; }
     .hero-left { margin-top: 36px; }
     .hero-right { height: 320px; }
-    .fi-9 { top: 26px; left: 6%; }
-    .fi-10 { top: 120px; left: 4%; }
-    .fi-11 { top: 46px; right: 6%; }
-    .fi-12 { top: 132px; right: 4%; }
     h1 { font-size: clamp(1.75rem, 9vw, 2.5rem); margin-bottom: 16px; }
     .hero-desc { font-size: 0.95rem; margin-bottom: 22px; }
     .cta-row { max-width: 100%; }
@@ -450,11 +415,6 @@
   </nav>
 
   <section class="hero">
-    <span class="floating-icon emoji-icon rotate-drift fi-9" style="--emoji-size: 2.4rem; --float-duration: 3.7s; --float-delay: 3.4s;">⚡</span>
-    <span class="floating-icon emoji-icon fi-10" style="--emoji-size: 2.2rem; --float-duration: 5.6s; --float-delay: 1.2s;">✨</span>
-    <span class="floating-icon emoji-icon rotate-drift fi-11" style="--emoji-size: 2.8rem; --float-duration: 4.3s; --float-delay: 2.4s;">🤝</span>
-    <span class="floating-icon emoji-icon fi-12" style="--emoji-size: 1.9rem; --float-duration: 3.9s; --float-delay: 3.8s;">🎉</span>
-
     <div class="hero-left">
       <h1>Meet real<br>people <em>IRL.</em><br>Swipe activities, not people.</h1>
       <p class="hero-desc">Join lunches, dinners, drinks, hikes, brunch & other activities around you. Shake up your social life — just show up.</p>
