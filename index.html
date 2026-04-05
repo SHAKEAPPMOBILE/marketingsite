@@ -128,16 +128,23 @@
   .nav-badge { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #000000; border: 1px solid rgba(0,0,0,0.15); padding: 6px 14px; border-radius: 100px; }
 
   /* HERO */
-  .hero { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 60px 0 80px; }
+  .hero { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 10px 0 60px; }
   .hero-left { position: relative; z-index: 3; animation: fadeUp 1s ease 0.2s both; }
   .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent1); margin-bottom: 24px; }
   .eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent1); }
   h1 { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 800; line-height: 1.0; letter-spacing: -0.04em; margin-bottom: 28px; }
   h1 em { font-style: normal; background: linear-gradient(135deg, var(--accent1), var(--accent3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .hero-desc { font-size: 1.05rem; line-height: 1.7; color: var(--muted); max-width: 420px; margin-bottom: 40px; }
+  .hero-cta-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 36px;
+    animation: fadeUp 0.8s ease 0.15s both;
+  }
   .cta-row {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     position: relative;
     min-height: 52px;
@@ -167,7 +174,6 @@
     text-decoration: none;
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     box-shadow: 0 12px 28px rgba(17,24,39,0.2);
-    margin-left: 72px;
   }
   .btn-shake-toggle:hover { transform: scale(1.05); }
   .cta-options {
@@ -180,9 +186,9 @@
     transform: translateY(8px);
     position: absolute;
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-    margin-left: 72px;
   }
   .cta-row.is-open .btn-shake-toggle {
+    position: absolute;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -245,7 +251,7 @@
   /* Center phone - chats list - main focus */
   .phone-main {
     width: 210px; height: 420px;
-    left: 50%; top: 56%;
+    left: 50%; top: 44%;
     transform: translate(-50%, -50%);
     z-index: 3;
     animation: float1 6s ease-in-out infinite;
@@ -254,7 +260,7 @@
   /* Left phone - chat screen */
   .phone-left {
     width: 175px; height: 370px;
-    left: 0%; top: 56%;
+    left: 0%; top: 44%;
     transform: translateY(-50%) rotate(-7deg);
     z-index: 2;
     animation: float2 7s ease-in-out infinite;
@@ -263,7 +269,7 @@
   /* Right phone - meet screen */
   .phone-right {
     width: 175px; height: 370px;
-    right: 0%; top: 56%;
+    right: 0%; top: 44%;
     transform: translateY(-50%) rotate(7deg);
     z-index: 2;
     animation: float3 5.5s ease-in-out infinite;
@@ -345,9 +351,11 @@
     .eyebrow { justify-content: center; margin-bottom: 16px; }
     h1 { font-size: clamp(2rem, 8vw, 3.25rem); margin-bottom: 20px; }
     .hero-desc { max-width: 100%; font-size: 1rem; margin-bottom: 28px; margin-left: auto; margin-right: auto; }
+    .hero-cta-bar { padding: 0 0 20px; }
     .cta-row { width: 100%; max-width: 320px; margin: 0 auto; }
-    .btn-shake-toggle { width: 100%; margin-left: 0; }
-    .cta-options { width: 100%; flex-direction: column; align-items: stretch; margin-left: 0; }
+    .btn-shake-toggle { width: 100%; }
+    .cta-options { flex-direction: column; align-items: stretch; }
+    .cta-row.is-open .cta-options { width: 320px; }
     .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 12px 20px; font-size: 0.85rem; }
     .stats-row { justify-content: center; gap: 28px; margin-top: 32px; padding-top: 28px; flex-wrap: wrap; }
     .stat-num { font-size: 1.5rem; }
@@ -414,17 +422,20 @@
     <span class="nav-badge">Version 2.0 is live ✨</span>
   </nav>
 
+  <div class="hero-cta-bar">
+    <div class="cta-row">
+      <button type="button" id="shakeToggle" class="btn-shake-toggle animate-gradient-shift" aria-expanded="false" aria-controls="ctaOptions">Let's Shake!</button>
+      <div id="ctaOptions" class="cta-options" aria-hidden="true">
+        <a href="https://apps.apple.com/gh/app/shake-social/id6757654586" class="btn-primary" target="_blank" rel="noopener noreferrer">↓ Download App</a>
+        <a href="https://app.shakeapp.today/" class="btn-secondary" target="_blank" rel="noopener noreferrer">Open Web App →</a>
+      </div>
+    </div>
+  </div>
+
   <section class="hero">
     <div class="hero-left">
       <h1>Meet real<br>people <em>IRL.</em><br>Swipe activities, not people.</h1>
-      <p class="hero-desc">Join lunches, dinners, drinks, hikes, brunch & other activities around you. Shake up your social life — just show up.</p>
-      <div class="cta-row">
-        <button type="button" id="shakeToggle" class="btn-shake-toggle animate-gradient-shift" aria-expanded="false" aria-controls="ctaOptions">Let's Shake!</button>
-        <div id="ctaOptions" class="cta-options" aria-hidden="true">
-          <a href="https://apps.apple.com/gh/app/shake-social/id6757654586" class="btn-primary" target="_blank" rel="noopener noreferrer">↓ Download App</a>
-          <a href="https://app.shakeapp.today/" class="btn-secondary" target="_blank" rel="noopener noreferrer">Open Web App →</a>
-        </div>
-      </div>
+      <p class="hero-desc">Join lunches, dinners, drinks, hikes, brunch &amp; other activities around you. Shake up your social life — just show up.</p>
       <div class="stats-row">
         <div><div class="stat-num">2k+</div><div class="stat-label">Early Members (just starting out!)</div></div>
         <div><div class="stat-num">IRL</div><div class="stat-label">Activities Only</div></div>
