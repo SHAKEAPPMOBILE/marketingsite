@@ -136,6 +136,50 @@
   h1 em { font-style: normal; background: linear-gradient(135deg, var(--accent1), var(--accent3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .hero-desc { font-size: 1.05rem; line-height: 1.7; color: var(--muted); max-width: 420px; margin-bottom: 40px; }
   .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .animate-gradient-shift {
+    background: linear-gradient(270deg, #f97316, #8b5cf6, #eab308, #ec4899, #22c55e, #3b82f6, #f97316);
+    background-size: 400% 400%;
+    animation: gradientShift 4s ease infinite;
+  }
+  .btn-shake-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 9999px;
+    color: #ffffff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+    box-shadow: 0 12px 28px rgba(17,24,39,0.2);
+  }
+  .btn-shake-toggle:hover { transform: scale(1.05); }
+  .cta-options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-8px);
+    transition: max-height 0.35s ease, opacity 0.3s ease, transform 0.3s ease;
+  }
+  .cta-options.is-open {
+    max-height: 200px;
+    opacity: 1;
+    transform: translateY(0);
+  }
   .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--accent1); color: #0a0a0e; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; padding: 14px 28px; border-radius: 100px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 0 30px rgba(240,192,96,0.3); }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(240,192,96,0.5); }
   .btn-secondary {
@@ -320,6 +364,8 @@
     h1 { font-size: clamp(2rem, 8vw, 3.25rem); margin-bottom: 20px; }
     .hero-desc { max-width: 100%; font-size: 1rem; margin-bottom: 28px; margin-left: auto; margin-right: auto; }
     .cta-row { flex-direction: column; width: 100%; max-width: 320px; margin: 0 auto; gap: 10px; }
+    .btn-shake-toggle { width: 100%; }
+    .cta-options { align-items: stretch; }
     .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 12px 20px; font-size: 0.85rem; }
     .stats-row { justify-content: center; gap: 28px; margin-top: 32px; padding-top: 28px; flex-wrap: wrap; }
     .stat-num { font-size: 1.5rem; }
@@ -400,8 +446,11 @@
       <h1>Meet real<br>people <em>IRL.</em><br>Swipe activities, not people.</h1>
       <p class="hero-desc">Join lunches, dinners, drinks, hikes, brunch & other activities around you. Shake up your social life — just show up.</p>
       <div class="cta-row">
-        <a href="https://apps.apple.com/gh/app/shake-social/id6757654586" class="btn-primary" target="_blank" rel="noopener noreferrer">↓ Download App</a>
-        <a href="https://app.shakeapp.today/" class="btn-secondary" target="_blank" rel="noopener noreferrer">Open Web App →</a>
+        <button type="button" id="shakeToggle" class="btn-shake-toggle animate-gradient-shift" aria-expanded="false" aria-controls="ctaOptions">Let's Shake!</button>
+        <div id="ctaOptions" class="cta-options" aria-hidden="true">
+          <a href="https://apps.apple.com/gh/app/shake-social/id6757654586" class="btn-primary" target="_blank" rel="noopener noreferrer">↓ Download App</a>
+          <a href="https://app.shakeapp.today/" class="btn-secondary" target="_blank" rel="noopener noreferrer">Open Web App →</a>
+        </div>
       </div>
       <div class="stats-row">
         <div><div class="stat-num">2k+</div><div class="stat-label">Early Members (just starting out!)</div></div>
@@ -522,6 +571,25 @@
 </script>
 <script>
 (function() {
+  var shakeToggle = document.getElementById('shakeToggle');
+  var ctaOptions = document.getElementById('ctaOptions');
+
+  if (shakeToggle && ctaOptions) {
+    shakeToggle.addEventListener('click', function() {
+      var isOpen = ctaOptions.classList.toggle('is-open');
+      shakeToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      ctaOptions.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    });
+
+    ctaOptions.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        ctaOptions.classList.remove('is-open');
+        shakeToggle.setAttribute('aria-expanded', 'false');
+        ctaOptions.setAttribute('aria-hidden', 'true');
+      });
+    });
+  }
+
   function setupCarousel(el, slides, intervalMs) {
     if (!el || !slides || !slides.length) return;
     var idx = 0;
