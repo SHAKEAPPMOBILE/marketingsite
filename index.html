@@ -141,9 +141,22 @@
     position: relative;
     min-height: 52px;
     margin-bottom: 0;
+    width: max-content;
+  }
+  .hero-cta-viewport {
+    grid-column: 1 / -1;
+    width: 100vw;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
-    width: max-content;
+    margin-top: -120px;
+    z-index: 20;
+  }
+  .hero-cta-fullwidth {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
   }
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
@@ -348,6 +361,7 @@
     .eyebrow { justify-content: center; margin-bottom: 16px; }
     h1 { font-size: clamp(2rem, 8vw, 3.25rem); margin-bottom: 20px; }
     .hero-desc { max-width: 100%; font-size: 1rem; margin-bottom: 28px; margin-left: auto; margin-right: auto; }
+    .hero-cta-viewport { margin-top: 0; left: 0; transform: none; width: 100%; }
     .cta-row { justify-content: center; width: 100%; left: 0; transform: none; margin-left: 0; }
     .btn-shake-toggle { width: 100%; max-width: 320px; margin-left: 0; }
     .cta-options { flex-direction: column; align-items: stretch; width: 100%; max-width: 320px; margin-left: 0; }
@@ -421,13 +435,6 @@
     <div class="hero-left">
       <h1>Meet real<br>people <em>IRL.</em><br>Swipe activities, not people.</h1>
       <p class="hero-desc">Join lunches, dinners, drinks, hikes, brunch &amp; other activities around you. Shake up your social life — just show up.</p>
-      <div class="cta-row">
-        <button type="button" id="shakeToggle" class="btn-shake-toggle animate-gradient-shift" aria-expanded="false" aria-controls="ctaOptions">Let's Shake!</button>
-        <div id="ctaOptions" class="cta-options" aria-hidden="true">
-          <a href="https://apps.apple.com/gh/app/shake-social/id6757654586" class="btn-primary" target="_blank" rel="noopener noreferrer">↓ Download App</a>
-          <a href="https://app.shakeapp.today/" class="btn-secondary" target="_blank" rel="noopener noreferrer">Open Web App →</a>
-        </div>
-      </div>
       <div class="stats-row">
         <div><div class="stat-num">2k+</div><div class="stat-label">Early Members (just starting out!)</div></div>
         <div><div class="stat-num">IRL</div><div class="stat-label">Activities Only</div></div>
@@ -472,6 +479,18 @@
       <!-- Right phone: MEET screen -->
       <div class="phone-frame phone-right">
         <img id="right-phone-carousel" src="assets/screen1.png" alt="Meet screen">
+      </div>
+    </div>
+
+    <div class="hero-cta-viewport">
+      <div class="hero-cta-fullwidth">
+        <div class="cta-row">
+          <button type="button" id="shakeToggle" class="btn-shake-toggle animate-gradient-shift" aria-expanded="false" aria-controls="ctaOptions">Let's Shake!</button>
+          <div id="ctaOptions" class="cta-options" aria-hidden="true">
+            <a href="https://apps.apple.com/gh/app/shake-social/id6757654586" class="btn-primary" target="_blank" rel="noopener noreferrer">↓ Download App</a>
+            <a href="https://app.shakeapp.today/" class="btn-secondary" target="_blank" rel="noopener noreferrer">Open Web App →</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
