@@ -141,9 +141,9 @@
     position: relative;
     min-height: 52px;
     margin-bottom: 0;
-    /* Stretch to full viewport width so centering is page-wide */
-    width: 100vw;
-    margin-left: calc(-1 * (100vw - 100%) / 2);
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
   }
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
@@ -348,7 +348,7 @@
     .eyebrow { justify-content: center; margin-bottom: 16px; }
     h1 { font-size: clamp(2rem, 8vw, 3.25rem); margin-bottom: 20px; }
     .hero-desc { max-width: 100%; font-size: 1rem; margin-bottom: 28px; margin-left: auto; margin-right: auto; }
-    .cta-row { justify-content: center; width: 100%; margin-left: 0; }
+    .cta-row { justify-content: center; width: 100%; left: 0; transform: none; margin-left: 0; }
     .btn-shake-toggle { width: 100%; max-width: 320px; margin-left: 0; }
     .cta-options { flex-direction: column; align-items: stretch; width: 100%; max-width: 320px; margin-left: 0; }
     .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 12px 20px; font-size: 0.85rem; }
