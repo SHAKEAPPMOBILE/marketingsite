@@ -359,33 +359,29 @@
     margin: 0 auto;
     padding: 2rem 1.5rem;
     font-family: 'Syne', sans-serif;
-    font-size: clamp(2.625rem, 6vw, 3.25rem);
-    font-weight: 700;
-    line-height: 1.7;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
     text-align: center;
-    color: #666666;
+    color: #0b0b10;
     position: relative;
     z-index: 2;
   }
-  .activity-copy-emoji {
-    text-align: center;
-    font-size: 2rem;
-    line-height: 1;
-    margin-bottom: 0.5rem;
+  .activity-line {
+    display: block;
+    margin: 0 0 0.22em;
+    letter-spacing: -0.03em;
   }
-  .activity-copy-text {
-    margin: 0;
+  .activity-name {
+    color: #0b0b10;
   }
-  .activity-wave {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 92px;
-    z-index: 1;
-    pointer-events: none;
+  .activity-day {
+    background: linear-gradient(135deg, var(--accent1), var(--accent3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
   }
-  .activity-wave-top { top: 0; }
-  .activity-wave-bottom { bottom: 0; transform: rotate(180deg); }
   .earn-row { max-width: 1280px; margin: 0 auto 80px; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 16px; font-size: 0.95rem; color: #0b0b10; animation: fadeUp 1s ease 0.65s both; text-align: center; }
   .earn-row img { width: 56px; height: 56px; flex-shrink: 0; filter: drop-shadow(0 12px 40px rgba(0,0,0,0.7)); }
   .earn-row span { font-weight: 500; color: #0b0b10; }
@@ -455,7 +451,7 @@
     .feature:last-child { border-bottom: none; }
     .community-layer { padding: 2rem 0; }
     .footer-layer { padding: 3rem 0; }
-    .activity-copy { padding: 1.5rem 1rem; font-size: clamp(2rem, 10vw, 2.625rem); }
+    .activity-copy { padding: 1.5rem 1rem; font-size: clamp(2rem, 10vw, 3rem); }
     .footer-layer .earn-row { padding: 0 1rem; }
     .site-footer { flex-direction: column; gap: 16px; padding: 36px 20px 28px; margin-top: 20px; }
     .site-footer a { font-size: 0.85rem; }
@@ -628,22 +624,18 @@
 
 <section class="scroll-layer">
   <div class="gradient-section community-layer">
-    <svg class="activity-wave activity-wave-top" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0,46 C160,12 300,88 470,56 C620,28 740,4 930,42 C1100,76 1250,94 1440,50 L1440,0 L0,0 Z" fill="#e8257a" fill-opacity="0.48"></path>
-      <path d="M0,62 C170,98 320,12 500,46 C680,82 820,100 1020,68 C1180,42 1310,18 1440,34 L1440,0 L0,0 Z" fill="#c9176a" fill-opacity="0.38"></path>
-      <path d="M0,78 C150,30 300,34 470,78 C640,116 820,14 1010,54 C1190,92 1310,74 1440,88 L1440,0 L0,0 Z" fill="#e8257a" fill-opacity="0.26"></path>
-    </svg>
     <div class="wrapper">
     <div class="activity-copy">
-      <div class="activity-copy-emoji">🗓️</div>
-      <p class="activity-copy-text">Lunch Thursday · Drinks Friday · Dinner Saturday · Brunch Sunday · Hike Sunday · Concerts · Sport events · Anything on a group chat!</p>
+      <div class="activity-line"><span class="activity-name">Lunch</span> <span class="activity-day">Thursday</span></div>
+      <div class="activity-line"><span class="activity-name">Drinks</span> <span class="activity-day">Friday</span></div>
+      <div class="activity-line"><span class="activity-name">Dinner</span> <span class="activity-day">Saturday</span></div>
+      <div class="activity-line"><span class="activity-name">Brunch</span> <span class="activity-day">Sunday</span></div>
+      <div class="activity-line"><span class="activity-name">Hike</span> <span class="activity-day">Sunday</span></div>
+      <div class="activity-line"><span class="activity-name">Concerts</span></div>
+      <div class="activity-line"><span class="activity-name">Sport events</span></div>
+      <div class="activity-line"><span class="activity-name">Anything</span></div>
     </div>
     </div>
-    <svg class="activity-wave activity-wave-bottom" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0,46 C160,12 300,88 470,56 C620,28 740,4 930,42 C1100,76 1250,94 1440,50 L1440,0 L0,0 Z" fill="#e8257a" fill-opacity="0.48"></path>
-      <path d="M0,62 C170,98 320,12 500,46 C680,82 820,100 1020,68 C1180,42 1310,18 1440,34 L1440,0 L0,0 Z" fill="#c9176a" fill-opacity="0.38"></path>
-      <path d="M0,78 C150,30 300,34 470,78 C640,116 820,14 1010,54 C1190,92 1310,74 1440,88 L1440,0 L0,0 Z" fill="#e8257a" fill-opacity="0.26"></path>
-    </svg>
   </div>
 </section>
 
