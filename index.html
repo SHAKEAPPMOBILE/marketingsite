@@ -93,7 +93,7 @@
     padding-bottom: 40px;
   }
   .features-layer { min-height: 100vh; display: flex; align-items: center; padding-top: 52px; overflow: visible; height: auto; }
-  .community-layer { min-height: auto; display: flex; align-items: center; background: linear-gradient(180deg, #f8f7ff 0%, #f0f7ff 100%); padding: 2rem 0; }
+  .community-layer { min-height: auto; display: flex; align-items: center; background: linear-gradient(180deg, #f8f7ff 0%, #f0f7ff 100%); padding: 2rem 0; position: relative; overflow: hidden; }
   .footer-layer { min-height: auto; display: flex; align-items: center; justify-content: center; background: #ffffff; padding: 4rem 0; }
   .community-layer .wrapper,
   .footer-layer .wrapper,
@@ -127,6 +127,7 @@
     flex-shrink: 0;
     margin: 0;
     box-shadow: 0 8px 20px rgba(15,23,42,0.22);
+    will-change: opacity;
   }
   .divider-avatar {
     position: absolute;
@@ -197,6 +198,7 @@
     animation: gradientShift 4s ease infinite;
   }
   .btn-shake-toggle {
+    --shake-scroll-scale: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -216,8 +218,9 @@
     position: relative;
     z-index: 40;
     mix-blend-mode: normal;
+    transform: scale(var(--shake-scroll-scale));
   }
-  .btn-shake-toggle:hover { transform: scale(1.05); }
+  .btn-shake-toggle:hover { transform: scale(calc(var(--shake-scroll-scale) * 1.05)); }
   .cta-options {
     display: flex;
     align-items: center;
@@ -234,7 +237,7 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transform: translateY(-8px);
+    transform: translateY(-8px) scale(var(--shake-scroll-scale));
   }
   .cta-row.is-open .cta-options {
     position: relative;
@@ -246,8 +249,7 @@
   }
   .scroll-layer:first-of-type .hero-cta-viewport,
   .scroll-layer:first-of-type .hero-cta-fullwidth,
-  .scroll-layer:first-of-type .cta-row,
-  .scroll-layer:first-of-type .btn-shake-toggle {
+  .scroll-layer:first-of-type .cta-row {
     transform: none;
     opacity: 1 !important;
   }
@@ -357,11 +359,13 @@
     margin: 0 auto;
     padding: 2rem 1.5rem;
     font-family: 'Syne', sans-serif;
-    font-size: clamp(1.1rem, 1.3vw, 1.3rem);
-    font-weight: 400;
+    font-size: clamp(2.625rem, 6vw, 3.25rem);
+    font-weight: 700;
     line-height: 1.7;
     text-align: center;
     color: #666666;
+    position: relative;
+    z-index: 2;
   }
   .activity-copy-emoji {
     text-align: center;
@@ -372,6 +376,16 @@
   .activity-copy-text {
     margin: 0;
   }
+  .activity-wave {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 92px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .activity-wave-top { top: 0; }
+  .activity-wave-bottom { bottom: 0; transform: rotate(180deg); }
   .earn-row { max-width: 1280px; margin: 0 auto 80px; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 16px; font-size: 0.95rem; color: #0b0b10; animation: fadeUp 1s ease 0.65s both; text-align: center; }
   .earn-row img { width: 56px; height: 56px; flex-shrink: 0; filter: drop-shadow(0 12px 40px rgba(0,0,0,0.7)); }
   .earn-row span { font-weight: 500; color: #0b0b10; }
@@ -441,7 +455,7 @@
     .feature:last-child { border-bottom: none; }
     .community-layer { padding: 2rem 0; }
     .footer-layer { padding: 3rem 0; }
-    .activity-copy { padding: 1.5rem 1rem; font-size: 1.1rem; }
+    .activity-copy { padding: 1.5rem 1rem; font-size: clamp(2rem, 10vw, 2.625rem); }
     .footer-layer .earn-row { padding: 0 1rem; }
     .site-footer { flex-direction: column; gap: 16px; padding: 36px 20px 28px; margin-top: 20px; }
     .site-footer a { font-size: 0.85rem; }
@@ -614,12 +628,22 @@
 
 <section class="scroll-layer">
   <div class="gradient-section community-layer">
+    <svg class="activity-wave activity-wave-top" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,46 C160,12 300,88 470,56 C620,28 740,4 930,42 C1100,76 1250,94 1440,50 L1440,0 L0,0 Z" fill="#e8257a" fill-opacity="0.48"></path>
+      <path d="M0,62 C170,98 320,12 500,46 C680,82 820,100 1020,68 C1180,42 1310,18 1440,34 L1440,0 L0,0 Z" fill="#c9176a" fill-opacity="0.38"></path>
+      <path d="M0,78 C150,30 300,34 470,78 C640,116 820,14 1010,54 C1190,92 1310,74 1440,88 L1440,0 L0,0 Z" fill="#e8257a" fill-opacity="0.26"></path>
+    </svg>
     <div class="wrapper">
     <div class="activity-copy">
       <div class="activity-copy-emoji">🗓️</div>
       <p class="activity-copy-text">Lunch Thursday · Drinks Friday · Dinner Saturday · Brunch Sunday · Hike Sunday · Concerts · Sport events · Anything on a group chat!</p>
     </div>
     </div>
+    <svg class="activity-wave activity-wave-bottom" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,46 C160,12 300,88 470,56 C620,28 740,4 930,42 C1100,76 1250,94 1440,50 L1440,0 L0,0 Z" fill="#e8257a" fill-opacity="0.48"></path>
+      <path d="M0,62 C170,98 320,12 500,46 C680,82 820,100 1020,68 C1180,42 1310,18 1440,34 L1440,0 L0,0 Z" fill="#c9176a" fill-opacity="0.38"></path>
+      <path d="M0,78 C150,30 300,34 470,78 C640,116 820,14 1010,54 C1190,92 1310,74 1440,88 L1440,0 L0,0 Z" fill="#e8257a" fill-opacity="0.26"></path>
+    </svg>
   </div>
 </section>
 
@@ -705,6 +729,73 @@
     }, intervalMs);
   }
 
+  function setupDividerIconFade() {
+    var strip = document.querySelector('.divider-icon-strip');
+    if (!strip) return;
+
+    var icons = Array.prototype.slice.call(strip.querySelectorAll('.divider-icon-strip-track img'));
+    if (!icons.length) return;
+
+    var rafId = 0;
+
+    function updateOpacity() {
+      rafId = requestAnimationFrame(updateOpacity);
+
+      var stripRect = strip.getBoundingClientRect();
+      var centerX = stripRect.left + (stripRect.width / 2);
+
+      icons.forEach(function(icon) {
+        var iconRect = icon.getBoundingClientRect();
+        var iconCenterX = iconRect.left + (iconRect.width / 2);
+        var distance = Math.abs(iconCenterX - centerX);
+        var opacity = 1;
+
+        if (distance <= 60) {
+          opacity = 0;
+        } else if (distance < 130) {
+          opacity = (distance - 60) / 70;
+        }
+
+        icon.style.opacity = String(Math.max(0, Math.min(1, opacity)));
+      });
+    }
+
+    updateOpacity();
+
+    window.addEventListener('beforeunload', function() {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+    });
+  }
+
+  function setupShakeButtonScrollScale() {
+    var ctaBtn = document.getElementById('shakeToggle');
+    var heroSection = document.querySelector('.hero-section');
+    if (!ctaBtn || !heroSection) return;
+
+    var rafId = 0;
+
+    function updateScale() {
+      rafId = 0;
+      var heroHeight = Math.max(heroSection.offsetHeight, 1);
+      var progress = Math.max(0, Math.min(1, window.scrollY / heroHeight));
+      var scale = 1 + (0.35 * progress);
+      ctaBtn.style.setProperty('--shake-scroll-scale', scale.toFixed(4));
+      ctaBtn.style.opacity = '1';
+      ctaBtn.style.filter = 'none';
+    }
+
+    function onScroll() {
+      if (rafId) return;
+      rafId = requestAnimationFrame(updateScale);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    updateScale();
+  }
+
   setupCarousel(
     document.getElementById('right-phone-carousel'),
     [
@@ -732,6 +823,9 @@
     ],
     3000
   );
+
+  setupDividerIconFade();
+  setupShakeButtonScrollScale();
 })();
 </script>
 <script src="scroll-animator.js"></script>
