@@ -93,8 +93,8 @@
     padding-bottom: 40px;
   }
   .features-layer { min-height: 100vh; display: flex; align-items: center; padding-top: 52px; }
-  .community-layer { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(180deg, #f8f7ff 0%, #f0f7ff 100%); }
-  .footer-layer { min-height: 100vh; display: flex; align-items: flex-end; background: #eef3ff; }
+  .community-layer { min-height: auto; display: flex; align-items: center; background: linear-gradient(180deg, #f8f7ff 0%, #f0f7ff 100%); padding: 3rem 0; }
+  .footer-layer { min-height: auto; display: flex; align-items: center; background: #eef3ff; padding: 3rem 0; }
   .community-layer .wrapper,
   .footer-layer .wrapper,
   .features-layer .wrapper { width: 100%; }
@@ -103,30 +103,10 @@
     top: -32px;
     left: 0;
     width: 100%;
-    overflow: hidden;
+    overflow: visible;
     background: transparent;
     z-index: 6;
     pointer-events: none;
-    -webkit-mask-image: linear-gradient(
-      to right,
-      black 0%,
-      black 30%,
-      transparent 42%,
-      transparent 58%,
-      black 70%,
-      black 100%
-    );
-    mask-image: linear-gradient(
-      to right,
-      black 0%,
-      black 30%,
-      transparent 42%,
-      transparent 58%,
-      black 70%,
-      black 100%
-    );
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
   }
   .divider-icon-strip-track {
     display: flex;
@@ -190,15 +170,17 @@
     transform: translateX(-50%);
     margin-top: -100px;
     margin-bottom: 48px;
-    z-index: 5;
+    z-index: 30;
     display: flex;
     justify-content: center;
+    opacity: 1 !important;
   }
   .hero-cta-fullwidth {
     width: 100%;
     display: flex;
     justify-content: center;
     position: relative;
+    opacity: 1 !important;
   }
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
@@ -225,6 +207,10 @@
     text-decoration: none;
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     box-shadow: 0 12px 28px rgba(17,24,39,0.2);
+    opacity: 1 !important;
+    filter: none !important;
+    position: relative;
+    z-index: 40;
   }
   .btn-shake-toggle:hover { transform: scale(1.05); }
   .cta-options {
@@ -252,6 +238,13 @@
     pointer-events: auto;
     transform: translateY(0);
     justify-content: center;
+  }
+  .scroll-layer:first-of-type .hero-cta-viewport,
+  .scroll-layer:first-of-type .hero-cta-fullwidth,
+  .scroll-layer:first-of-type .cta-row,
+  .scroll-layer:first-of-type .btn-shake-toggle {
+    transform: none;
+    opacity: 1 !important;
   }
   .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--accent1); color: #0a0a0e; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; padding: 14px 28px; border-radius: 100px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 0 30px rgba(240,192,96,0.3); }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(240,192,96,0.5); }
@@ -354,43 +347,17 @@
   .feature:last-child { border-right: none; }
   .feature:hover { background: rgba(255,255,255,0.16); }
   .feature-icon { font-size: 1.6rem; margin-bottom: 16px; color: #0b0b10; }
-  .feature-crawl {
-    --crawl-progress: 0;
-    width: 100%;
+  .activity-copy {
+    max-width: 640px;
     margin: 0 auto;
-    min-height: 56vh;
-    border-radius: 24px;
-    background: linear-gradient(170deg, rgba(168,139,250,0.2) 0%, rgba(244,114,182,0.18) 48%, rgba(125,211,252,0.2) 100%);
-    border: 1px solid rgba(255,255,255,0.25);
-    overflow: hidden;
-    perspective: 900px;
-    perspective-origin: 50% 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding: 44px 20px 28px;
-  }
-  .feature-crawl-track {
-    width: min(980px, 100%);
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    transform-origin: center bottom;
-    transform-style: preserve-3d;
-    transform: rotateX(64deg) translateY(calc((1 - var(--crawl-progress)) * -34vh)) translateZ(calc(var(--crawl-progress) * 230px - 180px)) scale(calc(0.5 + var(--crawl-progress) * 0.85));
-    opacity: calc(0.3 + var(--crawl-progress) * 0.7);
-    will-change: transform, opacity;
-  }
-  .feature-crawl-line {
-    font-family: 'DM Sans', sans-serif;
-    font-size: clamp(1.05rem, 1.2vw + 0.9rem, 2.6rem);
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    color: rgba(51,51,51,calc(0.45 + var(--crawl-progress) * 0.55));
+    padding: 2rem 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.1rem, 1.3vw, 1.3rem);
+    font-weight: 400;
+    line-height: 1.7;
     text-align: center;
-    line-height: 1.05;
+    color: #666666;
   }
-  .feature-crawl-gap { margin-bottom: 10px; }
   .earn-row { max-width: 1280px; margin: 0 auto 80px; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 16px; font-size: 0.95rem; color: #0b0b10; animation: fadeUp 1s ease 0.65s both; text-align: center; }
   .earn-row img { width: 56px; height: 56px; flex-shrink: 0; filter: drop-shadow(0 12px 40px rgba(0,0,0,0.7)); }
   .earn-row span { font-weight: 500; color: #0b0b10; }
@@ -453,9 +420,9 @@
     .features { grid-template-columns: 1fr; margin: 10px 0 40px; }
     .feature { padding: 28px 20px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
     .feature:last-child { border-bottom: none; }
-    .feature-crawl { min-height: 42vh; margin-top: 8px; padding: 26px 14px 22px; }
-    .feature-crawl-track { transform: none; opacity: 1; gap: 10px; }
-    .feature-crawl-line { font-size: clamp(1rem, 4.2vw, 1.35rem); color: rgba(51,51,51,0.78); }
+    .community-layer,
+    .footer-layer { padding: 2.5rem 0; }
+    .activity-copy { padding: 1.5rem 1rem; font-size: 1.1rem; }
     .site-footer { flex-direction: column; gap: 16px; padding: 36px 20px 28px; margin-top: 20px; }
     .site-footer a { font-size: 0.85rem; }
     .footer-copy { margin-top: 12px; font-size: 0.75rem; }
@@ -621,28 +588,6 @@
         <div class="feature-desc">No pressure, no profile games. Just real people, real moments.</div>
       </div>
     </div>
-    <div class="feature-crawl" id="featureCrawl" aria-label="Upcoming activities crawl">
-      <div class="feature-crawl-track" id="featureCrawlTrack">
-        <div class="feature-crawl-line">Lunch</div>
-        <div class="feature-crawl-line feature-crawl-gap">Thursday</div>
-
-        <div class="feature-crawl-line">Drinks</div>
-        <div class="feature-crawl-line feature-crawl-gap">Friday</div>
-
-        <div class="feature-crawl-line">Dinner</div>
-        <div class="feature-crawl-line feature-crawl-gap">Saturday</div>
-
-        <div class="feature-crawl-line">Brunch</div>
-        <div class="feature-crawl-line feature-crawl-gap">Sunday</div>
-
-        <div class="feature-crawl-line">Hike</div>
-        <div class="feature-crawl-line feature-crawl-gap">Sunday</div>
-
-        <div class="feature-crawl-line">Concerts</div>
-        <div class="feature-crawl-line">Sport events</div>
-        <div class="feature-crawl-line">Anything</div>
-      </div>
-    </div>
   </div>
 </div>
 </section>
@@ -650,7 +595,7 @@
 <section class="scroll-layer">
   <div class="gradient-section community-layer">
     <div class="wrapper">
-    <div style="text-align:center;margin-bottom:16px;"></div>
+    <p class="activity-copy">Lunch Thursday · Drinks Friday · Dinner Saturday · Brunch Sunday · Hike Sunday · Concerts · Sport events · Anything on a group chat!</p>
     <div class="earn-row">
       <img src="coin.png" alt="Shake coin">
       <p><span>Share your talents with the community.</span></p>
@@ -734,58 +679,6 @@
     }, intervalMs);
   }
 
-  function setupFeatureCrawl() {
-    var crawl = document.getElementById('featureCrawl');
-    if (!crawl) return;
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      crawl.style.setProperty('--crawl-progress', '1');
-      return;
-    }
-
-    var isNearViewport = true;
-    var rafId = 0;
-
-    if ('IntersectionObserver' in window) {
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          isNearViewport = entry.isIntersecting;
-        });
-        requestTick();
-      }, {
-        root: null,
-        rootMargin: '120% 0px 120% 0px',
-        threshold: 0
-      });
-      observer.observe(crawl);
-    }
-
-    function updateCrawlProgress() {
-      if (!isNearViewport) return;
-
-      var rect = crawl.getBoundingClientRect();
-      var viewportHeight = Math.max(window.innerHeight, 1);
-      var start = viewportHeight * 0.95;
-      var end = -rect.height * 0.35;
-      var progress = (start - rect.top) / (start - end);
-      progress = Math.max(0, Math.min(1, progress));
-
-      crawl.style.setProperty('--crawl-progress', progress.toFixed(4));
-    }
-
-    function requestTick() {
-      if (rafId) return;
-      rafId = requestAnimationFrame(function() {
-        rafId = 0;
-        updateCrawlProgress();
-      });
-    }
-
-    window.addEventListener('scroll', requestTick, { passive: true });
-    window.addEventListener('resize', requestTick);
-    requestTick();
-  }
-
   setupCarousel(
     document.getElementById('right-phone-carousel'),
     [
@@ -813,8 +706,6 @@
     ],
     3000
   );
-
-  setupFeatureCrawl();
 })();
 </script>
 <script src="scroll-animator.js"></script>

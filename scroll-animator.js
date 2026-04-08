@@ -167,6 +167,9 @@ class ScrollAnimator {
   update() {
     if (!this.isEnabled) return;
     const viewportHeight = Math.max(window.innerHeight, 1);
+    const heroButton = document.getElementById('shakeToggle');
+    const heroButtonRow = heroButton ? heroButton.closest('.cta-row') : null;
+    const heroButtonViewport = document.querySelector('.hero-cta-viewport');
     
     this.layers.forEach((layer, layerIndex) => {
       const nextLayer = this.layers[layerIndex + 1];
@@ -206,6 +209,19 @@ class ScrollAnimator {
       );
       
       this.setLayerValues(layer, scale, opacity);
+
+      if (layerIndex === 0 && heroButton && heroButtonViewport) {
+        const safeOpacity = opacity <= 0 ? 1 : 1 / opacity;
+        heroButton.style.opacity = '1';
+        heroButton.style.filter = 'none';
+        heroButtonViewport.style.opacity = '1';
+        heroButtonViewport.style.transform = 'translateX(-50%)';
+        if (heroButtonRow) {
+          heroButtonRow.style.opacity = '1';
+          heroButtonRow.style.transform = 'none';
+        }
+        heroButton.style.transform = 'scale(' + Math.max(1, safeOpacity).toFixed(3) + ')';
+      }
     });
   }
   
