@@ -92,12 +92,14 @@
     padding-top: 32px;
     padding-bottom: 40px;
   }
-  .features-layer { min-height: 100vh; display: flex; align-items: center; padding-top: 52px; }
-  .community-layer { min-height: auto; display: flex; align-items: center; background: linear-gradient(180deg, #f8f7ff 0%, #f0f7ff 100%); padding: 3rem 0; }
-  .footer-layer { min-height: auto; display: flex; align-items: center; background: #eef3ff; padding: 3rem 0; }
+  .features-layer { min-height: 100vh; display: flex; align-items: center; padding-top: 52px; overflow: visible; height: auto; }
+  .community-layer { min-height: auto; display: flex; align-items: center; background: linear-gradient(180deg, #f8f7ff 0%, #f0f7ff 100%); padding: 2rem 0; }
+  .footer-layer { min-height: auto; display: flex; align-items: center; justify-content: center; background: #ffffff; padding: 4rem 0; }
   .community-layer .wrapper,
   .footer-layer .wrapper,
   .features-layer .wrapper { width: 100%; }
+  .features-scroll-layer { overflow: visible; }
+  .features-scroll-layer > .gradient-section { overflow: visible; }
   .divider-icon-strip {
     position: absolute;
     top: -32px;
@@ -114,6 +116,8 @@
     gap: 48px;
     width: fit-content;
     animation: iconStripScroll 20s linear infinite;
+    overflow: visible;
+    height: auto;
   }
   .divider-icon-strip-track img {
     width: 80px;
@@ -211,6 +215,7 @@
     filter: none !important;
     position: relative;
     z-index: 40;
+    mix-blend-mode: normal;
   }
   .btn-shake-toggle:hover { transform: scale(1.05); }
   .cta-options {
@@ -358,12 +363,26 @@
     text-align: center;
     color: #666666;
   }
+  .activity-copy-emoji {
+    text-align: center;
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .activity-copy-text {
+    margin: 0;
+  }
   .earn-row { max-width: 1280px; margin: 0 auto 80px; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 16px; font-size: 0.95rem; color: #0b0b10; animation: fadeUp 1s ease 0.65s both; text-align: center; }
   .earn-row img { width: 56px; height: 56px; flex-shrink: 0; filter: drop-shadow(0 12px 40px rgba(0,0,0,0.7)); }
   .earn-row span { font-weight: 500; color: #0b0b10; }
   .community-layer .earn-row { margin: 0 auto; }
+  .footer-layer .earn-row {
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    justify-content: center;
+  }
   .site-footer { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 24px; padding: 48px 24px 32px; margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); color: #0b0b10; }
-  .footer-layer .site-footer { margin-top: 0; width: 100%; }
+  .footer-standalone { margin-top: 0; width: 100%; }
   .site-footer a { color: #0b0b10; font-size: 0.9rem; text-decoration: none; transition: color 0.2s; }
   .site-footer a:hover { color: #111827; }
   .site-footer .footer-email { margin-left: 0; }
@@ -420,9 +439,10 @@
     .features { grid-template-columns: 1fr; margin: 10px 0 40px; }
     .feature { padding: 28px 20px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
     .feature:last-child { border-bottom: none; }
-    .community-layer,
-    .footer-layer { padding: 2.5rem 0; }
+    .community-layer { padding: 2rem 0; }
+    .footer-layer { padding: 3rem 0; }
     .activity-copy { padding: 1.5rem 1rem; font-size: 1.1rem; }
+    .footer-layer .earn-row { padding: 0 1rem; }
     .site-footer { flex-direction: column; gap: 16px; padding: 36px 20px 28px; margin-top: 20px; }
     .site-footer a { font-size: 0.85rem; }
     .footer-copy { margin-top: 12px; font-size: 0.75rem; }
@@ -549,7 +569,7 @@
   </div>
 </section>
 
-<section class="scroll-layer">
+<section class="scroll-layer features-scroll-layer">
   <div class="gradient-section features-layer">
   <div class="divider-icon-strip" aria-hidden="true">
     <div class="divider-icon-strip-track">
@@ -595,7 +615,17 @@
 <section class="scroll-layer">
   <div class="gradient-section community-layer">
     <div class="wrapper">
-    <p class="activity-copy">Lunch Thursday · Drinks Friday · Dinner Saturday · Brunch Sunday · Hike Sunday · Concerts · Sport events · Anything on a group chat!</p>
+    <div class="activity-copy">
+      <div class="activity-copy-emoji">🗓️</div>
+      <p class="activity-copy-text">Lunch Thursday · Drinks Friday · Dinner Saturday · Brunch Sunday · Hike Sunday · Concerts · Sport events · Anything on a group chat!</p>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section class="scroll-layer">
+  <div class="gradient-section footer-layer">
+    <div class="wrapper">
     <div class="earn-row">
       <img src="coin.png" alt="Shake coin">
       <p><span>Share your talents with the community.</span></p>
@@ -605,19 +635,15 @@
   </div>
 </section>
 
-<section class="scroll-layer">
-  <div class="gradient-section footer-layer">
-    <div class="wrapper">
-    <footer class="site-footer">
+<div class="wrapper">
+    <footer class="site-footer footer-standalone">
       <a href="https://app.shakeapp.today/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
       <a href="https://app.shakeapp.today/community-guidelines" target="_blank" rel="noopener noreferrer">Community Guidelines</a>
       <a href="https://app.shakeapp.today/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a>
       <a href="mailto:contact@shakeapp.today" class="footer-email">contact@shakeapp.today</a>
       <p class="footer-copy">© 2026 SHAKE. All rights reserved.</p>
     </footer>
-  </div>
 </div>
-</section>
 
 <script>
   function openApp() {

@@ -207,11 +207,10 @@ class ScrollAnimator {
         this.options.opacityRange.end,
         progress
       );
-      
-      this.setLayerValues(layer, scale, opacity);
+
+      this.setLayerValues(layer, scale, layerIndex === 0 ? 1 : opacity);
 
       if (layerIndex === 0 && heroButton && heroButtonViewport) {
-        const safeOpacity = opacity <= 0 ? 1 : 1 / opacity;
         heroButton.style.opacity = '1';
         heroButton.style.filter = 'none';
         heroButtonViewport.style.opacity = '1';
@@ -220,7 +219,6 @@ class ScrollAnimator {
           heroButtonRow.style.opacity = '1';
           heroButtonRow.style.transform = 'none';
         }
-        heroButton.style.transform = 'scale(' + Math.max(1, safeOpacity).toFixed(3) + ')';
       }
     });
   }
