@@ -15,8 +15,39 @@
     --accent3: #f05a7e;
     --text: #f0ede8;
     --muted: rgba(240,237,232,0.45);
+    --layer-scale: 1;
+    --layer-opacity: 1;
   }
   body { background: #ffffff; color: #0b0b10; font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  
+  /* Scroll Layer Animation Styles */
+  .scroll-layer {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    transform: scale(var(--layer-scale, 1));
+    opacity: var(--layer-opacity, 1);
+    transform-origin: top center;
+    will-change: transform, opacity;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+  }
+  
+  /* Disable animation on mobile and with prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-layer {
+      position: relative;
+      border-radius: 0;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .scroll-layer {
+      position: relative;
+      border-radius: 0;
+      will-change: auto;
+    }
+  }
   .bg-layer { display: none; position: fixed; inset: 0; z-index: 0; pointer-events: none; }
   .bg-layer::before {
     content: ''; position: absolute; inset: 0;
@@ -422,19 +453,20 @@
   <iframe class="app-frame" src="https://shake-social.netlify.app" id="appFrame"></iframe>
 </div>
 
-<div class="wrapper hero-section">
-  <nav>
-    <div class="logo">
-      <div class="logo-s"></div>
-      <div class="logo-wordmark">
-        <strong>SHAKE</strong>
-        <span>social</span>
+<section class="scroll-layer">
+  <div class="wrapper hero-section">
+    <nav>
+      <div class="logo">
+        <div class="logo-s"></div>
+        <div class="logo-wordmark">
+          <strong>SHAKE</strong>
+          <span>social</span>
+        </div>
       </div>
-    </div>
-    <span class="nav-badge">Version 2.0 is live ✨</span>
-  </nav>
+      <span class="nav-badge">Version 2.0 is live ✨</span>
+    </nav>
 
-  <section class="hero">
+    <section class="hero">
     <div class="hero-left">
       <h1>Meet real<br>people <em>IRL.</em><br>Swipe activities, not people.</h1>
       <p class="hero-desc">Join lunches, dinners, drinks, hikes, brunch &amp; other activities around you. Shake up your social life — just show up.</p>
@@ -497,9 +529,11 @@
       </div>
     </div>
   </section>
-</div>
+  </div>
+</section>
 
-<div class="gradient-section">
+<section class="scroll-layer">
+  <div class="gradient-section">
   <div class="divider-icon-strip" aria-hidden="true">
     <div class="divider-icon-strip-track">
       <img src="assets/brunch-icon.jpg" alt="Brunch icon">
@@ -554,7 +588,7 @@
     </footer>
   </div>
 </div>
-</div>
+</section>
 
 <script>
   function openApp() {
@@ -645,5 +679,6 @@
   );
 })();
 </script>
+<script src="scroll-animator.js"></script>
 </body>
 </html> 

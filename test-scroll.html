@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Animator Test</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: monospace;
+    }
+    
+    .debug-info {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #0f0;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 12px;
+      max-width: 300px;
+      z-index: 9999;
+    }
+    
+    .debug-info div {
+      margin: 5px 0;
+    }
+    
+    .scroll-layer {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      overflow: hidden;
+      border-radius: 20px 20px 0 0;
+      transform: scale(var(--layer-scale, 1));
+      opacity: var(--layer-opacity, 1);
+      will-change: transform, opacity;
+      transform-origin: top center;
+    }
+    
+    .layer-1 { background: #3b82f6; color: white; }
+    .layer-2 { background: #ec4899; color: white; }
+    .layer-3 { background: #10b981; color: white; }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-layer {
+        position: relative;
+        border-radius: 0;
+      }
+    }
+    
+    @media (max-width: 767px) {
+      .scroll-layer {
+        position: relative;
+        border-radius: 0;
+        will-change: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="debug-info">
+  <div><strong>Debug Info</strong></div>
+  <div>ScrollY: <span id="scrollY">0</span>px</div>
+  <div>Enabled: <span id="enabled">false</span></div>
+  <div>Width: <span id="width">0</span>px</div>
+  <div>Layers: <span id="layers">0</span></div>
+  <div id="layerInfo"></div>
+</div>
+
+<section class="scroll-layer layer-1">Layer 1 - Hero</section>
+<section class="scroll-layer layer-2">Layer 2 - Features</section>
+<section class="scroll-layer layer-3">Layer 3 - Community</section>
+
+<script src="scroll-animator.js"></script>
+<script>
+  // Debug info display
+  window.addEventListener('scroll', function() {
+    document.getElementById('scrollY').textContent = Math.round(window.scrollY);
+    
+    const layers = document.querySelectorAll('.scroll-layer');
+    let info = '';
+    layers.forEach((layer, i) => {
+      const scale = layer.style.getPropertyValue('--layer-scale') || '1';
+      const opacity = layer.style.getPropertyValue('--layer-opacity') || '1';
+      info += `<div>L${i+1}: scale=${scale}, opacity=${opacity}</div>`;
+    });
+    document.getElementById('layerInfo').innerHTML = info;
+  });
+  
+  document.getElementById('width').textContent = window.innerWidth;
+  document.getElementById('enabled').textContent = window.innerWidth >= 768 && 
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'YES' : 'NO';
+  document.getElementById('layers').textContent = document.querySelectorAll('.scroll-layer').length;
+  
+  window.addEventListener('resize', function() {
+    document.getElementById('width').textContent = window.innerWidth;
+    document.getElementById('enabled').textContent = window.innerWidth >= 768 && 
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'YES' : 'NO';
+  });
+</script>
+
+</body>
+</html>
