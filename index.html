@@ -31,6 +31,8 @@
     will-change: transform, opacity;
     border-radius: 20px 20px 0 0;
     overflow: hidden;
+    background: #ffffff;
+    transition: none;
   }
   
   /* Disable animation on mobile and with prefers-reduced-motion */
@@ -86,10 +88,16 @@
       radial-gradient(circle at 92% 18%, rgba(236,72,153,0.6) 0%, transparent 55%),
       radial-gradient(circle at 50% 100%, rgba(56,189,248,0.5) 0%, transparent 60%);
     color: #0b0b10;
-    margin-top: 24px;
+    margin-top: 0;
     padding-top: 32px;
     padding-bottom: 40px;
   }
+  .features-layer { min-height: 100vh; display: flex; align-items: center; padding-top: 52px; }
+  .community-layer { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(180deg, #f8f7ff 0%, #f0f7ff 100%); }
+  .footer-layer { min-height: 100vh; display: flex; align-items: flex-end; background: #eef3ff; }
+  .community-layer .wrapper,
+  .footer-layer .wrapper,
+  .features-layer .wrapper { width: 100%; }
   .divider-icon-strip {
     position: absolute;
     top: -32px;
@@ -349,7 +357,9 @@
   .earn-row { max-width: 1280px; margin: 0 auto 80px; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 16px; font-size: 0.95rem; color: #0b0b10; animation: fadeUp 1s ease 0.65s both; text-align: center; }
   .earn-row img { width: 56px; height: 56px; flex-shrink: 0; filter: drop-shadow(0 12px 40px rgba(0,0,0,0.7)); }
   .earn-row span { font-weight: 500; color: #0b0b10; }
+  .community-layer .earn-row { margin: 0 auto; }
   .site-footer { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 24px; padding: 48px 24px 32px; margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); color: #0b0b10; }
+  .footer-layer .site-footer { margin-top: 0; width: 100%; }
   .site-footer a { color: #0b0b10; font-size: 0.9rem; text-decoration: none; transition: color 0.2s; }
   .site-footer a:hover { color: #111827; }
   .site-footer .footer-email { margin-left: 0; }
@@ -533,7 +543,7 @@
 </section>
 
 <section class="scroll-layer">
-  <div class="gradient-section">
+  <div class="gradient-section features-layer">
   <div class="divider-icon-strip" aria-hidden="true">
     <div class="divider-icon-strip-track">
       <img src="assets/brunch-icon.jpg" alt="Brunch icon">
@@ -571,7 +581,13 @@
         <div class="feature-desc">No pressure, no profile games. Just real people, real moments.</div>
       </div>
     </div>
+  </div>
+</div>
+</section>
 
+<section class="scroll-layer">
+  <div class="gradient-section community-layer">
+    <div class="wrapper">
     <div style="text-align:center;margin-bottom:16px;"></div>
     <div class="earn-row">
       <img src="coin.png" alt="Shake coin">
@@ -579,6 +595,12 @@
       <img src="avatar-new-5.png" style="width:60px;height:60px;border-radius:50%;object-fit:cover;flex-shrink:0;">
     </div>
     </div>
+  </div>
+</section>
+
+<section class="scroll-layer">
+  <div class="gradient-section footer-layer">
+    <div class="wrapper">
     <footer class="site-footer">
       <a href="https://app.shakeapp.today/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
       <a href="https://app.shakeapp.today/community-guidelines" target="_blank" rel="noopener noreferrer">Community Guidelines</a>

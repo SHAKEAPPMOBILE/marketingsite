@@ -7,12 +7,15 @@ class ScrollAnimator {
   constructor(options = {}) {
     this.options = {
       minScreenWidth: 768, // mobile breakpoint
-      scaleRange: { start: 1, end: 0.96 }, // scale from 1 to 0.96
-      opacityRange: { start: 1, end: 0.6 }, // fade from 1 to 0.6
+      scaleRange: { start: 1, end: 0.94 }, // scale from 1 to 0.94
+      opacityRange: { start: 1, end: 0.45 }, // fade from 1 to 0.45
       ...options
     };
     
     this.layers = [];
+    this.visibleLayers = new Set();
+    this.observer = null;
+    this.rafId = 0;
     this.isEnabled = this.shouldEnable();
     this.scrollY = 0;
     
@@ -44,9 +47,10 @@ class ScrollAnimator {
    */
   init() {
     this.collectLayers();
+    this.setupObserver();
     this.setupScrollListener();
     this.handleResize();
-    this.update(); // Initial frame
+    this.requestTick();
   }
   
   /**
@@ -56,6 +60,9 @@ class ScrollAnimator {
     const elements = document.querySelectorAll('.scroll-layer');
     
     this.layers = Array.from(elements).map((el, index) => {
+      el.dataset.layerIndex = String(index);
+      el.style.zIndex = String(index + 1);
+
       return {
         element: el,
         index: index,
@@ -79,23 +86,45 @@ class ScrollAnimator {
       layer.height = layer.element.offsetHeight;
     });
   }
+
+  setupObserver() {
+    if (this.observer) {
+      this.observer.disconnect();
+      this.observer = null;
+    }
+    this.visibleLayers.clear();
+
+    if (!('IntersectionObserver' in window)) {
+      this.layers.forEach((layer) => this.visibleLayers.add(layer.index));
+      return;
+    }
+
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const idx = Number(entry.target.dataset.layerIndex);
+        if (entry.isIntersecting) {
+          this.visibleLayers.add(idx);
+        } else {
+          this.visibleLayers.delete(idx);
+        }
+      });
+      this.requestTick();
+    }, {
+      root: null,
+      rootMargin: '150% 0px 150% 0px',
+      threshold: 0
+    });
+
+    this.layers.forEach((layer) => this.observer.observe(layer.element));
+  }
   
   /**
    * Setup scroll event listener with throttling
    */
   setupScrollListener() {
-    let ticking = false;
-    
     window.addEventListener('scroll', () => {
       this.scrollY = window.scrollY;
-      
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          this.update();
-          ticking = false;
-        });
-        ticking = true;
-      }
+      this.requestTick();
     }, { passive: true });
   }
   
@@ -111,15 +140,24 @@ class ScrollAnimator {
       if (!wasEnabled && this.isEnabled) {
         // Re-enable animation on resize to larger screen
         this.collectLayers();
-        this.update();
+        this.setupObserver();
+        this.requestTick();
       } else if (wasEnabled && !this.isEnabled) {
         // Disable animation on resize to smaller screen
         this.resetAllLayers();
       } else if (this.isEnabled) {
         // Recalculate layout on resize
         this.collectLayers();
-        this.update();
+        this.requestTick();
       }
+    });
+  }
+
+  requestTick() {
+    if (this.rafId) return;
+    this.rafId = requestAnimationFrame(() => {
+      this.rafId = 0;
+      this.update();
     });
   }
   
@@ -128,46 +166,33 @@ class ScrollAnimator {
    */
   update() {
     if (!this.isEnabled) return;
+    const viewportHeight = Math.max(window.innerHeight, 1);
     
     this.layers.forEach((layer, layerIndex) => {
-      // Calculate scroll progress for this layer
-      // A layer starts being covered when the next layer scrolls into view
-      // The animation progresses as the next layer covers this one
-      
-      // Get the next layer (the one covering this layer)
       const nextLayer = this.layers[layerIndex + 1];
       
       if (!nextLayer) {
-        // Last layer - no animation/always visible
         this.setLayerValues(layer, 1, 1);
         return;
       }
-      
-      const nextLayerOffsetTop = nextLayer.offsetTop;
-      const currentLayerHeight = layer.height;
-      
-      // Animation range:
-      // - Start: when next layer top edge reaches viewport top (scrollY = nextLayerOffsetTop)
-      // - End: when next layer has fully covered this layer (scrollY = nextLayerOffsetTop + currentLayerHeight)
-      const animationStart = nextLayerOffsetTop;
-      const animationEnd = nextLayerOffsetTop + currentLayerHeight;
-      
-      // Calculate progress (0 to 1)
-      let progress = 0;
-      
-      if (this.scrollY >= animationStart && this.scrollY < animationEnd) {
-        // We're in the middle of the animation
-        progress = (this.scrollY - animationStart) / (animationEnd - animationStart);
-      } else if (this.scrollY >= animationEnd) {
-        // Animation is complete
-        progress = 1;
+
+      if (
+        this.visibleLayers.size &&
+        !this.visibleLayers.has(layerIndex) &&
+        !this.visibleLayers.has(layerIndex + 1)
+      ) {
+        return;
       }
-      // else: progress stays 0 (animation hasn't started)
       
-      // Clamp progress to 0-1 to be safe
+      const nextLayerTop = nextLayer.element.getBoundingClientRect().top;
+
+      // Progress:
+      // next layer at viewport bottom (top=vh) -> 0
+      // next layer at viewport top (top=0) -> 1
+      let progress = (viewportHeight - nextLayerTop) / viewportHeight;
       progress = Math.max(0, Math.min(1, progress));
+      progress = this.easeOutCubic(progress);
       
-      // Calculate scale and opacity from progress
       const scale = this.interpolate(
         this.options.scaleRange.start,
         this.options.scaleRange.end,
@@ -206,6 +231,10 @@ class ScrollAnimator {
    */
   interpolate(start, end, progress) {
     return start + (end - start) * progress;
+  }
+
+  easeOutCubic(value) {
+    return 1 - Math.pow(1 - value, 3);
   }
 }
 
