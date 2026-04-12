@@ -696,6 +696,15 @@
       ctaRow.classList.add('is-open');
       shakeToggle.setAttribute('aria-expanded', 'true');
       ctaOptions.setAttribute('aria-hidden', 'false');
+
+      if (typeof confetti === 'function') {
+        var rect = shakeToggle.getBoundingClientRect();
+        var originX = (rect.left + rect.width / 2) / window.innerWidth;
+        var originY = (rect.top + rect.height / 2) / window.innerHeight;
+        var colors = ['#f97316', '#8b5cf6', '#22c55e', '#f05a7e', '#f0c060', '#ec4899', '#3b82f6'];
+        confetti({ particleCount: 80, spread: 90, startVelocity: 45, decay: 0.88, scalar: 1.1, origin: { x: originX, y: originY }, colors: colors, ticks: 120 });
+        confetti({ particleCount: 40, spread: 120, startVelocity: 30, decay: 0.85, scalar: 0.8, origin: { x: originX, y: originY }, colors: colors, ticks: 100 });
+      }
     });
 
     document.addEventListener('click', function(e) {
@@ -825,5 +834,6 @@
 })();
 </script>
 <script src="scroll-animator.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </body>
 </html> 
