@@ -212,7 +212,7 @@
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    transition: transform 0.2s ease;
     box-shadow: 0 12px 28px rgba(17,24,39,0.2);
     opacity: 1 !important;
     filter: none !important;
@@ -229,23 +229,22 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transform: translateY(8px);
     position: absolute;
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    transition: none;
   }
   .cta-row.is-open .btn-shake-toggle {
     position: absolute;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transform: translateY(-8px) scale(var(--shake-scroll-scale));
+    transform: scale(var(--shake-scroll-scale));
   }
   .cta-row.is-open .cta-options {
     position: relative;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: translateY(0);
+    transform: none;
     justify-content: center;
   }
   .scroll-layer:first-of-type .hero-cta-viewport,
