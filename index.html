@@ -485,6 +485,15 @@
     .site-footer a { font-size: 0.8rem; }
     .footer-copy { font-size: 0.7rem; }
   }
+  @media (min-width: 768px) {
+    #avatar-rotator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: 0;
+    }
+  }
   @keyframes shake-hover {
     0%,100% { transform: rotate(0deg); }
     20% { transform: rotate(-8deg); }
@@ -538,7 +547,7 @@
         document.getElementById('today-label').textContent = fullDays[new Date().getDay()];
       })();
     </script>
-    <div id="avatar-rotator" style="width:96px;height:96px;margin-top:8px;margin-left:20px;position:relative;"></div>
+    <div id="avatar-rotator" style="width:96px;height:96px;margin-top:8px;margin-left:auto;margin-right:20px;position:relative;"></div>
     <script>
     (function(){
       var nums = [1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,20,21,22,23,24,25,26,27,28,30];
@@ -856,9 +865,12 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 <script>
 document.addEventListener('mouseover', function(e) {
-  const blocked = ['DIV','SECTION','HEADER','FOOTER','MAIN','NAV','UL','LI','BODY','HTML','FORM'];
-  if (!blocked.includes(e.target.tagName)) {
-    e.target.classList.add('shake-hover');
+  var el = e.target;
+  var w = el.offsetWidth;
+  var tag = el.tagName;
+  var blocked = ['BODY','HTML','SECTION','MAIN','FOOTER','FORM'];
+  if (!blocked.includes(tag) && w > 0 && w < 700) {
+    el.classList.add('shake-hover');
   }
 });
 document.addEventListener('mouseleave', function(e) {
