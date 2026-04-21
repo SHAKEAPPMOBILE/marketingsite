@@ -515,6 +515,15 @@
 
     <section class="hero">
     <div class="hero-left">
+    <div class="activity-copy" id="days-copy">
+      <div class="activity-line"><span class="activity-name">Today is </span><span class="activity-day" id="today-label"></span></div>
+    </div>
+    <script>
+      (function() {
+        const fullDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        document.getElementById('today-label').textContent = fullDays[new Date().getDay()];
+      })();
+    </script>
     </div>
 
     <div class="hero-right">
@@ -616,21 +625,6 @@
 </div>
 </section>
 
-<section class="scroll-layer">
-  <div class="gradient-section community-layer">
-    <div class="wrapper">
-    <div class="activity-copy" id="days-copy">
-      <div class="activity-line"><span class="activity-name">Today is </span><span class="activity-day" id="today-label"></span></div>
-    </div>
-    <script>
-      (function() {
-        const fullDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-        document.getElementById('today-label').textContent = fullDays[new Date().getDay()];
-      })();
-    </script>
-    </div>
-  </div>
-</section>
 
 <section class="scroll-layer">
   <div class="gradient-section footer-layer">
