@@ -625,16 +625,31 @@
 <section class="scroll-layer">
   <div class="gradient-section community-layer">
     <div class="wrapper">
-    <div class="activity-copy">
-      <div class="activity-line"><span class="activity-name">Lunch</span> <span class="activity-day">Thursday</span></div>
-      <div class="activity-line"><span class="activity-name">Drinks</span> <span class="activity-day">Friday</span></div>
-      <div class="activity-line"><span class="activity-name">Dinner</span> <span class="activity-day">Saturday</span></div>
-      <div class="activity-line"><span class="activity-name">Brunch</span> <span class="activity-day">Sunday</span></div>
-      <div class="activity-line"><span class="activity-name">Hike</span> <span class="activity-day">Sunday</span></div>
-      <div class="activity-line"><span class="activity-name">Live Music</span></div>
-        <div class="activity-line"><span class="activity-name activity-day">Sport events</span></div>
-      <div class="activity-line"><span class="activity-name">Anything</span></div>
+    <div class="activity-copy" id="days-copy">
+      <div class="activity-line"><span class="activity-name">Today is </span><span class="activity-day" id="today-label"></span></div>
+      <div class="activity-line"><span id="day-Mon" class="activity-name">Monday</span></div>
+      <div class="activity-line"><span id="day-Tue" class="activity-name">Tuesday</span></div>
+      <div class="activity-line"><span id="day-Wed" class="activity-name">Wednesday</span></div>
+      <div class="activity-line"><span id="day-Thu" class="activity-name">Thursday</span></div>
+      <div class="activity-line"><span id="day-Fri" class="activity-name">Friday</span></div>
+      <div class="activity-line"><span id="day-Sat" class="activity-name">Saturday</span></div>
+      <div class="activity-line"><span id="day-Sun" class="activity-name">Sunday</span></div>
     </div>
+    <script>
+      (function() {
+        const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+        const fullDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const idx = new Date().getDay();
+        const key = days[idx];
+        const full = fullDays[idx];
+        document.getElementById('today-label').textContent = full;
+        const el = document.getElementById('day-' + key);
+        if (el) {
+          el.classList.remove('activity-name');
+          el.classList.add('activity-day');
+        }
+      })();
+    </script>
     </div>
   </div>
 </section>
