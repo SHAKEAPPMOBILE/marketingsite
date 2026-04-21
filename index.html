@@ -538,7 +538,7 @@
         document.getElementById('today-label').textContent = fullDays[new Date().getDay()];
       })();
     </script>
-    <img src="avatar-new-5.png" alt="Community avatar" style="display:block; margin-top: 8px; margin-left: auto; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3));">
+    <img src="avatar-new-5.png" alt="Community avatar" style="width: 96px; height: 96px; border-radius: 50%; object-fit: cover; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3)); display: block; margin-top: 8px; margin-left: 20px;">
     </div>
 
     <div class="hero-right">
@@ -837,8 +837,8 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 <script>
 document.addEventListener('mouseover', function(e) {
-  const allowed = ['IMG', 'BUTTON', 'A', 'SPAN', 'H1', 'H2', 'H3', 'P', 'VIDEO'];
-  if (allowed.includes(e.target.tagName)) {
+  const blocked = ['DIV','SECTION','HEADER','FOOTER','MAIN','NAV','UL','LI','BODY','HTML','FORM'];
+  if (!blocked.includes(e.target.tagName)) {
     e.target.classList.add('shake-hover');
   }
 });
