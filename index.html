@@ -837,7 +837,8 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 <script>
 document.addEventListener('mouseover', function(e) {
-  if (e.target !== document.body && e.target !== document.documentElement) {
+  const allowed = ['IMG', 'BUTTON', 'A', 'SPAN', 'H1', 'H2', 'H3', 'P', 'VIDEO'];
+  if (allowed.includes(e.target.tagName)) {
     e.target.classList.add('shake-hover');
   }
 });
