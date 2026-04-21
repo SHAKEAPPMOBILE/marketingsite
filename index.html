@@ -424,6 +424,46 @@
   @keyframes float3 { 0%,100% { transform: translateY(-50%) rotate(7deg); } 50% { transform: translateY(calc(-50% - 11px)) rotate(7deg); } }
   @keyframes badgeFloat1 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
   @keyframes badgeFloat2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+  /* Floating avatar circles – desktop hero left area */
+  .avatar-circle {
+    display: none;
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(255,255,255,0.88);
+    box-shadow: 0 6px 22px rgba(0,0,0,0.28);
+    z-index: 20;
+    pointer-events: none;
+  }
+  .avatar-circle img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: opacity 0.15s ease;
+  }
+  .avatar-circle img.ac-fading { opacity: 0; }
+
+  @media (min-width: 769px) {
+    .avatar-circle { display: block; }
+    .avatar-circle-1 {
+      left: 3%; top: 44%;
+      animation: floatAC1 5s ease-in-out infinite;
+    }
+    .avatar-circle-2 {
+      left: 17%; top: 57%;
+      animation: floatAC2 6.5s ease-in-out infinite;
+    }
+    .avatar-circle-3 {
+      left: 30%; top: 43%;
+      animation: floatAC3 7s ease-in-out infinite;
+    }
+  }
+  @keyframes floatAC1 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes floatAC2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  @keyframes floatAC3 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
   @keyframes iconStripScroll {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
@@ -609,6 +649,11 @@
         <img id="right-phone-carousel" src="assets/screen1.png" alt="Meet screen">
       </div>
     </div>
+
+    <!-- Floating avatar circles – desktop only, positioned in left column -->
+    <div class="avatar-circle avatar-circle-1"><img id="ac-img-1" src="avatar-s2.png" alt=""></div>
+    <div class="avatar-circle avatar-circle-2"><img id="ac-img-2" src="avatar-m2.png" alt=""></div>
+    <div class="avatar-circle avatar-circle-3"><img id="ac-img-3" src="avatar-11.png" alt=""></div>
 
     <div class="hero-cta-viewport">
       <div class="hero-cta-fullwidth">
@@ -833,8 +878,6 @@
     document.getElementById('right-phone-carousel'),
     [
       'assets/screen1.png',
-      'assets/screen2.png',
-      'assets/screen3.png',
       'assets/screen5.png',
       'assets/10.png',
       'assets/11.png',
@@ -850,7 +893,6 @@
       'assets/2.png',
       'assets/3.png',
       'assets/4.png',
-      'assets/5.png',
       'assets/6.png',
       'assets/7.png'
     ],
@@ -859,6 +901,29 @@
 
   setupDividerIconFade();
   setupShakeButtonScrollScale();
+
+  // Floating avatar circles – cycle through avatars every 500 ms (desktop only)
+  (function() {
+    if (window.innerWidth < 769) return;
+    var avatars = ['avatar-s2.png', 'avatar-m2.png', 'avatar-11.png', 'avatar-5.png', 'avatar-new-5.png'];
+    var circles = [
+      { img: document.getElementById('ac-img-1'), idx: 0 },
+      { img: document.getElementById('ac-img-2'), idx: 2 },
+      { img: document.getElementById('ac-img-3'), idx: 4 }
+    ];
+    circles.forEach(function(c, i) {
+      if (!c.img) return;
+      c.img.src = avatars[c.idx % avatars.length];
+      setInterval(function() {
+        c.img.classList.add('ac-fading');
+        setTimeout(function() {
+          c.idx = (c.idx + 1) % avatars.length;
+          c.img.src = avatars[c.idx];
+          c.img.classList.remove('ac-fading');
+        }, 150);
+      }, 500 + i * 167); // stagger so they don't all swap at once
+    });
+  })();
 })();
 </script>
 <script src="scroll-animator.js"></script>
