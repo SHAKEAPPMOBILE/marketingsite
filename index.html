@@ -485,6 +485,16 @@
     .site-footer a { font-size: 0.8rem; }
     .footer-copy { font-size: 0.7rem; }
   }
+  @keyframes shake-hover {
+    0%,100% { transform: rotate(0deg); }
+    20% { transform: rotate(-8deg); }
+    40% { transform: rotate(8deg); }
+    60% { transform: rotate(-5deg); }
+    80% { transform: rotate(5deg); }
+  }
+  .shake-hover:hover {
+    animation: shake-hover 0.5s ease infinite;
+  }
 </style>
 </head>
 <body>
@@ -528,6 +538,7 @@
         document.getElementById('today-label').textContent = fullDays[new Date().getDay()];
       })();
     </script>
+    <img src="avatar-new-5.png" alt="Community avatar" style="position: absolute; bottom: 10%; left: 35%; width: 72px; height: 72px; border-radius: 50%; object-fit: cover; filter: drop-shadow(0 12px 40px rgba(0,0,0,0.4));">
     </div>
 
     <div class="hero-right">
@@ -636,7 +647,6 @@
     <div class="earn-row">
       <div style="display: flex; align-items: center; justify-content: center; width: 100%; gap: 32px;">
 <span class="activity-name" style="font-family: 'Syne', sans-serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 800; line-height: 1.05; text-align: center; color: #0b0b10; display: block; min-width: 320px;">How do you shake up your life?</span>
-        <img src="avatar-new-5.png" alt="Community avatar" style="width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;filter: drop-shadow(0 12px 40px rgba(0,0,0,0.7));">
       </div>
     </div>
     </div>
@@ -825,5 +835,15 @@
 </script>
 <script src="scroll-animator.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+<script>
+document.addEventListener('mouseover', function(e) {
+  if (e.target !== document.body && e.target !== document.documentElement) {
+    e.target.classList.add('shake-hover');
+  }
+});
+document.addEventListener('mouseleave', function(e) {
+  e.target.classList.remove('shake-hover');
+}, true);
+</script>
 </body>
 </html> 
