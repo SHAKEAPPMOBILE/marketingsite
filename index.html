@@ -288,44 +288,6 @@
   .orb-yellow { width: 200px; height: 200px; background: rgba(240,192,96,0.2); bottom: 10%; left: 10%; }
   .orb-pink { width: 200px; height: 200px; background: rgba(240,90,126,0.2); top: 10%; right: 10%; }
 
-  /* Real phone frames with actual screenshots */
-  .phone-frame {
-    position: absolute;
-    border-radius: 36px;
-    overflow: hidden;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.1);
-    background: #000;
-    z-index: 2;
-  }
-  .phone-frame img { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; -o-object-position: top; object-position: top; display: block; opacity: 1; transition: opacity 0.45s ease, transform 0.45s ease; }
-  .phone-frame img.is-fading { opacity: 0.22; transform: scale(1.01); }
-
-  /* Center phone - chats list - main focus */
-  .phone-main {
-    width: 210px; height: 420px;
-    left: 50%; top: 44%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    animation: float1 6s ease-in-out infinite;
-  }
-
-  /* Left phone - chat screen */
-  .phone-left {
-    width: 175px; height: 370px;
-    left: -20px; top: 44%;
-    transform: translateY(-50%) rotate(-7deg);
-    z-index: 2;
-    animation: float2 7s ease-in-out infinite;
-  }
-
-  /* Right phone - meet screen */
-  .phone-right {
-    width: 175px; height: 370px;
-    right: -20px; top: 44%;
-    transform: translateY(-50%) rotate(7deg);
-    z-index: 2;
-    animation: float3 5.5s ease-in-out infinite;
-  }
 
   /* AVATAR BADGES */
   .avatar-badge {
@@ -596,22 +558,6 @@
         </div>
       </div>
 
-      <!-- Left phone: CHAT screen -->
-      <!-- Left phone: rotating mockups carousel -->
-      <div class="phone-frame phone-left">
-        <img id="left-phone-carousel" src="assets/1.png" alt="App mockup">
-      </div>
-
-
-      <!-- Center phone: My Chats list (the real app) -->
-      <div class="phone-frame phone-main">
-        <img src="chat-preview.png" alt="App chats list">
-      </div>
-
-      <!-- Right phone: MEET screen -->
-      <div class="phone-frame phone-right">
-        <img id="right-phone-carousel" src="assets/screen1.png" alt="Meet screen">
-      </div>
     </div>
 
     <div class="hero-cta-viewport">
@@ -751,21 +697,6 @@
     });
   }
 
-  function setupCarousel(el, slides, intervalMs) {
-    if (!el || !slides || !slides.length) return;
-    var idx = 0;
-    el.src = slides[idx];
-
-    setInterval(function() {
-      el.classList.add('is-fading');
-      setTimeout(function() {
-        idx = (idx + 1) % slides.length;
-        el.src = slides[idx];
-        el.classList.remove('is-fading');
-      }, 220);
-    }, intervalMs);
-  }
-
   function setupDividerIconFade() {
     var strip = document.querySelector('.divider-icon-strip');
     if (!strip) return;
@@ -832,31 +763,6 @@
     window.addEventListener('resize', onScroll);
     updateScale();
   }
-
-  setupCarousel(
-    document.getElementById('right-phone-carousel'),
-    [
-      'assets/screen1.png',
-      'assets/screen5.png',
-      'assets/10.png',
-      'assets/11.png',
-      'assets/12.png'
-    ],
-    3000
-  );
-
-  setupCarousel(
-    document.getElementById('left-phone-carousel'),
-    [
-      'assets/1.png',
-      'assets/2.png',
-      'assets/3.png',
-      'assets/4.png',
-      'assets/6.png',
-      'assets/7.png'
-    ],
-    3000
-  );
 
   setupDividerIconFade();
   setupShakeButtonScrollScale();
