@@ -168,6 +168,14 @@
     margin-bottom: 0;
     width: max-content;
   }
+  .hero-video {
+    width: 200px;
+    border-radius: 16px;
+    object-fit: cover;
+    margin-left: 20px;
+    flex-shrink: 0;
+    display: block;
+  }
   .hero-cta-viewport {
     grid-column: 1 / -1;
     width: 100vw;
@@ -406,8 +414,9 @@
     h1 { font-size: clamp(2rem, 8vw, 3.25rem); margin-bottom: 20px; }
     .hero-desc { display: none; }
     .hero-cta-viewport { margin-top: 2.75rem; left: 0; transform: none; width: 100%; order: 2; }
-    .cta-row { justify-content: center; width: 100%; left: 0; transform: none; margin-left: 0; }
+    .cta-row { flex-direction: column; justify-content: center; align-items: center; width: 100%; left: 0; transform: none; margin-left: 0; }
     .btn-shake-toggle { width: 100%; max-width: 320px; margin-left: 0; }
+    .hero-video { margin-left: 0; margin-top: 20px; width: 240px; }
     .cta-options { flex-direction: column; align-items: stretch; width: 100%; max-width: 320px; margin-left: 0; }
     .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 12px 20px; font-size: 0.85rem; }
     .stats-row { display: none; }
@@ -579,6 +588,9 @@
             <a href="https://apps.apple.com/gh/app/shake-social/id6757654586" class="btn-primary" target="_blank" rel="noopener noreferrer">↓ Download App</a>
             <a href="https://app.shakeapp.today/" class="btn-secondary" target="_blank" rel="noopener noreferrer">Open Web App →</a>
           </div>
+          <video class="hero-video" autoplay loop muted playsinline>
+            <source src="hero-video.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
