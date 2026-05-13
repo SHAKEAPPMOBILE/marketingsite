@@ -172,11 +172,9 @@
   .hero-video {
     position: absolute;
     left: 50%;
-    right: 0;
+    right: calc(-40px - max(0px, (100vw - 1280px) / 2));
     top: 0;
     bottom: 0;
-    width: 50vw;
-    height: 100%;
     object-fit: cover;
     border-radius: 16px 0 0 16px;
     z-index: 1;
@@ -602,11 +600,11 @@
         </div>
       </div>
     </div>
+      <video class="hero-video" autoplay loop muted playsinline>
+        <source src="hero-video.mp4" type="video/mp4">
+      </video>
   </section>
   </div>
-  <video class="hero-video" autoplay loop muted playsinline>
-    <source src="hero-video.mp4" type="video/mp4">
-  </video>
 </section>
 
 <section class="scroll-layer features-scroll-layer">
