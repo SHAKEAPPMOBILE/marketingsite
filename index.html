@@ -169,13 +169,20 @@
     width: max-content;
   }
   .hero-video {
-    width: 200px;
-    border-radius: 16px;
+    position: absolute;
+    left: 50%;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 50vw;
+    height: 100%;
     object-fit: cover;
-    margin-left: 120px;
-    flex-shrink: 0;
+    border-radius: 16px 0 0 16px;
+    z-index: 1;
     display: block;
+    pointer-events: none;
   }
+  .hero-video.shake-hover, .hero-video:hover { animation: none !important; transform: none !important; }
   .hero-cta-viewport {
     grid-column: 1 / -1;
     width: 100vw;
@@ -315,8 +322,11 @@
   .avatar-badge-name { font-family: 'Syne', sans-serif; font-size: 0.74rem; font-weight: 700; color: var(--text); }
   .avatar-badge-status { font-size: 0.61rem; color: var(--muted); margin-top: 1px; }
   .avatar-badge-dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #4ade80; margin-right: 4px; }
-  .badge-1 { top: 48px; left: -5px; animation: badgeFloat1 5s ease-in-out infinite; }
-  .badge-2 { top: 140px; left: 60px; animation: badgeFloat2 6s ease-in-out infinite; }
+  .badge-1 { top: 48px; left: -5px; animation: badgeFloat1 5s ease-in-out infinite; pointer-events: none; }
+  .badge-2 { top: 140px; left: 60px; animation: badgeFloat2 6s ease-in-out infinite; pointer-events: none; }
+  .badge-1.shake-hover, .badge-2.shake-hover,
+  .badge-1:hover, .badge-2:hover { animation: badgeFloat1 5s ease-in-out infinite !important; transform: none !important; }
+  .badge-2.shake-hover, .badge-2:hover { animation: badgeFloat2 6s ease-in-out infinite !important; }
 
   /* FEATURES */
   .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin: 0 0 80px; border: 1px solid rgba(255,255,255,0.07); border-radius: 24px; overflow: hidden; animation: fadeUp 1s ease 0.6s both; }
@@ -416,7 +426,7 @@
     .hero-cta-viewport { margin-top: 2.75rem; left: 0; transform: none; width: 100%; order: 2; }
     .cta-row { flex-direction: column; justify-content: center; align-items: center; width: 100%; left: 0; transform: none; margin-left: 0; }
     .btn-shake-toggle { width: 100%; max-width: 320px; margin-left: 0; }
-    .hero-video { margin-left: 0; margin-top: 20px; width: 240px; }
+    .hero-video { position: static; left: auto; right: auto; top: auto; bottom: auto; width: 240px; height: auto; border-radius: 16px; margin-left: 0; margin-top: 20px; }
     .cta-options { flex-direction: column; align-items: stretch; width: 100%; max-width: 320px; margin-left: 0; }
     .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 12px 20px; font-size: 0.85rem; }
     .stats-row { display: none; }
@@ -588,14 +598,14 @@
             <a href="https://apps.apple.com/gh/app/shake-social/id6757654586" class="btn-primary" target="_blank" rel="noopener noreferrer">↓ Download App</a>
             <a href="https://app.shakeapp.today/" class="btn-secondary" target="_blank" rel="noopener noreferrer">Open Web App →</a>
           </div>
-          <video class="hero-video" autoplay loop muted playsinline>
-            <source src="hero-video.mp4" type="video/mp4">
-          </video>
         </div>
       </div>
     </div>
   </section>
   </div>
+  <video class="hero-video" autoplay loop muted playsinline>
+    <source src="hero-video.mp4" type="video/mp4">
+  </video>
 </section>
 
 <section class="scroll-layer features-scroll-layer">
