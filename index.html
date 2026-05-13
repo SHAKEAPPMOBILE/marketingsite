@@ -154,6 +154,7 @@
   /* HERO */
   .hero { position: relative; display: grid; grid-template-columns: 45% 55%; gap: 0; align-items: center; padding: 60px 0 20px; }
   .hero-left { position: relative; z-index: 3; animation: fadeUp 1s ease 0.2s both; }
+  #avatar-rotator { position: relative; z-index: 10; }
   .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent1); margin-bottom: 24px; }
   .eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent1); }
   h1 { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 800; line-height: 1.0; letter-spacing: -0.04em; margin-bottom: 28px; }
@@ -178,7 +179,7 @@
     height: 100%;
     object-fit: cover;
     border-radius: 16px 0 0 16px;
-    z-index: 0;
+    z-index: 1;
     display: block;
     pointer-events: none;
   }
@@ -322,8 +323,8 @@
   .avatar-badge-name { font-family: 'Syne', sans-serif; font-size: 0.74rem; font-weight: 700; color: var(--text); }
   .avatar-badge-status { font-size: 0.61rem; color: var(--muted); margin-top: 1px; }
   .avatar-badge-dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #4ade80; margin-right: 4px; }
-  .badge-1 { top: 48px; left: -5px; animation: badgeFloat1 5s ease-in-out infinite; pointer-events: none; }
-  .badge-2 { top: 140px; left: 60px; animation: badgeFloat2 6s ease-in-out infinite; pointer-events: none; }
+  .badge-1 { top: 48px; left: -5px; animation: badgeFloat1 5s ease-in-out infinite; pointer-events: none; z-index: 10; }
+  .badge-2 { top: 140px; left: 60px; animation: badgeFloat2 6s ease-in-out infinite; pointer-events: none; z-index: 10; }
   .badge-1.shake-hover, .badge-2.shake-hover,
   .badge-1:hover, .badge-2:hover { animation: badgeFloat1 5s ease-in-out infinite !important; transform: none !important; }
   .badge-2.shake-hover, .badge-2:hover { animation: badgeFloat2 6s ease-in-out infinite !important; }
