@@ -499,6 +499,197 @@
   .shake-hover:hover {
     animation: shake-hover 0.5s ease infinite;
   }
+
+  /* JOIN NOW TOOLTIP + MODAL */
+  .icon-join-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .icon-join-wrapper img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    margin: 0;
+    box-shadow: 0 8px 20px rgba(15,23,42,0.22);
+    will-change: opacity;
+    display: block;
+  }
+  .join-now-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent2);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 5px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: joinNowPulse 2s ease-in-out infinite;
+    box-shadow: 0 4px 14px rgba(124,92,252,0.55);
+    z-index: 10;
+  }
+  .join-now-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--accent2);
+  }
+  @keyframes joinNowPulse {
+    0%, 100% { transform: translateX(-50%) translateY(0); box-shadow: 0 4px 14px rgba(124,92,252,0.55); }
+    50% { transform: translateX(-50%) translateY(-5px); box-shadow: 0 8px 24px rgba(124,92,252,0.75); }
+  }
+
+  /* JOIN MODAL */
+  .join-modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0,0,0,0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .join-modal-backdrop.active {
+    display: flex;
+    animation: overlayIn 0.3s ease both;
+  }
+  .join-modal {
+    background: #13131a;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 36px 32px 28px;
+    max-width: 420px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 40px rgba(124,92,252,0.18);
+  }
+  .join-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text);
+    font-size: 1rem;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .join-modal-close:hover { background: rgba(255,255,255,0.12); }
+  .join-modal h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 24px;
+    line-height: 1.3;
+    padding-right: 24px;
+  }
+  .join-modal label {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 6px;
+  }
+  .join-modal select,
+  .join-modal input[type="email"] {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    padding: 12px 16px;
+    margin-bottom: 18px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .join-modal select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(240,237,232,0.45)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 38px;
+    cursor: pointer;
+  }
+  .join-modal select option { background: #13131a; color: var(--text); }
+  .join-modal select:focus,
+  .join-modal input[type="email"]:focus {
+    border-color: var(--accent2);
+    box-shadow: 0 0 0 3px rgba(124,92,252,0.18);
+  }
+  .join-modal-submit {
+    width: 100%;
+    background: var(--accent2);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 14px 24px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    margin-top: 2px;
+  }
+  .join-modal-submit:hover { opacity: 0.88; }
+  .join-modal-submit:active { transform: scale(0.98); }
+  .join-modal-submit:disabled { opacity: 0.55; cursor: default; }
+  .join-modal-subtext {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 14px;
+    margin-bottom: 0;
+  }
+  .join-modal-success {
+    display: none;
+    text-align: center;
+    padding: 28px 0 12px;
+  }
+  .join-modal-success p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    color: var(--text);
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.5;
+  }
+  @media (max-width: 480px) {
+    .join-modal { padding: 28px 20px 22px; }
+    .join-modal h2 { font-size: 1.15rem; }
+  }
 </style>
 </head>
 <body>
@@ -516,6 +707,30 @@
     <button class="overlay-close" onclick="closeApp()">✕</button>
   </div>
   <iframe class="app-frame" src="https://shake-social.netlify.app" id="appFrame"></iframe>
+</div>
+
+<!-- JOIN MODAL -->
+<div class="join-modal-backdrop" id="joinModalBackdrop" onclick="handleJoinBackdropClick(event)">
+  <div class="join-modal" role="dialog" aria-modal="true" aria-labelledby="joinModalTitle">
+    <button class="join-modal-close" onclick="closeJoinModal()" aria-label="Close">✕</button>
+    <h2 id="joinModalTitle">Join Dinner in Medellín</h2>
+    <div class="join-modal-form" id="joinModalForm">
+      <label for="joinCity">Your city</label>
+      <select id="joinCity" onchange="updateJoinModalTitle()">
+        <option value="Medellín">Medellín</option>
+        <option value="Lisbon">Lisbon</option>
+        <option value="Miami">Miami</option>
+        <option value="São Paulo">São Paulo</option>
+      </select>
+      <label for="joinEmail">Your email</label>
+      <input type="email" id="joinEmail" placeholder="you@example.com" autocomplete="email">
+      <button class="join-modal-submit" id="joinSubmitBtn" onclick="submitJoinForm()">Get my spot 🤝</button>
+      <p class="join-modal-subtext">We'll send you a link to join. No password needed.</p>
+    </div>
+    <div class="join-modal-success" id="joinModalSuccess">
+      <p>🎉 Check your email!<br>Your spot is being held.</p>
+    </div>
+  </div>
 </div>
 
 <section class="scroll-layer">
@@ -609,17 +824,29 @@
 
 <section class="scroll-layer features-scroll-layer">
   <div class="gradient-section features-layer">
-  <div class="divider-icon-strip" aria-hidden="true">
+  <div class="divider-icon-strip">
     <div class="divider-icon-strip-track">
-      <img src="assets/brunch-icon.jpg" alt="Brunch icon">
-      <img src="assets/dinner-icon.jpg" alt="Dinner icon">
+      <div class="icon-join-wrapper" onclick="openJoinModal('brunch')" role="button" aria-label="Join Brunch">
+        <span class="join-now-tooltip">Join Now ✨</span>
+        <img src="assets/brunch-icon.jpg" alt="Brunch icon">
+      </div>
+      <div class="icon-join-wrapper" onclick="openJoinModal('dinner')" role="button" aria-label="Join Dinner">
+        <span class="join-now-tooltip">Join Now ✨</span>
+        <img src="assets/dinner-icon.jpg" alt="Dinner icon">
+      </div>
       <img src="assets/drinks-icon.jpg" alt="Drinks icon">
       <img src="assets/hike-icon.jpg" alt="Hike icon">
       <img src="assets/lunch-icon.jpg" alt="Lunch icon">
       <img src="assets/show-icon.jpg" alt="Show icon">
       <img src="assets/sports-icon.jpg" alt="Sports icon">
-      <img src="assets/brunch-icon.jpg" alt="Brunch icon">
-      <img src="assets/dinner-icon.jpg" alt="Dinner icon">
+      <div class="icon-join-wrapper" onclick="openJoinModal('brunch')" role="button" aria-label="Join Brunch">
+        <span class="join-now-tooltip">Join Now ✨</span>
+        <img src="assets/brunch-icon.jpg" alt="Brunch icon">
+      </div>
+      <div class="icon-join-wrapper" onclick="openJoinModal('dinner')" role="button" aria-label="Join Dinner">
+        <span class="join-now-tooltip">Join Now ✨</span>
+        <img src="assets/dinner-icon.jpg" alt="Dinner icon">
+      </div>
       <img src="assets/drinks-icon.jpg" alt="Drinks icon">
       <img src="assets/hike-icon.jpg" alt="Hike icon">
       <img src="assets/lunch-icon.jpg" alt="Lunch icon">
@@ -733,7 +960,7 @@
     var strip = document.querySelector('.divider-icon-strip');
     if (!strip) return;
 
-    var icons = Array.prototype.slice.call(strip.querySelectorAll('.divider-icon-strip-track img'));
+    var icons = Array.prototype.slice.call(strip.querySelectorAll('.divider-icon-strip-track > img, .divider-icon-strip-track .icon-join-wrapper'));
     if (!icons.length) return;
 
     var rafId = 0;
@@ -799,6 +1026,92 @@
   setupDividerIconFade();
   setupShakeButtonScrollScale();
 })();
+</script>
+<script>
+  // ── Join Now modal ──────────────────────────────────────────────
+  var SUPABASE_URL = 'https://mpgrjzubegorcijgfjri.supabase.co';
+  var SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // Replace with your project's public anon key
+
+  var _joinActivity = 'dinner';
+
+  function openJoinModal(activityType) {
+    _joinActivity = activityType;
+    document.getElementById('joinModalSuccess').style.display = 'none';
+    document.getElementById('joinModalForm').style.display = 'block';
+    var btn = document.getElementById('joinSubmitBtn');
+    btn.disabled = false;
+    btn.textContent = 'Get my spot 🤝';
+    updateJoinModalTitle();
+    document.getElementById('joinModalBackdrop').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() { document.getElementById('joinEmail').focus(); }, 80);
+  }
+
+  function closeJoinModal() {
+    document.getElementById('joinModalBackdrop').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function handleJoinBackdropClick(e) {
+    if (e.target === document.getElementById('joinModalBackdrop')) closeJoinModal();
+  }
+
+  function updateJoinModalTitle() {
+    var city = document.getElementById('joinCity').value;
+    var activity = _joinActivity.charAt(0).toUpperCase() + _joinActivity.slice(1);
+    document.getElementById('joinModalTitle').textContent = 'Join ' + activity + ' in ' + city;
+  }
+
+  function submitJoinForm() {
+    var email = document.getElementById('joinEmail').value.trim();
+    var city = document.getElementById('joinCity').value;
+    var btn = document.getElementById('joinSubmitBtn');
+
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      document.getElementById('joinEmail').focus();
+      document.getElementById('joinEmail').style.borderColor = '#f05a7e';
+      setTimeout(function() { document.getElementById('joinEmail').style.borderColor = ''; }, 1600);
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Saving your spot…';
+
+    fetch(SUPABASE_URL + '/rest/v1/leads', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        email: email,
+        city: city,
+        activity_type: _joinActivity,
+        source: 'marketing_site'
+      })
+    }).then(function(res) {
+      if (res.ok || res.status === 201) {
+        document.getElementById('joinModalForm').style.display = 'none';
+        document.getElementById('joinModalSuccess').style.display = 'block';
+        setTimeout(closeJoinModal, 3200);
+      } else {
+        return res.text().then(function(body) { throw new Error(res.status + ': ' + body); });
+      }
+    }).catch(function(err) {
+      console.error('Join form error:', err);
+      btn.disabled = false;
+      btn.textContent = 'Get my spot 🤝';
+      alert('Something went wrong. Please try again!');
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('joinModalBackdrop').classList.contains('active')) {
+      closeJoinModal();
+    }
+  });
 </script>
 <script src="scroll-animator.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
