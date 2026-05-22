@@ -1384,6 +1384,7 @@
     document.getElementById('joinPreviewTitle').textContent = activityLabel + ' · ' + city;
     document.getElementById('joinModalTitle').textContent = "You're in! 🎉";
     document.getElementById('joinModalForm').style.display = 'none';
+    document.getElementById('joinModalDuplicate').style.display = 'none';
     document.getElementById('joinModalPreview').style.display = 'flex';
   }
 
@@ -1394,6 +1395,7 @@
       'Looks like you already joined ' + activityLabel + ' in ' + city + '! Download the app to see your group.';
     document.getElementById('joinModalTitle').textContent = 'Already joined!';
     document.getElementById('joinModalForm').style.display = 'none';
+    document.getElementById('joinModalPreview').style.display = 'none';
     document.getElementById('joinModalDuplicate').style.display = 'flex';
   }
 
