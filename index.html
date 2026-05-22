@@ -380,8 +380,8 @@
   .site-footer a:hover { color: #111827; }
   .site-footer .footer-email { margin-left: 0; }
   .site-footer .footer-copy { width: 100%; text-align: center; margin: 16px 0 0; padding: 0; font-size: 0.8rem; color: #0b0b10; }
-  .feature-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px; color: #fff; }
-  .feature-desc { font-size: 0.82rem; color: #fff; line-height: 1.6; }
+  .feature-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px; color: #1a1a2e; }
+  .feature-desc { font-size: 0.82rem; color: #1a1a2e; line-height: 1.6; }
 
   /* APP OVERLAY */
   .app-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.9); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); flex-direction: column; }
@@ -536,9 +536,14 @@
     border-radius: 100px;
     white-space: nowrap;
     pointer-events: none;
-    animation: joinNowPulse 2s ease-in-out infinite;
+    opacity: 0;
     box-shadow: 0 4px 14px rgba(124,92,252,0.55);
     z-index: 10;
+    transition: opacity 0.2s;
+  }
+  .icon-join-wrapper:hover .join-now-tooltip {
+    opacity: 1;
+    animation: joinNowPulse 2s ease-in-out infinite;
   }
   .join-now-tooltip::after {
     content: '';
