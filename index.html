@@ -660,11 +660,10 @@
     font-weight: 700;
     padding: 14px 24px;
     cursor: pointer;
-    transition: opacity 0.2s, transform 0.1s;
+    transition: opacity 0.2s;
     margin-top: 2px;
   }
   .join-modal-submit:hover { opacity: 0.88; }
-  .join-modal-submit:active { transform: scale(0.98); }
   .join-modal-submit:disabled { opacity: 0.55; cursor: default; }
   .join-modal-subtext {
     font-family: 'DM Sans', sans-serif;
@@ -813,6 +812,16 @@
     height: 18px;
     flex-shrink: 0;
   }
+  /* Prevent any global shake/movement animations from leaking into modal */
+  .join-modal *,
+  .join-modal *:hover,
+  .join-modal *:focus,
+  .join-modal *:active {
+    animation-name: none !important;
+    transform: none !important;
+  }
+  /* Re-allow the safe static transforms used for positioning */
+  .join-preview-unlock { transform: translateY(-50%) !important; }
   @media (max-width: 480px) {
     .join-modal { padding: 28px 20px 22px; }
     .join-modal h2 { font-size: 1.15rem; }
