@@ -861,6 +861,7 @@
     <div class="join-modal-form" id="joinModalForm">
       <label for="joinCity">Your city</label>
       <select id="joinCity" onchange="updateJoinModalTitle()">
+        <option value="" disabled selected>Select your city</option>
         <optgroup label="North America">
           <option value="New York">New York</option>
           <option value="Los Angeles">Los Angeles</option>
@@ -1001,6 +1002,7 @@
           <option value="Addis Ababa">Addis Ababa</option>
         </optgroup>
       </select>
+      <p id="joinCityDetecting" style="display:none;margin:4px 0 0;font-size:0.78rem;color:var(--muted);">📍 Detecting your city...</p>
       <label for="joinEmail">Your email</label>
       <input type="email" id="joinEmail" placeholder="you@example.com" autocomplete="email">
       <button class="join-modal-submit" id="joinSubmitBtn" onclick="submitJoinForm()">Join Dinner 🍽️</button>
@@ -1363,6 +1365,43 @@
     document.getElementById('joinModalBackdrop').classList.add('active');
     document.body.style.overflow = 'hidden';
     setTimeout(function() { document.getElementById('joinEmail').focus(); }, 80);
+    detectAndPreSelectCity();
+  }
+
+  function detectAndPreSelectCity() {
+    var detecting = document.getElementById('joinCityDetecting');
+    var select = document.getElementById('joinCity');
+    // Only run detection if no city is already selected by the user.
+    if (select.value) return;
+    detecting.style.display = 'block';
+    fetch('https://ipapi.co/json/')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var detected = (data.city || '').trim();
+        if (!detected) { detecting.style.display = 'none'; return; }
+        // Normalise: remove diacritics for comparison.
+        function norm(s) {
+          return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        }
+        var normDetected = norm(detected);
+        var options = select.options;
+        var matched = null;
+        for (var i = 0; i < options.length; i++) {
+          var optVal = options[i].value;
+          if (!optVal) continue;
+          var normOpt = norm(optVal);
+          if (normOpt.indexOf(normDetected) !== -1 || normDetected.indexOf(normOpt) !== -1) {
+            matched = optVal;
+            break;
+          }
+        }
+        detecting.style.display = 'none';
+        if (matched) {
+          select.value = matched;
+          updateJoinModalTitle();
+        }
+      })
+      .catch(function() { detecting.style.display = 'none'; });
   }
 
   function closeJoinModal() {
@@ -1377,7 +1416,9 @@
   function updateJoinModalTitle() {
     var city = document.getElementById('joinCity').value;
     var activity = _joinActivity.charAt(0).toUpperCase() + _joinActivity.slice(1);
-    document.getElementById('joinModalTitle').textContent = 'Join ' + activity + ' in ' + city;
+    document.getElementById('joinModalTitle').textContent = city
+      ? 'Join ' + activity + ' in ' + city
+      : 'Join ' + activity;
   }
 
   function showAppPreview(activityType, city) {
