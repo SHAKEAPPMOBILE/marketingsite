@@ -572,14 +572,14 @@
     animation: overlayIn 0.3s ease both;
   }
   .join-modal {
-    background: #13131a;
+    background: hsl(270, 50%, 8%);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 24px;
     padding: 36px 32px 28px;
     max-width: 420px;
     width: 100%;
     position: relative;
-    box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 40px rgba(124,92,252,0.18);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 40px rgba(124,79,212,0.22);
   }
   .join-modal-close {
     position: absolute;
@@ -642,15 +642,16 @@
     padding-right: 38px;
     cursor: pointer;
   }
-  .join-modal select option { background: #13131a; color: var(--text); }
+  .join-modal select option,
+  .join-modal select optgroup { background: hsl(270, 50%, 10%); color: var(--text); }
   .join-modal select:focus,
   .join-modal input[type="email"]:focus {
-    border-color: var(--accent2);
-    box-shadow: 0 0 0 3px rgba(124,92,252,0.18);
+    border-color: #7c4fd4;
+    box-shadow: 0 0 0 3px rgba(124,79,212,0.22);
   }
   .join-modal-submit {
     width: 100%;
-    background: var(--accent2);
+    background: #f0623a;
     color: #fff;
     border: none;
     border-radius: 100px;
@@ -673,18 +674,144 @@
     margin-top: 14px;
     margin-bottom: 0;
   }
-  .join-modal-success {
+
+  /* APP PREVIEW (post-submit success state) */
+  .join-modal-preview {
     display: none;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding: 28px 0 12px;
+    padding: 8px 0 4px;
+    animation: overlayIn 0.35s ease both;
   }
-  .join-modal-success p {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.1rem;
+  .join-preview-emoji {
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 4px 12px rgba(240,98,58,0.45));
+  }
+  .join-preview-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
     color: var(--text);
+    margin-bottom: 16px;
+  }
+  .join-preview-avatars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 16px;
+  }
+  .join-preview-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid hsl(270, 50%, 8%);
+    background: linear-gradient(135deg, #7c4fd4, #f0623a);
+    margin-left: -8px;
+    filter: blur(2px);
+    flex-shrink: 0;
+  }
+  .join-preview-avatar:first-child { margin-left: 0; }
+  .join-preview-joined-count {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
     font-weight: 600;
-    margin: 0;
+    color: rgba(240,237,232,0.7);
+    margin-left: 10px;
+    white-space: nowrap;
+  }
+  .join-preview-venue-card {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .join-preview-venue-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background: rgba(20, 8, 40, 0.55);
+    border-radius: 16px;
+  }
+  .join-preview-venue-pin {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .join-preview-venue-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(240,237,232,0.35);
+    position: relative;
+    z-index: 1;
+    filter: blur(3px);
+    user-select: none;
+  }
+  .join-preview-unlock {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #f0623a;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+  .join-preview-cta-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: rgba(240,237,232,0.65);
     line-height: 1.5;
+    margin-bottom: 18px;
+    max-width: 300px;
+  }
+  .join-preview-store-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .join-preview-store-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  .join-preview-store-btn:hover {
+    background: rgba(240,98,58,0.15);
+    border-color: rgba(240,98,58,0.4);
+  }
+  .join-preview-store-btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
   }
   @media (max-width: 480px) {
     .join-modal { padding: 28px 20px 22px; }
@@ -717,18 +844,176 @@
     <div class="join-modal-form" id="joinModalForm">
       <label for="joinCity">Your city</label>
       <select id="joinCity" onchange="updateJoinModalTitle()">
-        <option value="Medellín">Medellín</option>
-        <option value="Lisbon">Lisbon</option>
-        <option value="Miami">Miami</option>
-        <option value="São Paulo">São Paulo</option>
+        <optgroup label="North America">
+          <option value="New York">New York</option>
+          <option value="Los Angeles">Los Angeles</option>
+          <option value="Miami">Miami</option>
+          <option value="San Francisco">San Francisco</option>
+          <option value="Chicago">Chicago</option>
+          <option value="Austin">Austin</option>
+          <option value="Seattle">Seattle</option>
+          <option value="Boston">Boston</option>
+          <option value="Denver">Denver</option>
+          <option value="Portland">Portland</option>
+          <option value="Nashville">Nashville</option>
+          <option value="Atlanta">Atlanta</option>
+          <option value="Dallas">Dallas</option>
+          <option value="Houston">Houston</option>
+          <option value="Phoenix">Phoenix</option>
+          <option value="Las Vegas">Las Vegas</option>
+          <option value="San Diego">San Diego</option>
+          <option value="Washington DC">Washington DC</option>
+          <option value="Toronto">Toronto</option>
+          <option value="Vancouver">Vancouver</option>
+          <option value="Montreal">Montreal</option>
+          <option value="Calgary">Calgary</option>
+          <option value="Mexico City">Mexico City</option>
+          <option value="Guadalajara">Guadalajara</option>
+          <option value="Monterrey">Monterrey</option>
+          <option value="Tulum">Tulum</option>
+          <option value="Cancún">Cancún</option>
+          <option value="Playa del Carmen">Playa del Carmen</option>
+        </optgroup>
+        <optgroup label="South America">
+          <option value="Medellín">Medellín</option>
+          <option value="Bogotá">Bogotá</option>
+          <option value="Cartagena">Cartagena</option>
+          <option value="Barranquilla">Barranquilla</option>
+          <option value="São Paulo">São Paulo</option>
+          <option value="Rio de Janeiro">Rio de Janeiro</option>
+          <option value="Florianópolis">Florianópolis</option>
+          <option value="Curitiba">Curitiba</option>
+          <option value="Buenos Aires">Buenos Aires</option>
+          <option value="Córdoba">Córdoba</option>
+          <option value="Santiago">Santiago</option>
+          <option value="Valparaíso">Valparaíso</option>
+          <option value="Lima">Lima</option>
+          <option value="Quito">Quito</option>
+          <option value="Montevideo">Montevideo</option>
+        </optgroup>
+        <optgroup label="Europe">
+          <option value="London">London</option>
+          <option value="Manchester">Manchester</option>
+          <option value="Edinburgh">Edinburgh</option>
+          <option value="Dublin">Dublin</option>
+          <option value="Paris">Paris</option>
+          <option value="Lyon">Lyon</option>
+          <option value="Marseille">Marseille</option>
+          <option value="Berlin">Berlin</option>
+          <option value="Munich">Munich</option>
+          <option value="Hamburg">Hamburg</option>
+          <option value="Frankfurt">Frankfurt</option>
+          <option value="Cologne">Cologne</option>
+          <option value="Amsterdam">Amsterdam</option>
+          <option value="Rotterdam">Rotterdam</option>
+          <option value="Barcelona">Barcelona</option>
+          <option value="Madrid">Madrid</option>
+          <option value="Valencia">Valencia</option>
+          <option value="Seville">Seville</option>
+          <option value="Málaga">Málaga</option>
+          <option value="Lisbon">Lisbon</option>
+          <option value="Porto">Porto</option>
+          <option value="Rome">Rome</option>
+          <option value="Milan">Milan</option>
+          <option value="Florence">Florence</option>
+          <option value="Naples">Naples</option>
+          <option value="Vienna">Vienna</option>
+          <option value="Prague">Prague</option>
+          <option value="Budapest">Budapest</option>
+          <option value="Warsaw">Warsaw</option>
+          <option value="Kraków">Kraków</option>
+          <option value="Stockholm">Stockholm</option>
+          <option value="Copenhagen">Copenhagen</option>
+          <option value="Oslo">Oslo</option>
+          <option value="Helsinki">Helsinki</option>
+          <option value="Athens">Athens</option>
+          <option value="Thessaloniki">Thessaloniki</option>
+          <option value="Brussels">Brussels</option>
+          <option value="Zürich">Zürich</option>
+          <option value="Geneva">Geneva</option>
+          <option value="Tallinn">Tallinn</option>
+        </optgroup>
+        <optgroup label="Middle East">
+          <option value="Dubai">Dubai</option>
+          <option value="Abu Dhabi">Abu Dhabi</option>
+          <option value="Istanbul">Istanbul</option>
+          <option value="Tel Aviv">Tel Aviv</option>
+          <option value="Beirut">Beirut</option>
+          <option value="Amman">Amman</option>
+          <option value="Riyadh">Riyadh</option>
+          <option value="Doha">Doha</option>
+          <option value="Kuwait City">Kuwait City</option>
+          <option value="Muscat">Muscat</option>
+        </optgroup>
+        <optgroup label="Asia">
+          <option value="Tokyo">Tokyo</option>
+          <option value="Osaka">Osaka</option>
+          <option value="Kyoto">Kyoto</option>
+          <option value="Seoul">Seoul</option>
+          <option value="Bangkok">Bangkok</option>
+          <option value="Chiang Mai">Chiang Mai</option>
+          <option value="Bali">Bali</option>
+          <option value="Singapore">Singapore</option>
+          <option value="Hong Kong">Hong Kong</option>
+          <option value="Shanghai">Shanghai</option>
+          <option value="Beijing">Beijing</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="Bangalore">Bangalore</option>
+          <option value="Ho Chi Minh City">Ho Chi Minh City</option>
+          <option value="Hanoi">Hanoi</option>
+          <option value="Kuala Lumpur">Kuala Lumpur</option>
+          <option value="Taipei">Taipei</option>
+          <option value="Manila">Manila</option>
+        </optgroup>
+        <optgroup label="Oceania">
+          <option value="Sydney">Sydney</option>
+          <option value="Melbourne">Melbourne</option>
+          <option value="Brisbane">Brisbane</option>
+          <option value="Perth">Perth</option>
+          <option value="Auckland">Auckland</option>
+        </optgroup>
+        <optgroup label="Africa">
+          <option value="Cairo">Cairo</option>
+          <option value="Cape Town">Cape Town</option>
+          <option value="Johannesburg">Johannesburg</option>
+          <option value="Nairobi">Nairobi</option>
+          <option value="Lagos">Lagos</option>
+          <option value="Casablanca">Casablanca</option>
+          <option value="Marrakech">Marrakech</option>
+          <option value="Accra">Accra</option>
+          <option value="Addis Ababa">Addis Ababa</option>
+        </optgroup>
       </select>
       <label for="joinEmail">Your email</label>
       <input type="email" id="joinEmail" placeholder="you@example.com" autocomplete="email">
-      <button class="join-modal-submit" id="joinSubmitBtn" onclick="submitJoinForm()">Get my spot 🤝</button>
-      <p class="join-modal-subtext">We'll send you a link to join. No password needed.</p>
+      <button class="join-modal-submit" id="joinSubmitBtn" onclick="submitJoinForm()">Join Dinner 🍽️</button>
+      <p class="join-modal-subtext">We'll save your spot. No spam, ever.</p>
     </div>
-    <div class="join-modal-success" id="joinModalSuccess">
-      <p>🎉 Check your email!<br>Your spot is being held.</p>
+    <div class="join-modal-preview" id="joinModalPreview">
+      <div class="join-preview-emoji" id="joinPreviewEmoji">🍽️</div>
+      <div class="join-preview-title" id="joinPreviewTitle">Dinner · Medellín</div>
+      <div class="join-preview-avatars">
+        <div class="join-preview-avatar" style="background: linear-gradient(135deg,#7c4fd4,#f0623a);"></div>
+        <div class="join-preview-avatar" style="background: linear-gradient(135deg,#f0623a,#f0c060);"></div>
+        <div class="join-preview-avatar" style="background: linear-gradient(135deg,#3b82f6,#7c4fd4);"></div>
+        <span class="join-preview-joined-count">+12 joined</span>
+      </div>
+      <div class="join-preview-venue-card">
+        <span class="join-preview-venue-pin">📍</span>
+        <span class="join-preview-venue-text">Secret rooftop restaurant, Downtown</span>
+        <span class="join-preview-unlock">🔒 Unlock location</span>
+      </div>
+      <p class="join-preview-cta-text">Download the app to see who's going and where you're meeting 👇</p>
+      <div class="join-preview-store-row">
+        <a class="join-preview-store-btn" href="https://apps.apple.com/gh/app/shake-social/id6757654586" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store
+        </a>
+        <a class="join-preview-store-btn" href="https://play.google.com/store/apps/details?id=today.shakeapp.shake" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.21.96.14l11.34-11.34L11.93 9l-8.75 14.76zM20.56 10.4l-2.6-1.5-3.19 3.19 3.19 3.19 2.62-1.52c.75-.43.75-1.93-.02-2.36zM2.01 1.05C1.96 1.22 1.94 1.4 1.94 1.6v20.8c0 .2.02.38.07.55L13.45 11.5 2.01 1.05zM15.48 2.24L4.14.9c-.32-.07-.66-.03-.96.14L14.54 12.5l3.54-3.55-2.6-6.71z"/></svg>
+          Google Play
+        </a>
+      </div>
     </div>
   </div>
 </div>
@@ -1030,17 +1315,17 @@
 <script>
   // ── Join Now modal ──────────────────────────────────────────────
   var SUPABASE_URL = 'https://mpgrjzubegorcijgfjri.supabase.co';
-  var SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // Replace with your project's public anon key
+  var SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // TODO: replace with your project's public anon key (Settings → API → anon public)
 
   var _joinActivity = 'dinner';
 
   function openJoinModal(activityType) {
     _joinActivity = activityType;
-    document.getElementById('joinModalSuccess').style.display = 'none';
+    document.getElementById('joinModalPreview').style.display = 'none';
     document.getElementById('joinModalForm').style.display = 'block';
     var btn = document.getElementById('joinSubmitBtn');
     btn.disabled = false;
-    btn.textContent = 'Get my spot 🤝';
+    btn.textContent = activityType === 'brunch' ? 'Join Brunch 🥂' : 'Join Dinner 🍽️';
     updateJoinModalTitle();
     document.getElementById('joinModalBackdrop').classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1062,6 +1347,17 @@
     document.getElementById('joinModalTitle').textContent = 'Join ' + activity + ' in ' + city;
   }
 
+  function showAppPreview(activityType, city) {
+    var emoji = activityType === 'brunch' ? '🥂' : '🍽️';
+    var activityLabel = activityType === 'brunch' ? 'Brunch' : 'Dinner';
+    document.getElementById('joinPreviewEmoji').textContent = emoji;
+    document.getElementById('joinPreviewTitle').textContent = activityLabel + ' · ' + city;
+    document.getElementById('joinModalTitle').textContent = "You're in! 🎉";
+    document.getElementById('joinModalForm').style.display = 'none';
+    var preview = document.getElementById('joinModalPreview');
+    preview.style.display = 'flex';
+  }
+
   function submitJoinForm() {
     var email = document.getElementById('joinEmail').value.trim();
     var city = document.getElementById('joinCity').value;
@@ -1077,7 +1373,7 @@
     btn.disabled = true;
     btn.textContent = 'Saving your spot…';
 
-    fetch(SUPABASE_URL + '/rest/v1/leads', {
+    fetch(SUPABASE_URL + '/rest/v1/marketing_joins', {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_ANON_KEY,
@@ -1089,20 +1385,19 @@
         email: email,
         city: city,
         activity_type: _joinActivity,
-        source: 'marketing_site'
+        source: 'marketing_site',
+        joined_at: new Date().toISOString()
       })
     }).then(function(res) {
       if (res.ok || res.status === 201) {
-        document.getElementById('joinModalForm').style.display = 'none';
-        document.getElementById('joinModalSuccess').style.display = 'block';
-        setTimeout(closeJoinModal, 3200);
+        showAppPreview(_joinActivity, city);
       } else {
         return res.text().then(function(body) { throw new Error(res.status + ': ' + body); });
       }
     }).catch(function(err) {
       console.error('Join form error:', err);
       btn.disabled = false;
-      btn.textContent = 'Get my spot 🤝';
+      btn.textContent = _joinActivity === 'brunch' ? 'Join Brunch 🥂' : 'Join Dinner 🍽️';
       alert('Something went wrong. Please try again!');
     });
   }
