@@ -816,7 +816,9 @@
   .join-modal *,
   .join-modal *:hover,
   .join-modal *:focus,
-  .join-modal *:active {
+  .join-modal *:active,
+  .join-modal *.shake-hover,
+  .join-modal *.shake-hover:hover {
     animation-name: none !important;
     transform: none !important;
   }
@@ -1425,7 +1427,7 @@ document.addEventListener('mouseover', function(e) {
   var w = el.offsetWidth;
   var tag = el.tagName;
   var blocked = ['BODY','HTML','SECTION','MAIN','FOOTER','FORM'];
-  if (!blocked.includes(tag) && w > 0 && w < 700) {
+  if (!blocked.includes(tag) && w > 0 && w < 700 && !el.closest('#joinModalBackdrop')) {
     el.classList.add('shake-hover');
   }
 });
