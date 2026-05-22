@@ -697,8 +697,6 @@
     line-height: 1;
     margin-bottom: 10px;
     display: inline-block;
-    animation: spinSmiley 2s linear infinite;
-    transform-origin: center;
   }
   .join-preview-title {
     font-family: 'Syne', sans-serif;
@@ -1382,7 +1380,7 @@
 
   function showAppPreview(activityType, city) {
     var activityLabel = activityType === 'brunch' ? 'Brunch' : 'Dinner';
-    document.getElementById('joinPreviewEmoji').textContent = '☺️';
+    document.getElementById('joinPreviewEmoji').textContent = activityType === 'brunch' ? '🍳' : '🍽️';
     document.getElementById('joinPreviewTitle').textContent = activityLabel + ' · ' + city;
     document.getElementById('joinModalTitle').textContent = "You're in! 🎉";
     document.getElementById('joinModalForm').style.display = 'none';
