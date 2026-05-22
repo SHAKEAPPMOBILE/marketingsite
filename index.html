@@ -683,11 +683,17 @@
     padding: 8px 0 4px;
     animation: overlayIn 0.35s ease both;
   }
+  @keyframes spinSmiley {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
   .join-preview-emoji {
     font-size: 3rem;
     line-height: 1;
     margin-bottom: 10px;
-    filter: drop-shadow(0 4px 12px rgba(240,98,58,0.45));
+    display: inline-block;
+    animation: spinSmiley 2s linear infinite;
+    transform-origin: center;
   }
   .join-preview-title {
     font-family: 'Syne', sans-serif;
@@ -764,7 +770,8 @@
     font-family: 'DM Sans', sans-serif;
     font-size: 0.78rem;
     font-weight: 700;
-    color: #f0623a;
+    color: #3b82f6;
+    text-decoration: none;
     position: absolute;
     right: 16px;
     top: 50%;
@@ -812,17 +819,18 @@
     height: 18px;
     flex-shrink: 0;
   }
-  /* Prevent any global shake/movement animations from leaking into modal */
-  .join-modal *,
-  .join-modal *:hover,
-  .join-modal *:focus,
-  .join-modal *:active,
-  .join-modal *.shake-hover,
-  .join-modal *.shake-hover:hover {
+  /* Prevent any global shake/movement animations from leaking into modal.
+     Excludes #joinPreviewEmoji so the spin animation can run freely. */
+  .join-modal *:not(#joinPreviewEmoji),
+  .join-modal *:not(#joinPreviewEmoji):hover,
+  .join-modal *:not(#joinPreviewEmoji):focus,
+  .join-modal *:not(#joinPreviewEmoji):active,
+  .join-modal *.shake-hover:not(#joinPreviewEmoji),
+  .join-modal *.shake-hover:not(#joinPreviewEmoji):hover {
     animation-name: none !important;
     transform: none !important;
   }
-  /* Re-allow the safe static transforms used for positioning */
+  /* Re-allow static positioning transforms */
   .join-preview-unlock { transform: translateY(-50%) !important; }
   @media (max-width: 480px) {
     .join-modal { padding: 28px 20px 22px; }
@@ -1001,7 +1009,7 @@
       <p class="join-modal-subtext">We'll save your spot. No spam, ever.</p>
     </div>
     <div class="join-modal-preview" id="joinModalPreview">
-      <div class="join-preview-emoji" id="joinPreviewEmoji">🍽️</div>
+      <div class="join-preview-emoji" id="joinPreviewEmoji">☺️</div>
       <div class="join-preview-title" id="joinPreviewTitle">Dinner · Medellín</div>
       <div class="join-preview-avatars">
         <div class="join-preview-avatar" style="background: linear-gradient(135deg,#7c4fd4,#f0623a);"></div>
@@ -1012,7 +1020,7 @@
       <div class="join-preview-venue-card">
         <span class="join-preview-venue-pin">📍</span>
         <span class="join-preview-venue-text">Secret rooftop restaurant, Downtown</span>
-        <span class="join-preview-unlock">🔒 Unlock location</span>
+        <a class="join-preview-unlock" href="https://app.shakeapp.today" target="_blank" rel="noopener noreferrer">🔒 Unlock location</a>
       </div>
       <p class="join-preview-cta-text">Download the app to see who's going and where you're meeting 👇</p>
       <div class="join-preview-store-row">
@@ -1020,7 +1028,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
           App Store
         </a>
-        <a class="join-preview-store-btn" href="https://play.google.com/store/apps/details?id=today.shakeapp.shake" target="_blank" rel="noopener noreferrer">
+        <a class="join-preview-store-btn">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.21.96.14l11.34-11.34L11.93 9l-8.75 14.76zM20.56 10.4l-2.6-1.5-3.19 3.19 3.19 3.19 2.62-1.52c.75-.43.75-1.93-.02-2.36zM2.01 1.05C1.96 1.22 1.94 1.4 1.94 1.6v20.8c0 .2.02.38.07.55L13.45 11.5 2.01 1.05zM15.48 2.24L4.14.9c-.32-.07-.66-.03-.96.14L14.54 12.5l3.54-3.55-2.6-6.71z"/></svg>
           Google Play
         </a>
@@ -1359,9 +1367,8 @@
   }
 
   function showAppPreview(activityType, city) {
-    var emoji = activityType === 'brunch' ? '🥂' : '🍽️';
     var activityLabel = activityType === 'brunch' ? 'Brunch' : 'Dinner';
-    document.getElementById('joinPreviewEmoji').textContent = emoji;
+    document.getElementById('joinPreviewEmoji').textContent = '☺️';
     document.getElementById('joinPreviewTitle').textContent = activityLabel + ' · ' + city;
     document.getElementById('joinModalTitle').textContent = "You're in! 🎉";
     document.getElementById('joinModalForm').style.display = 'none';
