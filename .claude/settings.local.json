@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git rebase:*)",
+      "Bash(GIT_EDITOR=true git rebase --continue)",
+      "Bash(ls /Users/leonelmeneses/marketingsite/*.png /Users/leonelmeneses/marketingsite/*.jpg /Users/leonelmeneses/marketingsite/*.svg)",
+      "Bash(ls /Users/leonelmeneses/marketingsite/*.png)",
+      "Bash(grep -E \"\\\\.json$|\\\\.config|\\\\.md$\")",
+      "Bash(ls:*)",
+      "Read(//Users/leonelmeneses/shake-web-buddy/**)",
+      "Read(//Users/leonelmeneses/**)"
+    ]
+  }
+}
