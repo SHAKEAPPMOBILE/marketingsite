@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/invite/(.*)",
+      "destination": "https://www.shakeapp.today/invite/$1",
+      "permanent": false
+    }
+  ]
+}
