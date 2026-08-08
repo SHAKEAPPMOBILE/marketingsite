@@ -379,6 +379,9 @@
   .site-footer a { color: #0b0b10; font-size: 0.9rem; text-decoration: none; transition: color 0.2s; }
   .site-footer a:hover { color: #111827; }
   .site-footer .footer-email { margin-left: 0; }
+  .site-footer .footer-social { display: flex; align-items: center; gap: 16px; }
+  .site-footer .footer-social a { display: flex; color: #0b0b10; opacity: 0.75; transition: opacity 0.2s; }
+  .site-footer .footer-social a:hover { opacity: 1; }
   .site-footer .footer-copy { width: 100%; text-align: center; margin: 16px 0 0; padding: 0; font-size: 0.8rem; color: #0b0b10; }
   .feature-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px; color: #1a1a2e; }
   .feature-desc { font-size: 0.82rem; color: #1a1a2e; line-height: 1.6; }
@@ -1222,6 +1225,14 @@
       <a href="https://www.shakeapp.today/community-guidelines" target="_blank" rel="noopener noreferrer">Community Guidelines</a>
       <a href="https://www.shakeapp.today/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a>
       <a href="mailto:contact@shakeapp.today" class="footer-email">contact@shakeapp.today</a>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/shakeapp.inc/" target="_blank" rel="noopener noreferrer" aria-label="SHAKE on Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37a4 4 0 1 1-7.914 1.174A4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/shakeapplicatoin/" target="_blank" rel="noopener noreferrer" aria-label="SHAKE on LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
       <p class="footer-copy">© 2026 SHAKE. All rights reserved.</p>
     </footer>
   </div>
