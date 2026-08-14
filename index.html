@@ -175,21 +175,51 @@
   /* Black-and-white community photos — real people, true cut-out (no photo
      background at all). Given their own dedicated band of space above the
      features grid via extra padding-top, so they can never sit on top of
-     the feature card text at any viewport width. */
-  .features-layer.has-photo { padding-top: 210px; }
-  .community-photo {
+     the feature card text at any viewport width. Positioned well clear of
+     the section's very top edge (not top:20px) — that's the seam where
+     the sticky-scroll card transition lives, and content sitting right on
+     it was getting visually clipped mid-transition. Decorated with the
+     same sparkle-burst language as the closing quote badges, plus a bolt
+     emoji and a soft ring, so the photo reads as part of the page's own
+     system rather than a pasted-in rectangle. */
+  .features-layer.has-photo { padding-top: 400px; }
+  .community-photo-wrap {
     position: absolute;
-    top: 20px;
-    width: 190px;
+    top: 110px;
+    width: 320px;
     z-index: 8;
     pointer-events: none;
-    filter: drop-shadow(0 14px 26px rgba(20,20,20,0.18));
   }
-  .community-photo.pos-left { left: 6%; }
-  .community-photo.pos-right { right: 6%; }
+  .community-photo-wrap.pos-left { left: 4%; }
+  .community-photo-wrap.pos-right { right: 4%; }
+  .community-photo {
+    width: 100%;
+    display: block;
+    filter: drop-shadow(0 18px 32px rgba(20,20,20,0.2));
+  }
+  .community-sparkle { position: absolute; width: 64px; height: 64px; opacity: 0.85; z-index: -1; }
+  .community-photo-wrap.pos-left .community-sparkle { top: -26px; right: -30px; }
+  .community-photo-wrap.pos-right .community-sparkle { bottom: -26px; left: -30px; }
+  .community-emoji {
+    position: absolute;
+    font-size: 2.1rem;
+    line-height: 1;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+  }
+  .community-photo-wrap.pos-left .community-emoji { bottom: -14px; left: -22px; transform: rotate(-14deg); }
+  .community-photo-wrap.pos-right .community-emoji { top: -14px; right: -22px; transform: rotate(14deg); }
+  .community-ring {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    border: 2px solid rgba(11,11,16,0.28);
+    border-radius: 50%;
+  }
+  .community-photo-wrap.pos-left .community-ring { bottom: 30%; right: -40px; }
+  .community-photo-wrap.pos-right .community-ring { top: 30%; left: -40px; }
   @media (max-width: 900px) {
     .features-layer.has-photo { padding-top: 52px; }
-    .community-photo { display: none; }
+    .community-photo-wrap { display: none; }
   }
 
   /* NAV */
@@ -1283,7 +1313,27 @@
 
 <section class="scroll-layer">
   <div class="gradient-section features-layer has-photo">
-    <img class="community-photo pos-left" src="assets/community-1.png" alt="Friends laughing together at a SHAKE gathering">
+    <div class="community-photo-wrap pos-left">
+      <img class="community-photo" src="assets/community-1.png" alt="Friends laughing together at a SHAKE gathering">
+      <svg class="community-sparkle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#0b0b10" stroke-width="1.6" stroke-linecap="round" opacity="0.55">
+          <line x1="50" y1="50" x2="96" y2="50"/>
+          <line x1="50" y1="50" x2="75.98" y2="65"/>
+          <line x1="50" y1="50" x2="73" y2="89.8"/>
+          <line x1="50" y1="50" x2="50" y2="80"/>
+          <line x1="50" y1="50" x2="27" y2="89.8"/>
+          <line x1="50" y1="50" x2="23.98" y2="65"/>
+          <line x1="50" y1="50" x2="4" y2="50"/>
+          <line x1="50" y1="50" x2="23.98" y2="35"/>
+          <line x1="50" y1="50" x2="27" y2="10.2"/>
+          <line x1="50" y1="50" x2="50" y2="20"/>
+          <line x1="50" y1="50" x2="73" y2="10.2"/>
+          <line x1="50" y1="50" x2="75.98" y2="35"/>
+        </g>
+      </svg>
+      <span class="community-emoji">⚡</span>
+      <span class="community-ring"></span>
+    </div>
     <div class="wrapper">
       <div class="features">
         <div class="feature">
@@ -1339,7 +1389,27 @@
     </div>
   </div>
   <img class="divider-avatar" src="avatar-11.png" alt="Community avatar">
-  <img class="community-photo pos-right" src="assets/community-2.png" alt="Friends smiling together at a SHAKE gathering">
+  <div class="community-photo-wrap pos-right">
+    <img class="community-photo" src="assets/community-2.png" alt="Friends smiling together at a SHAKE gathering">
+    <svg class="community-sparkle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#0b0b10" stroke-width="1.6" stroke-linecap="round" opacity="0.55">
+        <line x1="50" y1="50" x2="96" y2="50"/>
+        <line x1="50" y1="50" x2="75.98" y2="65"/>
+        <line x1="50" y1="50" x2="73" y2="89.8"/>
+        <line x1="50" y1="50" x2="50" y2="80"/>
+        <line x1="50" y1="50" x2="27" y2="89.8"/>
+        <line x1="50" y1="50" x2="23.98" y2="65"/>
+        <line x1="50" y1="50" x2="4" y2="50"/>
+        <line x1="50" y1="50" x2="23.98" y2="35"/>
+        <line x1="50" y1="50" x2="27" y2="10.2"/>
+        <line x1="50" y1="50" x2="50" y2="20"/>
+        <line x1="50" y1="50" x2="73" y2="10.2"/>
+        <line x1="50" y1="50" x2="75.98" y2="35"/>
+      </g>
+    </svg>
+    <span class="community-emoji">✨</span>
+    <span class="community-ring"></span>
+  </div>
   <div class="wrapper">
     <div class="features">
       <div class="feature">
