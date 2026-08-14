@@ -177,9 +177,13 @@
   .logo { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
   .logo-s { width: 96px; height: 96px; background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url("logo.png"); flex-shrink: 0; }
 
-  /* Fixed shrinking logo — sits above the sticky scroll-layer cards (which
-     are their own transform containing block, so it lives outside them as a
-     sibling) and fades in once the real nav logo scrolls out of view. */
+  /* Fixed shrinking logo — the SAME mark as the nav logo, not a swap-in.
+     It sits above the sticky scroll-layer cards (which are their own
+     transform containing block, so position:fixed on the real nav logo
+     wouldn't stick to the viewport — this lives outside them as a sibling
+     instead) and crossfades with the real nav logo continuously from the
+     very first pixel of scroll, driven by inline styles from JS, so it
+     reads as one logo shrinking into place rather than two different ones. */
   .site-logo-fixed {
     position: fixed;
     top: 14px;
@@ -195,13 +199,7 @@
     cursor: pointer;
     opacity: 0;
     pointer-events: none;
-    transform: translateX(-50%) scale(0.6);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-  .site-logo-fixed.visible {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(-50%) scale(1);
+    transform: translateX(-50%) scale(1.9);
   }
   .logo-wordmark { font-family: 'DM Sans', sans-serif; }
   .logo-wordmark strong { font-weight: 700; font-size: 1.5rem; display: block; line-height: 1; }
@@ -1439,9 +1437,18 @@
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToTop(); }
   });
 
+  // Continuous crossfade + shrink over the first ~130px of scroll, so the
+  // fixed logo takes over from the real nav logo as one smooth motion
+  // instead of the real one disappearing (via the site's own scroll-layer
+  // scale/fade) and a separate small logo popping in afterward.
+  var SHRINK_RANGE = 130;
   function updateLogo() {
-    var rect = originalLogo.getBoundingClientRect();
-    fixedLogo.classList.toggle('visible', rect.bottom < 0);
+    var progress = Math.min(Math.max(window.scrollY / SHRINK_RANGE, 0), 1);
+    originalLogo.style.opacity = String(1 - progress);
+    fixedLogo.style.opacity = String(progress);
+    fixedLogo.style.pointerEvents = progress > 0.5 ? 'auto' : 'none';
+    var scale = 1.9 - (0.9 * progress); // 1.9 (matches real logo's on-screen size) -> 1.0 (pinned size)
+    fixedLogo.style.transform = 'translateX(-50%) scale(' + scale + ')';
   }
   window.addEventListener('scroll', updateLogo, { passive: true });
   updateLogo();
