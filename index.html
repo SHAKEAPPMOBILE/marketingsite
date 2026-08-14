@@ -172,6 +172,22 @@
     z-index: 12;
   }
 
+  /* Black-and-white community photos — real people, feathered edges (no hard
+     photo border), floating in the corner of a gradient section. */
+  .community-photo {
+    position: absolute;
+    top: 6%;
+    width: 220px;
+    z-index: 8;
+    pointer-events: none;
+    filter: drop-shadow(0 18px 34px rgba(20,20,20,0.2));
+  }
+  .community-photo.pos-left { left: 2%; }
+  .community-photo.pos-right { right: 2%; }
+  @media (max-width: 900px) {
+    .community-photo { display: none; }
+  }
+
   /* NAV */
   nav { position: relative; display: flex; align-items: center; justify-content: flex-end; padding: 48px 0 28px; animation: fadeDown 0.8s ease both; }
   .logo { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
@@ -1263,6 +1279,7 @@
 
 <section class="scroll-layer">
   <div class="gradient-section features-layer">
+    <img class="community-photo pos-left" src="assets/community-1.png" alt="Friends laughing together at a SHAKE gathering">
     <div class="wrapper">
       <div class="features">
         <div class="feature">
@@ -1318,6 +1335,7 @@
     </div>
   </div>
   <img class="divider-avatar" src="avatar-11.png" alt="Community avatar">
+  <img class="community-photo pos-right" src="assets/community-2.png" alt="Friends smiling together at a SHAKE gathering">
   <div class="wrapper">
     <div class="features">
       <div class="feature">
