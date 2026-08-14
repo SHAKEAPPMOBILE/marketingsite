@@ -18,7 +18,7 @@
     --layer-scale: 1;
     --layer-opacity: 1;
   }
-  body { background: #ffffff; color: #0b0b10; font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body { background: #eef4ff; color: #0b0b10; font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
   
   /* Scroll Layer Animation Styles */
   .scroll-layer {
@@ -31,7 +31,7 @@
     will-change: transform, opacity;
     border-radius: 20px 20px 0 0;
     overflow: hidden;
-    background: #ffffff;
+    background: transparent;
     transition: none;
   }
   
@@ -60,6 +60,8 @@
       radial-gradient(circle at 88% 62%, rgba(139,92,246,0.55) 0%, transparent 50%),
       radial-gradient(circle at 100% 100%, rgba(236,72,153,0.5) 0%, transparent 55%),
       linear-gradient(135deg, #e9fbf6 0%, #eef4ff 35%, #f3edff 70%, #fff0f6 100%);
+    background-size: 160% 160%;
+    animation: meshDrift 22s ease-in-out infinite alternate;
   }
   .bg-layer::after {
     content: ''; position: absolute; inset: 0;
@@ -69,14 +71,31 @@
   .wrapper { position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 0 40px; }
 
   /* New: white hero section at top */
+  /* .hero-section shares its element with .wrapper (max-width:1280px, centered),
+     unlike the other gradient sections where they're separate nested divs — so its
+     background can't just go on the element itself, or it'd be inset by the same
+     centering that's meant for the content. A full-bleed ::before fixes that. */
   .hero-section {
     position: relative;
+    z-index: 0;
+  }
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100vw;
+    height: 100%;
+    transform: translateX(-50%);
+    z-index: -1;
     background:
       radial-gradient(circle at 6% 6%, rgba(45,212,191,0.55) 0%, transparent 45%),
       radial-gradient(circle at 50% 32%, rgba(59,130,246,0.5) 0%, transparent 50%),
       radial-gradient(circle at 88% 62%, rgba(139,92,246,0.55) 0%, transparent 50%),
       radial-gradient(circle at 100% 100%, rgba(236,72,153,0.5) 0%, transparent 55%),
       linear-gradient(135deg, #e9fbf6 0%, #eef4ff 35%, #f3edff 70%, #fff0f6 100%);
+    background-size: 160% 160%;
+    animation: meshDrift 22s ease-in-out infinite alternate;
   }
 
   .hero-section nav,
@@ -97,6 +116,8 @@
       radial-gradient(circle at 88% 62%, rgba(139,92,246,0.55) 0%, transparent 50%),
       radial-gradient(circle at 100% 100%, rgba(236,72,153,0.5) 0%, transparent 55%),
       linear-gradient(135deg, #e9fbf6 0%, #eef4ff 35%, #f3edff 70%, #fff0f6 100%);
+    background-size: 160% 160%;
+    animation: meshDrift 22s ease-in-out infinite alternate;
     color: #0b0b10;
     margin-top: 0;
     padding-top: 32px;
@@ -155,6 +176,33 @@
   nav { position: relative; display: flex; align-items: center; justify-content: flex-end; padding: 48px 0 28px; animation: fadeDown 0.8s ease both; }
   .logo { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
   .logo-s { width: 96px; height: 96px; background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url("logo.png"); flex-shrink: 0; }
+
+  /* Fixed shrinking logo — sits above the sticky scroll-layer cards (which
+     are their own transform containing block, so it lives outside them as a
+     sibling) and fades in once the real nav logo scrolls out of view. */
+  .site-logo-fixed {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    width: 52px;
+    height: 52px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("logo.png");
+    filter: drop-shadow(0 6px 16px rgba(11,11,16,0.25));
+    z-index: 250;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) scale(0.6);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .site-logo-fixed.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) scale(1);
+  }
   .logo-wordmark { font-family: 'DM Sans', sans-serif; }
   .logo-wordmark strong { font-weight: 700; font-size: 1.5rem; display: block; line-height: 1; }
   .logo-wordmark span { font-size: 0.85rem; color: #0b0b10; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -210,6 +258,11 @@
     justify-content: center;
     position: relative;
     opacity: 1 !important;
+  }
+  @keyframes meshDrift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 60% 40%; }
+    100% { background-position: 20% 100%; }
   }
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
@@ -897,6 +950,8 @@
 </head>
 <body>
 <div class="bg-layer"></div>
+
+<div class="site-logo-fixed" id="siteLogoFixed" role="button" aria-label="Back to top" tabindex="0"></div>
 <!-- APP OVERLAY -->
 <div class="app-overlay" id="appOverlay">
   <div class="overlay-bar">
@@ -1372,6 +1427,28 @@
 </script>
 <script>
 (function() {
+  var fixedLogo = document.getElementById('siteLogoFixed');
+  var originalLogo = document.querySelector('.hero-section .logo');
+  if (!fixedLogo || !originalLogo) return;
+
+  function goToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  fixedLogo.addEventListener('click', goToTop);
+  fixedLogo.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToTop(); }
+  });
+
+  function updateLogo() {
+    var rect = originalLogo.getBoundingClientRect();
+    fixedLogo.classList.toggle('visible', rect.bottom < 0);
+  }
+  window.addEventListener('scroll', updateLogo, { passive: true });
+  updateLogo();
+})();
+</script>
+<script>
+(function() {
   var shakeToggle = document.getElementById('shakeToggle');
   var ctaRow = document.querySelector('.cta-row');
   var ctaOptions = document.getElementById('ctaOptions');
@@ -1496,6 +1573,7 @@
     document.getElementById('joinModalPreview').style.display = 'none';
     document.getElementById('joinModalDuplicate').style.display = 'none';
     document.getElementById('joinModalForm').style.display = 'block';
+    document.getElementById('joinModalTitle').style.display = 'block';
     var btn = document.getElementById('joinSubmitBtn');
     btn.disabled = false;
     btn.textContent = activityType === 'brunch' ? 'Join Brunch 🥂' : 'Join Dinner 🍽️';
@@ -1564,6 +1642,7 @@
     document.getElementById('joinPreviewEmoji').textContent = activityType === 'brunch' ? '🍳' : '🍽️';
     document.getElementById('joinPreviewTitle').textContent = activityLabel + ' · ' + city;
     document.getElementById('joinModalTitle').textContent = "You're in! 🎉";
+    document.getElementById('joinModalTitle').style.display = 'none';
     document.getElementById('joinModalForm').style.display = 'none';
     document.getElementById('joinModalDuplicate').style.display = 'none';
     document.getElementById('joinModalPreview').style.display = 'flex';
@@ -1575,6 +1654,7 @@
     document.getElementById('joinDuplicateText').textContent =
       'Looks like you already joined ' + activityLabel + ' in ' + city + '! Download the app to see your group.';
     document.getElementById('joinModalTitle').textContent = 'Already joined!';
+    document.getElementById('joinModalTitle').style.display = 'none';
     document.getElementById('joinModalForm').style.display = 'none';
     document.getElementById('joinModalPreview').style.display = 'none';
     document.getElementById('joinModalDuplicate').style.display = 'flex';
