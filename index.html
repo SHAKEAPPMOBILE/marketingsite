@@ -194,12 +194,17 @@
   .community-photo-wrap.pos-right { right: 4%; }
   .community-photo {
     width: 100%;
-    aspect-ratio: 4 / 5;
     object-fit: cover;
     border-radius: 20px;
     display: block;
     filter: grayscale(100%) drop-shadow(0 18px 32px rgba(20,20,20,0.2));
   }
+  /* Match each source photo's real aspect ratio so it fits inside the
+     290px of clearance .features-layer.has-photo reserves (padding-top:
+     400px minus the wrap's top:110px) — a taller crop here overlaps the
+     text/boxes rendered below it. */
+  .community-photo-wrap.pos-left .community-photo { aspect-ratio: 420 / 367; }
+  .community-photo-wrap.pos-right .community-photo { aspect-ratio: 560 / 373; }
   .community-sparkle { position: absolute; width: 64px; height: 64px; opacity: 0.85; z-index: -1; }
   .community-photo-wrap.pos-left .community-sparkle { top: -26px; right: -30px; }
   .community-photo-wrap.pos-right .community-sparkle { bottom: -26px; left: -30px; }
