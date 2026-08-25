@@ -194,8 +194,11 @@
   .community-photo-wrap.pos-right { right: 4%; }
   .community-photo {
     width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 20px;
     display: block;
-    filter: drop-shadow(0 18px 32px rgba(20,20,20,0.2));
+    filter: grayscale(100%) drop-shadow(0 18px 32px rgba(20,20,20,0.2));
   }
   .community-sparkle { position: absolute; width: 64px; height: 64px; opacity: 0.85; z-index: -1; }
   .community-photo-wrap.pos-left .community-sparkle { top: -26px; right: -30px; }
@@ -1314,7 +1317,7 @@
 <section class="scroll-layer">
   <div class="gradient-section features-layer has-photo">
     <div class="community-photo-wrap pos-left">
-      <img class="community-photo" src="assets/community-1.png" alt="Friends laughing together at a SHAKE gathering">
+      <img class="community-photo" src="assets/community-1.jpg" alt="Friends laughing together at a SHAKE gathering">
       <svg class="community-sparkle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <g stroke="#0b0b10" stroke-width="1.6" stroke-linecap="round" opacity="0.55">
           <line x1="50" y1="50" x2="96" y2="50"/>
@@ -1390,7 +1393,7 @@
   </div>
   <img class="divider-avatar" src="avatar-11.png" alt="Community avatar">
   <div class="community-photo-wrap pos-right">
-    <img class="community-photo" src="assets/community-2.png" alt="Friends smiling together at a SHAKE gathering">
+    <img class="community-photo" src="assets/community-2.jpg" alt="Friends smiling together at a SHAKE gathering">
     <svg class="community-sparkle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <g stroke="#0b0b10" stroke-width="1.6" stroke-linecap="round" opacity="0.55">
         <line x1="50" y1="50" x2="96" y2="50"/>
