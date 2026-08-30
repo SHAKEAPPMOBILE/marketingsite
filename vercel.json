@@ -4,6 +4,11 @@
       "source": "/invite/(.*)",
       "destination": "https://www.shakeapp.today/invite/$1",
       "permanent": false
+    },
+    {
+      "source": "/:code([a-zA-Z0-9]+-[a-zA-Z0-9]+)",
+      "destination": "https://www.shakeapp.today/:code",
+      "permanent": false
     }
   ]
 }
