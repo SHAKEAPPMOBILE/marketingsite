@@ -1835,177 +1835,122 @@
     }
   });
 </script>
-<!-- SHAKE voice/text concierge widget -->
+<!-- SHAKE voice concierge — a single small mic button. No panel, no header,
+     no close button, no caption text: it's just a mic icon at rest, and it
+     morphs into the app's own waveform look while audio is actually
+     happening — the visitor talking, or the reply playing back — then
+     reverts to the mic icon. -->
 <style>
-  #shakeAgentBtn {
+  #shakeAgentOrb {
     position: fixed;
     right: 20px;
     bottom: 20px;
     z-index: 9999;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 20px;
-    border-radius: 999px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
     border: none;
     cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    color: #fff;
-    background: linear-gradient(135deg, #7c5cfc, #f05a7e);
-    box-shadow: 0 8px 24px rgba(124,92,252,0.4);
-    transition: transform 0.2s ease;
-  }
-  #shakeAgentBtn:hover { transform: translateY(-2px) scale(1.03); }
-  #shakeAgentBtn .shake-agent-pulse {
-    width: 8px; height: 8px; border-radius: 50%; background: #f0c060; flex-shrink: 0;
-    animation: shakeAgentPulse 1.6s ease-in-out infinite;
-  }
-  @keyframes shakeAgentPulse { 0%,100% { opacity:1; transform:scale(1);} 50% { opacity:.4; transform:scale(1.4);} }
-
-  #shakeAgentPanel {
-    position: fixed;
-    right: 20px;
-    bottom: 90px;
-    z-index: 9999;
-    width: min(360px, calc(100vw - 40px));
-    max-height: min(560px, calc(100vh - 140px));
-    background: #fff;
-    border-radius: 24px;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.25);
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-    font-family: 'DM Sans', sans-serif;
-  }
-  #shakeAgentPanel.open { display: flex; }
-  #shakeAgentHeader {
-    padding: 18px 20px;
-    background: linear-gradient(135deg, #7c5cfc, #f05a7e);
+    background: #1a1a1a;
     color: #fff;
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-shrink: 0;
-  }
-  #shakeAgentHeader strong { font-family: 'Syne', sans-serif; font-size: 16px; display: block; }
-  #shakeAgentHeader p { font-size: 12px; opacity: .85; margin-top: 2px; }
-  #shakeAgentClose { background: rgba(255,255,255,0.2); border: none; color: #fff; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 16px; line-height: 1; flex-shrink: 0; }
-
-  /* Mic orb + waveform stage — same visual language as the app's own
-     recording waveform (rounded bars animating height, staggered delay),
-     scaled down to fit inside the orb. One shared "active" look covers
-     both the user talking and the agent's spoken reply, per spec. */
-  #shakeAgentStage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 28px 20px 20px; background: #faf9fc; min-height: 220px; }
-  #shakeAgentOrb {
-    width: 96px; height: 96px; border-radius: 50%; border: none; cursor: pointer; flex-shrink: 0;
-    background: linear-gradient(135deg, #7c5cfc, #f05a7e);
-    color: #fff;
-    display: flex; align-items: center; justify-content: center; position: relative;
-    box-shadow: 0 12px 32px rgba(124,92,252,0.35);
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
     transition: transform .2s ease;
   }
-  #shakeAgentOrb:hover { transform: scale(1.04); }
-  #shakeAgentOrb.active { animation: shakeAgentOrbGlow 1.4s ease-in-out infinite; }
-  @keyframes shakeAgentOrbGlow {
-    0%, 100% { box-shadow: 0 12px 32px rgba(124,92,252,.4); }
-    50% { box-shadow: 0 12px 44px rgba(240,90,126,.6); }
-  }
-  #shakeAgentBars { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; gap: 4px; }
+  #shakeAgentOrb:hover { transform: scale(1.06); }
+  #shakeAgentOrb.busy { opacity: .6; cursor: default; pointer-events: none; }
+
+  /* Same visual language as the app's own recording waveform (rounded bars
+     animating height, staggered delay) — one shared look for both the
+     visitor talking and the agent's spoken reply. */
+  #shakeAgentOrb.active { background: #7c5cfc; }
+  #shakeAgentBars { display: none; align-items: center; justify-content: center; gap: 3px; }
   #shakeAgentOrb.active #shakeAgentMicIcon { display: none; }
   #shakeAgentOrb.active #shakeAgentBars { display: flex; }
-  #shakeAgentBars span { width: 4px; border-radius: 2px; background: #fff; height: 10px; animation: shakeAgentWave .9s ease-in-out infinite; }
+  #shakeAgentBars span { width: 3px; border-radius: 2px; background: #fff; height: 6px; animation: shakeAgentWave .9s ease-in-out infinite; }
   #shakeAgentBars span:nth-child(1) { animation-delay: 0s; }
-  #shakeAgentBars span:nth-child(2) { animation-delay: .1s; }
-  #shakeAgentBars span:nth-child(3) { animation-delay: .2s; }
-  #shakeAgentBars span:nth-child(4) { animation-delay: .3s; }
-  #shakeAgentBars span:nth-child(5) { animation-delay: .4s; }
-  #shakeAgentBars span:nth-child(6) { animation-delay: .5s; }
-  #shakeAgentBars span:nth-child(7) { animation-delay: .6s; }
-  @keyframes shakeAgentWave { 0%, 100% { height: 10px; } 50% { height: 34px; } }
-
-  #shakeAgentCaption { font-size: 13.5px; color: #4b5563; text-align: center; max-width: 280px; line-height: 1.5; min-height: 40px; }
-  #shakeAgentFooter { padding: 10px 18px 18px; flex-shrink: 0; background: #faf9fc; }
-  #shakeAgentInput { width: 100%; border: 1px solid #e2e2e2; border-radius: 999px; padding: 9px 16px; font-size: 12.5px; font-family: inherit; outline: none; text-align: center; box-sizing: border-box; }
-  #shakeAgentInput:focus { border-color: #7c5cfc; }
-  #shakeAgentInput:disabled { opacity: .6; }
-
-  /* The panel's own contents must never wobble via the global hover gimmick —
-     matches the same override already used for .join-modal. */
-  #shakeAgentPanel *,
-  #shakeAgentPanel *:hover,
-  #shakeAgentPanel *.shake-hover,
-  #shakeAgentPanel *.shake-hover:hover {
-    animation-name: none !important;
-  }
-  /* ...except the two elements whose whole job is to animate. */
-  #shakeAgentOrb.active, #shakeAgentOrb.active:hover { animation-name: shakeAgentOrbGlow !important; }
+  #shakeAgentBars span:nth-child(2) { animation-delay: .12s; }
+  #shakeAgentBars span:nth-child(3) { animation-delay: .24s; }
+  #shakeAgentBars span:nth-child(4) { animation-delay: .36s; }
+  #shakeAgentBars span:nth-child(5) { animation-delay: .48s; }
+  @keyframes shakeAgentWave { 0%, 100% { height: 6px; } 50% { height: 22px; } }
+  #shakeAgentOrb.active, #shakeAgentOrb.active:hover { animation-name: none; }
   #shakeAgentBars span, #shakeAgentBars span:hover { animation-name: shakeAgentWave !important; }
 
+  /* Text fallback — only for browsers with no SpeechRecognition (Safari/iOS).
+     Hidden until tapped so it never adds visible words for anyone who has
+     the mic available. */
+  #shakeAgentFallback {
+    position: fixed;
+    right: 20px;
+    bottom: 82px;
+    z-index: 9999;
+    display: none;
+  }
+  #shakeAgentFallback.open { display: block; }
+  #shakeAgentInput {
+    width: 220px;
+    max-width: calc(100vw - 40px);
+    border: 1px solid #e2e2e2;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+  #shakeAgentInput:focus { border-color: #7c5cfc; }
+
   @media (max-width: 480px) {
-    #shakeAgentBtn { font-size: 12.5px; padding: 12px 16px; right: 14px; bottom: 14px; }
-    #shakeAgentPanel { right: 14px; bottom: 78px; }
+    #shakeAgentOrb { right: 14px; bottom: 14px; }
+    #shakeAgentFallback { right: 14px; bottom: 76px; }
   }
 </style>
 
-<button type="button" id="shakeAgentBtn" aria-haspopup="dialog" aria-label="Talk to the SHAKE concierge">
-  <span class="shake-agent-pulse"></span> Ask SHAKE what's popping 🎙️
+<button type="button" id="shakeAgentOrb" aria-label="Talk to SHAKE">
+  <svg id="shakeAgentMicIcon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+    <line x1="12" y1="19" x2="12" y2="23"/>
+    <line x1="8" y1="23" x2="16" y2="23"/>
+  </svg>
+  <div id="shakeAgentBars" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
 </button>
-
-<div id="shakeAgentPanel" role="dialog" aria-modal="false" aria-label="SHAKE concierge">
-  <div id="shakeAgentHeader">
-    <div>
-      <strong>SHAKE Concierge</strong>
-      <p>Ask what's happening near you</p>
-    </div>
-    <button type="button" id="shakeAgentClose" aria-label="Close">✕</button>
-  </div>
-  <div id="shakeAgentStage">
-    <button type="button" id="shakeAgentOrb" aria-label="Tap to talk to SHAKE">
-      <svg id="shakeAgentMicIcon" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-        <line x1="12" y1="19" x2="12" y2="23"/>
-        <line x1="8" y1="23" x2="16" y2="23"/>
-      </svg>
-      <div id="shakeAgentBars" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-      </div>
-    </button>
-    <p id="shakeAgentCaption" aria-live="polite">Try asking: "What's popping this weekend?"</p>
-  </div>
-  <div id="shakeAgentFooter">
-    <input type="text" id="shakeAgentInput" placeholder="or type here..." autocomplete="off">
-  </div>
+<div id="shakeAgentFallback">
+  <input type="text" id="shakeAgentInput" placeholder="Ask..." autocomplete="off">
 </div>
 
 <script>
 (function() {
-  var btn = document.getElementById('shakeAgentBtn');
-  var panel = document.getElementById('shakeAgentPanel');
-  var closeBtn = document.getElementById('shakeAgentClose');
   var orb = document.getElementById('shakeAgentOrb');
-  var caption = document.getElementById('shakeAgentCaption');
+  var fallback = document.getElementById('shakeAgentFallback');
   var input = document.getElementById('shakeAgentInput');
 
-  var DEFAULT_CAPTION = 'Try asking: "What\'s popping this weekend?"';
   var history = [];
   var locationLabel = null;
   var locationRequested = false;
   var ttsUnlocked = false;
   var busy = false;
 
-  function setOrbActive(isActive) {
+  function setActive(isActive) {
     if (isActive) orb.classList.add('active');
     else orb.classList.remove('active');
   }
 
+  function setBusy(isBusy) {
+    busy = isBusy;
+    orb.classList.toggle('busy', isBusy);
+    input.disabled = isBusy;
+  }
+
   function unlockSpeech() {
     // iOS/Safari only allow speechSynthesis after a real user gesture has
-    // already triggered an utterance once — prime it silently right when
-    // the panel opens (still inside the click handler) so the first real
-    // reply isn't the one that gets silently dropped.
+    // already triggered an utterance once — prime it silently on the very
+    // first tap so the first real reply isn't the one that gets dropped.
     if (ttsUnlocked || !('speechSynthesis' in window)) return;
     ttsUnlocked = true;
     try {
@@ -2021,11 +1966,9 @@
       window.speechSynthesis.cancel();
       var utter = new SpeechSynthesisUtterance(text);
       utter.rate = 1.02;
-      // Same "active" look (orb + waveform) as when the visitor is talking —
-      // one shared state for "audio is happening right now," either direction.
-      utter.onstart = function() { setOrbActive(true); };
-      utter.onend = function() { setOrbActive(false); };
-      utter.onerror = function() { setOrbActive(false); };
+      utter.onstart = function() { setActive(true); };
+      utter.onend = function() { setActive(false); };
+      utter.onerror = function() { setActive(false); };
       window.speechSynthesis.speak(utter);
     } catch (e) { /* ignore */ }
   }
@@ -2053,32 +1996,12 @@
     }, { timeout: 6000 });
   }
 
-  function openPanel() {
-    panel.classList.add('open');
-    btn.setAttribute('aria-expanded', 'true');
-    unlockSpeech();
-    requestLocation();
-  }
-
-  function closePanel() {
-    panel.classList.remove('open');
-    btn.setAttribute('aria-expanded', 'false');
-    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-    setOrbActive(false);
-  }
-
-  function setBusy(isBusy) {
-    busy = isBusy;
-    input.disabled = isBusy;
-  }
-
   function sendMessage(text) {
     text = (text || '').trim();
     if (!text || busy) return;
     input.value = '';
     history.push({ role: 'user', content: text });
     setBusy(true);
-    caption.textContent = 'Thinking…';
 
     fetch('/api/voice-agent', {
       method: 'POST',
@@ -2092,23 +2015,19 @@
     .then(function(data) {
       var reply = (data && data.reply) || "Sorry, I couldn't reach the internet just now — try again in a sec, or just open SHAKE and see what's already happening near you.";
       history.push({ role: 'assistant', content: reply });
-      caption.textContent = reply;
       speak(reply);
     })
     .catch(function() {
-      caption.textContent = "Hmm, I couldn't connect just now. Open the SHAKE app to see what's happening near you instead!";
+      speak("Hmm, I couldn't connect just now. Open the SHAKE app to see what's happening near you instead!");
     })
     .finally(function() { setBusy(false); });
   }
 
-  btn.addEventListener('click', openPanel);
-  closeBtn.addEventListener('click', closePanel);
   input.addEventListener('keydown', function(e) { if (e.key === 'Enter') sendMessage(input.value); });
 
   // Voice input — Chrome/Edge/Android only. Where unsupported (Safari/iOS)
-  // the orb just focuses the text input instead; typing is always the
-  // fallback so the feature works everywhere, it just isn't the primary
-  // way in on every browser.
+  // the orb reveals the fallback text input instead; that's the only case
+  // any text ever appears in this widget.
   var SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (SpeechRecognitionCtor) {
     var recognition = new SpeechRecognitionCtor();
@@ -2117,20 +2036,26 @@
     recognition.maxAlternatives = 1;
     var listening = false;
 
-    recognition.onstart = function() { listening = true; setOrbActive(true); caption.textContent = 'Listening…'; };
+    recognition.onstart = function() { listening = true; setActive(true); };
     recognition.onresult = function(e) { sendMessage(e.results[0][0].transcript); };
-    recognition.onend = function() { listening = false; setOrbActive(false); };
-    recognition.onerror = function() { listening = false; setOrbActive(false); caption.textContent = DEFAULT_CAPTION; };
+    recognition.onend = function() { listening = false; setActive(false); };
+    recognition.onerror = function() { listening = false; setActive(false); };
 
     orb.addEventListener('click', function() {
       if (busy) return;
+      unlockSpeech();
+      requestLocation();
       if (listening) { recognition.stop(); return; }
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       try { recognition.start(); } catch (e) { /* already running — ignore */ }
     });
   } else {
-    orb.addEventListener('click', function() { input.focus(); });
-    caption.textContent = "Type your question below — I'll say it back to you.";
+    orb.addEventListener('click', function() {
+      unlockSpeech();
+      requestLocation();
+      fallback.classList.toggle('open');
+      if (fallback.classList.contains('open')) input.focus();
+    });
   }
 })();
 </script>
@@ -2151,7 +2076,9 @@ document.addEventListener('mouseover', function(e) {
   }
 });
 document.addEventListener('mouseleave', function(e) {
-  e.target.classList.remove('shake-hover');
+  // e.target can be `document` itself (mouse leaving the whole window),
+  // which has no classList — that threw uncaught on every such move.
+  if (e.target && e.target.classList) e.target.classList.remove('shake-hover');
 }, true);
 </script>
 </body>
