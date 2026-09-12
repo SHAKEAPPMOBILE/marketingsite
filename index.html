@@ -1892,33 +1892,46 @@
   #shakeAgentHeader strong { font-family: 'Syne', sans-serif; font-size: 16px; display: block; }
   #shakeAgentHeader p { font-size: 12px; opacity: .85; margin-top: 2px; }
   #shakeAgentClose { background: rgba(255,255,255,0.2); border: none; color: #fff; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 16px; line-height: 1; flex-shrink: 0; }
-  #shakeAgentBody { flex: 1; overflow-y: auto; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; background: #faf9fc; }
-  .shake-agent-msg { max-width: 85%; padding: 10px 14px; border-radius: 16px; font-size: 13.5px; line-height: 1.45; }
-  .shake-agent-msg.agent { align-self: flex-start; background: #fff; border: 1px solid #eee0f0; color: #1a1a1a; border-bottom-left-radius: 4px; }
-  .shake-agent-msg.user { align-self: flex-end; background: #7c5cfc; color: #fff; border-bottom-right-radius: 4px; }
-  #shakeAgentExample {
-    align-self: flex-start;
-    font-size: 12.5px;
-    color: #7c5cfc;
-    background: #f2edff;
-    border: 1px dashed #d7c9ff;
-    padding: 8px 12px;
-    border-radius: 14px;
-    cursor: pointer;
-  }
-  #shakeAgentFooter { padding: 12px 14px; border-top: 1px solid #eee; display: flex; gap: 8px; align-items: center; background: #fff; flex-shrink: 0; }
-  #shakeAgentInput { flex: 1; border: 1px solid #e2e2e2; border-radius: 999px; padding: 10px 14px; font-size: 13.5px; font-family: inherit; outline: none; min-width: 0; }
-  #shakeAgentInput:focus { border-color: #7c5cfc; }
-  #shakeAgentMic, #shakeAgentSend {
-    width: 38px; height: 38px; border-radius: 50%; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px;
-  }
-  #shakeAgentMic { background: #f2edff; color: #7c5cfc; }
-  #shakeAgentMic.listening { background: #f05a7e; color: #fff; animation: shakeAgentPulse 1s ease-in-out infinite; }
-  #shakeAgentSend { background: #7c5cfc; color: #fff; }
-  #shakeAgentSend:disabled, #shakeAgentInput:disabled { opacity: .6; cursor: default; }
 
-  /* The chat panel's own contents must never wobble via the global hover gimmick —
+  /* Mic orb + waveform stage — same visual language as the app's own
+     recording waveform (rounded bars animating height, staggered delay),
+     scaled down to fit inside the orb. One shared "active" look covers
+     both the user talking and the agent's spoken reply, per spec. */
+  #shakeAgentStage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 28px 20px 20px; background: #faf9fc; min-height: 220px; }
+  #shakeAgentOrb {
+    width: 96px; height: 96px; border-radius: 50%; border: none; cursor: pointer; flex-shrink: 0;
+    background: linear-gradient(135deg, #7c5cfc, #f05a7e);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center; position: relative;
+    box-shadow: 0 12px 32px rgba(124,92,252,0.35);
+    transition: transform .2s ease;
+  }
+  #shakeAgentOrb:hover { transform: scale(1.04); }
+  #shakeAgentOrb.active { animation: shakeAgentOrbGlow 1.4s ease-in-out infinite; }
+  @keyframes shakeAgentOrbGlow {
+    0%, 100% { box-shadow: 0 12px 32px rgba(124,92,252,.4); }
+    50% { box-shadow: 0 12px 44px rgba(240,90,126,.6); }
+  }
+  #shakeAgentBars { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; gap: 4px; }
+  #shakeAgentOrb.active #shakeAgentMicIcon { display: none; }
+  #shakeAgentOrb.active #shakeAgentBars { display: flex; }
+  #shakeAgentBars span { width: 4px; border-radius: 2px; background: #fff; height: 10px; animation: shakeAgentWave .9s ease-in-out infinite; }
+  #shakeAgentBars span:nth-child(1) { animation-delay: 0s; }
+  #shakeAgentBars span:nth-child(2) { animation-delay: .1s; }
+  #shakeAgentBars span:nth-child(3) { animation-delay: .2s; }
+  #shakeAgentBars span:nth-child(4) { animation-delay: .3s; }
+  #shakeAgentBars span:nth-child(5) { animation-delay: .4s; }
+  #shakeAgentBars span:nth-child(6) { animation-delay: .5s; }
+  #shakeAgentBars span:nth-child(7) { animation-delay: .6s; }
+  @keyframes shakeAgentWave { 0%, 100% { height: 10px; } 50% { height: 34px; } }
+
+  #shakeAgentCaption { font-size: 13.5px; color: #4b5563; text-align: center; max-width: 280px; line-height: 1.5; min-height: 40px; }
+  #shakeAgentFooter { padding: 10px 18px 18px; flex-shrink: 0; background: #faf9fc; }
+  #shakeAgentInput { width: 100%; border: 1px solid #e2e2e2; border-radius: 999px; padding: 9px 16px; font-size: 12.5px; font-family: inherit; outline: none; text-align: center; box-sizing: border-box; }
+  #shakeAgentInput:focus { border-color: #7c5cfc; }
+  #shakeAgentInput:disabled { opacity: .6; }
+
+  /* The panel's own contents must never wobble via the global hover gimmick —
      matches the same override already used for .join-modal. */
   #shakeAgentPanel *,
   #shakeAgentPanel *:hover,
@@ -1926,6 +1939,9 @@
   #shakeAgentPanel *.shake-hover:hover {
     animation-name: none !important;
   }
+  /* ...except the two elements whose whole job is to animate. */
+  #shakeAgentOrb.active, #shakeAgentOrb.active:hover { animation-name: shakeAgentOrbGlow !important; }
+  #shakeAgentBars span, #shakeAgentBars span:hover { animation-name: shakeAgentWave !important; }
 
   @media (max-width: 480px) {
     #shakeAgentBtn { font-size: 12.5px; padding: 12px 16px; right: 14px; bottom: 14px; }
@@ -1937,7 +1953,7 @@
   <span class="shake-agent-pulse"></span> Ask SHAKE what's popping 🎙️
 </button>
 
-<div id="shakeAgentPanel" role="dialog" aria-modal="false" aria-label="SHAKE concierge chat">
+<div id="shakeAgentPanel" role="dialog" aria-modal="false" aria-label="SHAKE concierge">
   <div id="shakeAgentHeader">
     <div>
       <strong>SHAKE Concierge</strong>
@@ -1945,14 +1961,22 @@
     </div>
     <button type="button" id="shakeAgentClose" aria-label="Close">✕</button>
   </div>
-  <div id="shakeAgentBody" aria-live="polite">
-    <div class="shake-agent-msg agent">Hey! I'm the SHAKE concierge — ask me what's going on near you this week and I'll find real plans, events, and things to do.</div>
-    <div id="shakeAgentExample">Try: "What's popping this weekend?"</div>
+  <div id="shakeAgentStage">
+    <button type="button" id="shakeAgentOrb" aria-label="Tap to talk to SHAKE">
+      <svg id="shakeAgentMicIcon" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+        <line x1="12" y1="19" x2="12" y2="23"/>
+        <line x1="8" y1="23" x2="16" y2="23"/>
+      </svg>
+      <div id="shakeAgentBars" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </button>
+    <p id="shakeAgentCaption" aria-live="polite">Try asking: "What's popping this weekend?"</p>
   </div>
   <div id="shakeAgentFooter">
-    <button type="button" id="shakeAgentMic" aria-label="Talk instead of typing">🎤</button>
-    <input type="text" id="shakeAgentInput" placeholder="Ask anything..." autocomplete="off">
-    <button type="button" id="shakeAgentSend" aria-label="Send">➤</button>
+    <input type="text" id="shakeAgentInput" placeholder="or type here..." autocomplete="off">
   </div>
 </div>
 
@@ -1960,26 +1984,21 @@
 (function() {
   var btn = document.getElementById('shakeAgentBtn');
   var panel = document.getElementById('shakeAgentPanel');
-  var body = document.getElementById('shakeAgentBody');
-  var input = document.getElementById('shakeAgentInput');
-  var micBtn = document.getElementById('shakeAgentMic');
-  var sendBtn = document.getElementById('shakeAgentSend');
   var closeBtn = document.getElementById('shakeAgentClose');
-  var exampleChip = document.getElementById('shakeAgentExample');
+  var orb = document.getElementById('shakeAgentOrb');
+  var caption = document.getElementById('shakeAgentCaption');
+  var input = document.getElementById('shakeAgentInput');
 
+  var DEFAULT_CAPTION = 'Try asking: "What\'s popping this weekend?"';
   var history = [];
   var locationLabel = null;
   var locationRequested = false;
   var ttsUnlocked = false;
   var busy = false;
 
-  function addMessage(text, role) {
-    var el = document.createElement('div');
-    el.className = 'shake-agent-msg ' + role;
-    el.textContent = text;
-    body.appendChild(el);
-    body.scrollTop = body.scrollHeight;
-    return el;
+  function setOrbActive(isActive) {
+    if (isActive) orb.classList.add('active');
+    else orb.classList.remove('active');
   }
 
   function unlockSpeech() {
@@ -2002,6 +2021,11 @@
       window.speechSynthesis.cancel();
       var utter = new SpeechSynthesisUtterance(text);
       utter.rate = 1.02;
+      // Same "active" look (orb + waveform) as when the visitor is talking —
+      // one shared state for "audio is happening right now," either direction.
+      utter.onstart = function() { setOrbActive(true); };
+      utter.onend = function() { setOrbActive(false); };
+      utter.onerror = function() { setOrbActive(false); };
       window.speechSynthesis.speak(utter);
     } catch (e) { /* ignore */ }
   }
@@ -2034,30 +2058,27 @@
     btn.setAttribute('aria-expanded', 'true');
     unlockSpeech();
     requestLocation();
-    input.focus();
   }
 
   function closePanel() {
     panel.classList.remove('open');
     btn.setAttribute('aria-expanded', 'false');
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    setOrbActive(false);
   }
 
   function setBusy(isBusy) {
     busy = isBusy;
-    sendBtn.disabled = isBusy;
     input.disabled = isBusy;
   }
 
   function sendMessage(text) {
     text = (text || '').trim();
     if (!text || busy) return;
-    if (exampleChip) { exampleChip.remove(); exampleChip = null; }
-    addMessage(text, 'user');
     input.value = '';
     history.push({ role: 'user', content: text });
     setBusy(true);
-    var typing = addMessage('…', 'agent');
-    typing.id = 'shakeAgentTypingMsg';
+    caption.textContent = 'Thinking…';
 
     fetch('/api/voice-agent', {
       method: 'POST',
@@ -2070,30 +2091,24 @@
     })
     .then(function(data) {
       var reply = (data && data.reply) || "Sorry, I couldn't reach the internet just now — try again in a sec, or just open SHAKE and see what's already happening near you.";
-      var el = document.getElementById('shakeAgentTypingMsg');
-      if (el) { el.textContent = reply; el.removeAttribute('id'); }
-      body.scrollTop = body.scrollHeight;
       history.push({ role: 'assistant', content: reply });
+      caption.textContent = reply;
       speak(reply);
     })
     .catch(function() {
-      var msg = "Hmm, I couldn't connect just now. Open the SHAKE app to see what's happening near you instead!";
-      var el = document.getElementById('shakeAgentTypingMsg');
-      if (el) { el.textContent = msg; el.removeAttribute('id'); }
-      body.scrollTop = body.scrollHeight;
+      caption.textContent = "Hmm, I couldn't connect just now. Open the SHAKE app to see what's happening near you instead!";
     })
-    .finally(function() { setBusy(false); input.focus(); });
+    .finally(function() { setBusy(false); });
   }
 
   btn.addEventListener('click', openPanel);
   closeBtn.addEventListener('click', closePanel);
-  sendBtn.addEventListener('click', function() { sendMessage(input.value); });
   input.addEventListener('keydown', function(e) { if (e.key === 'Enter') sendMessage(input.value); });
-  if (exampleChip) exampleChip.addEventListener('click', function() { sendMessage("What's popping this weekend?"); });
 
-  // Speech recognition (voice input) — Chrome/Edge/Android only; the mic
-  // button just hides itself where unsupported (Safari/iOS), leaving the
-  // text input as the fallback so the feature still works everywhere.
+  // Voice input — Chrome/Edge/Android only. Where unsupported (Safari/iOS)
+  // the orb just focuses the text input instead; typing is always the
+  // fallback so the feature works everywhere, it just isn't the primary
+  // way in on every browser.
   var SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (SpeechRecognitionCtor) {
     var recognition = new SpeechRecognitionCtor();
@@ -2102,24 +2117,20 @@
     recognition.maxAlternatives = 1;
     var listening = false;
 
-    recognition.onresult = function(e) {
-      var transcript = e.results[0][0].transcript;
-      input.value = transcript;
-      sendMessage(transcript);
-    };
-    recognition.onend = function() { listening = false; micBtn.classList.remove('listening'); };
-    recognition.onerror = function() { listening = false; micBtn.classList.remove('listening'); };
+    recognition.onstart = function() { listening = true; setOrbActive(true); caption.textContent = 'Listening…'; };
+    recognition.onresult = function(e) { sendMessage(e.results[0][0].transcript); };
+    recognition.onend = function() { listening = false; setOrbActive(false); };
+    recognition.onerror = function() { listening = false; setOrbActive(false); caption.textContent = DEFAULT_CAPTION; };
 
-    micBtn.addEventListener('click', function() {
+    orb.addEventListener('click', function() {
+      if (busy) return;
       if (listening) { recognition.stop(); return; }
-      try {
-        listening = true;
-        micBtn.classList.add('listening');
-        recognition.start();
-      } catch (e) { listening = false; micBtn.classList.remove('listening'); }
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      try { recognition.start(); } catch (e) { /* already running — ignore */ }
     });
   } else {
-    micBtn.style.display = 'none';
+    orb.addEventListener('click', function() { input.focus(); });
+    caption.textContent = "Type your question below — I'll say it back to you.";
   }
 })();
 </script>
