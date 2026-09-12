@@ -29,6 +29,7 @@ const CLOSING_LINES = [
   "why don't you open the SHAKE-SOCIAL app and put your velvet on",
   "why don't you open the SHAKE-SOCIAL app and fuck yourself",
   "why don't you open the SHAKE-SOCIAL app and catch the vibe",
+  "open the SHAKE app to see what's happening near you",
 ];
 
 function pickClosingLine() {
