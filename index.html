@@ -1947,20 +1947,36 @@
     input.disabled = isBusy;
   }
 
+  // Real voice (ElevenLabs, synthesized server-side) instead of the browser's
+  // own speechSynthesis, which sounds robotic and varies wildly by OS. Falls
+  // back to speechSynthesis only if the server didn't return audio (e.g. the
+  // ElevenLabs key isn't configured yet), so the widget still speaks either way.
+  var audioEl = new Audio();
+  audioEl.onplay = function() { setActive(true); };
+  audioEl.onended = function() { setActive(false); };
+  audioEl.onerror = function() { setActive(false); };
+
   function unlockSpeech() {
-    // iOS/Safari only allow speechSynthesis after a real user gesture has
-    // already triggered an utterance once — prime it silently on the very
+    // iOS/Safari only allow audio playback after a real user gesture has
+    // already played *something* once — prime it silently on the very
     // first tap so the first real reply isn't the one that gets dropped.
-    if (ttsUnlocked || !('speechSynthesis' in window)) return;
+    if (ttsUnlocked) return;
     ttsUnlocked = true;
     try {
-      var primer = new SpeechSynthesisUtterance('');
-      primer.volume = 0;
-      window.speechSynthesis.speak(primer);
+      audioEl.muted = true;
+      audioEl.src = 'data:audio/mpeg;base64,';
+      audioEl.play().catch(function() {}).finally(function() { audioEl.muted = false; });
+    } catch (e) { /* ignore */ }
+    try {
+      if ('speechSynthesis' in window) {
+        var primer = new SpeechSynthesisUtterance('');
+        primer.volume = 0;
+        window.speechSynthesis.speak(primer);
+      }
     } catch (e) { /* ignore */ }
   }
 
-  function speak(text) {
+  function speakFallback(text) {
     try {
       if (!('speechSynthesis' in window)) return;
       window.speechSynthesis.cancel();
@@ -1971,6 +1987,15 @@
       utter.onerror = function() { setActive(false); };
       window.speechSynthesis.speak(utter);
     } catch (e) { /* ignore */ }
+  }
+
+  function speak(text, audioBase64) {
+    if (!audioBase64) { speakFallback(text); return; }
+    try {
+      audioEl.pause();
+      audioEl.src = 'data:audio/mpeg;base64,' + audioBase64;
+      audioEl.play().catch(function() { speakFallback(text); });
+    } catch (e) { speakFallback(text); }
   }
 
   function requestLocation() {
@@ -2015,7 +2040,7 @@
     .then(function(data) {
       var reply = (data && data.reply) || "Sorry, I couldn't reach the internet just now — try again in a sec, or just open SHAKE and see what's already happening near you.";
       history.push({ role: 'assistant', content: reply });
-      speak(reply);
+      speak(reply, data && data.audio);
     })
     .catch(function() {
       speak("Hmm, I couldn't connect just now. Open the SHAKE app to see what's happening near you instead!");
@@ -2046,6 +2071,7 @@
       unlockSpeech();
       requestLocation();
       if (listening) { recognition.stop(); return; }
+      audioEl.pause();
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       try { recognition.start(); } catch (e) { /* already running — ignore */ }
     });
