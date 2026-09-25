@@ -25,6 +25,18 @@
   }
   body { background: #eef4ff; color: #0b0b10; font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
   
+
+  /* App previews — "See it in action" */
+  .gradient-section.app-previews-layer { animation: none; background: linear-gradient(180deg, #f4f0fb 0%, #eef4ff 100%); padding: clamp(56px, 8vw, 110px) 0 clamp(48px, 6vw, 90px); }
+  .app-previews-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(2rem, 4.6vw, 3.6rem); line-height: 1.05; text-align: center; margin: 0 20px 12px; color: #1a1033; }
+  .app-previews-sub { text-align: center; color: #5b4b7a; font-size: clamp(1rem, 1.6vw, 1.25rem); margin: 0 20px clamp(28px, 4vw, 48px); }
+  .app-previews-row { display: flex; gap: clamp(16px, 2.4vw, 32px); overflow-x: auto; padding: 8px clamp(16px, 5vw, 64px) 28px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .app-previews-row::-webkit-scrollbar { display: none; }
+  .app-previews-row figure { flex: 0 0 auto; width: min(74vw, 300px); margin: 0; scroll-snap-align: center; }
+  .app-previews-row img { width: 100%; height: auto; display: block; filter: drop-shadow(0 22px 36px rgba(60,30,120,.22)); }
+  .app-previews-row figcaption { text-align: center; margin-top: 14px; font-weight: 600; font-size: 1rem; color: #1a1033; }
+  @media (min-width: 1500px) { .app-previews-row { justify-content: center; } }
+
   /* Scroll Layer Animation Styles */
   .scroll-layer {
     position: sticky;
@@ -1445,6 +1457,21 @@
 </div>
 </section>
 
+
+<section class="scroll-layer">
+  <div class="gradient-section app-previews-layer">
+    <h2 class="app-previews-title">See it in action</h2>
+    <p class="app-previews-sub">Dinner in Los Angeles. Brunch in San Francisco. A chat that already feels like friends.</p>
+    <div class="app-previews-row">
+      <figure><img src="previews/home.webp" alt="Join Thursday dinner in Los Angeles in the SHAKE app" loading="lazy" width="828" height="1736"><figcaption>Say yes to dinner</figcaption></figure>
+      <figure><img src="previews/feed.webp" alt="San Francisco dinner card with a hand-drawn skyline" loading="lazy" width="828" height="1736"><figcaption>Every city has its own look</figcaption></figure>
+      <figure><img src="previews/plans.webp" alt="Plans in Los Angeles and San Francisco" loading="lazy" width="828" height="1736"><figcaption>See what's on</figcaption></figure>
+      <figure><img src="previews/match.webp" alt="Shake to match with someone who shares your interests" loading="lazy" width="828" height="1736"><figcaption>Shake to match</figcaption></figure>
+      <figure><img src="previews/joined.webp" alt="You're in! Dinner confirmation" loading="lazy" width="828" height="1736"><figcaption>You're in!</figcaption></figure>
+      <figure><img src="previews/chat.webp" alt="Group chat with a shared location map card" loading="lazy" width="828" height="1736"><figcaption>Chat, share your location, find each other</figcaption></figure>
+    </div>
+  </div>
+</section>
 
 <section class="scroll-layer">
   <div class="gradient-section footer-layer">
