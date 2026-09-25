@@ -2021,7 +2021,16 @@
       if (!('speechSynthesis' in window)) return;
       window.speechSynthesis.cancel();
       var utter = new SpeechSynthesisUtterance(text);
-      utter.rate = 1.02;
+      // Prefer the friendlier-sounding built-in voices over the default robotic one.
+      var voices = window.speechSynthesis.getVoices() || [];
+      var prefs = ['Ava', 'Zoe', 'Samantha', 'Serena', 'Karen', 'Google US English', 'Google UK English Female', 'Microsoft Aria', 'Microsoft Jenny'];
+      var pick = null;
+      for (var i = 0; i < prefs.length && !pick; i++) {
+        pick = voices.find(function(v) { return v.name.indexOf(prefs[i]) === 0 && /^en/i.test(v.lang); }) || null;
+      }
+      if (pick) utter.voice = pick;
+      utter.rate = 0.98;
+      utter.pitch = 1.05;
       utter.onstart = function() { setActive(true); };
       utter.onend = function() { setActive(false); };
       utter.onerror = function() { setActive(false); };
@@ -2078,12 +2087,12 @@
       return r.json();
     })
     .then(function(data) {
-      var reply = (data && data.reply) || "Sorry, I couldn't reach the internet just now — try again in a sec, or just open SHAKE and see what's already happening near you.";
+      var reply = (data && data.reply) || "I'm just a robot, why don't you open the SHAKE app and go meet some humans?";
       history.push({ role: 'assistant', content: reply });
       speak(reply, data && data.audio);
     })
     .catch(function() {
-      speak("Hmm, I couldn't connect just now. Open the SHAKE app to see what's happening near you instead!");
+      speak("I'm just a robot, why don't you open the SHAKE app and go meet some humans?");
     })
     .finally(function() { setBusy(false); });
   }
