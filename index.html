@@ -256,7 +256,7 @@
   }
 
   /* NAV */
-  nav { position: relative; display: flex; align-items: center; justify-content: flex-end; padding: 48px 0 28px; animation: fadeDown 0.8s ease both; }
+  nav { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 48px 0 28px; animation: fadeDown 0.8s ease both; }
   .logo { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
   .logo-s { width: 96px; height: 96px; background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url("logo.png"); flex-shrink: 0; }
 
@@ -288,6 +288,13 @@
   .logo-wordmark strong { font-weight: 700; font-size: 1.5rem; display: block; line-height: 1; }
   .logo-wordmark span { font-size: 0.85rem; color: #0b0b10; letter-spacing: 0.08em; text-transform: uppercase; }
   .nav-badge { font-family: 'Permanent Marker', cursive; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; color: #000000; border: 1px solid rgba(0,0,0,0.15); padding: 6px 14px; border-radius: 100px; }
+
+  /* Live "N Shakers" pill — same numbers the app shows */
+  .shakers-pill { display: inline-flex; align-items: center; gap: 10px; padding: 6px 16px 6px 8px; border-radius: 100px; background: rgba(255,255,255,.9); border: 1px solid rgba(0,0,0,.08); box-shadow: 0 6px 18px rgba(60,30,120,.12); color: #1a1033; font-size: .85rem; white-space: nowrap; }
+  .shakers-avatars { display: inline-flex; }
+  .shakers-avatars img { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; margin-left: -8px; object-fit: cover; background: #eee; }
+  .shakers-avatars img:first-child { margin-left: 0; }
+  .shakers-text b { font-weight: 700; }
 
   /* HERO */
   .hero { position: relative; display: grid; grid-template-columns: 45% 55%; gap: 0; align-items: center; padding: 60px 0 180px; }
@@ -607,7 +614,9 @@
   @media (max-width: 768px) {
     .wrapper { padding: 0 20px; }
     nav { padding: 28px 0 24px; flex-direction: column; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
-    .logo { position: static; transform: none; }
+    .logo { position: static; transform: none; order: 1; }
+    .shakers-pill { order: 2; }
+    .nav-badge { order: 3; }
     .logo-s { width: 80px; height: 96px; }
     .logo-wordmark strong { font-size: 1.1rem; }
     .nav-badge { font-size: 0.75rem; padding: 5px 10px; margin-top: 4px; }
@@ -1251,6 +1260,7 @@
 <section class="scroll-layer">
   <div class="wrapper hero-section">
     <nav>
+      <span class="nav-badge">Version 3.0 is live ✨</span>
       <div class="logo">
         <div class="logo-s"></div>
         <div class="logo-wordmark">
@@ -1258,7 +1268,10 @@
           <span>social</span>
         </div>
       </div>
-      <span class="nav-badge">Version 3.0 is live ✨</span>
+      <div class="shakers-pill" id="shakersPill" aria-live="polite" style="visibility:hidden">
+        <span class="shakers-avatars" id="shakersAvatars"></span>
+        <span class="shakers-text">👀 <b id="shakersCount">0</b> Shakers</span>
+      </div>
     </nav>
 
     <section class="hero">
@@ -2135,6 +2148,37 @@
 })();
 </script>
 
+<script>
+(function() {
+  var URL_ = 'https://mpgrjzubegorcijgfjri.supabase.co/functions/v1/shaker-stats';
+  var pill = document.getElementById('shakersPill');
+  var countEl = document.getElementById('shakersCount');
+  var avEl = document.getElementById('shakersAvatars');
+  var shown = 0;
+  function animate(to) {
+    var from = shown, start = null;
+    function step(t) {
+      if (start === null) start = t;
+      var k = Math.min(1, (t - start) / 900);
+      countEl.textContent = Math.round(from + (to - from) * k).toLocaleString('en-US');
+      if (k < 1) requestAnimationFrame(step); else shown = to;
+    }
+    requestAnimationFrame(step);
+  }
+  function load() {
+    fetch(URL_, { cache: 'no-store' }).then(function(r) { return r.ok ? r.json() : null; }).then(function(d) {
+      if (!d || typeof d.count !== 'number') return;
+      if (!avEl.childNodes.length && d.avatars) {
+        d.avatars.forEach(function(u) { var i = new Image(); i.src = u; i.alt = ''; avEl.appendChild(i); });
+      }
+      pill.style.visibility = 'visible';
+      if (d.count !== shown) animate(d.count);
+    }).catch(function() { /* pill stays hidden if the count can't load */ });
+  }
+  load();
+  setInterval(load, 30000);
+})();
+</script>
 <script src="scroll-animator.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 <script>
