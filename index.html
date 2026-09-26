@@ -287,10 +287,13 @@
   .logo-wordmark { font-family: 'DM Sans', sans-serif; }
   .logo-wordmark strong { font-weight: 700; font-size: 1.5rem; display: block; line-height: 1; }
   .logo-wordmark span { font-size: 0.85rem; color: #0b0b10; letter-spacing: 0.08em; text-transform: uppercase; }
+  .mobile-version-wrap { display: none; }
   .nav-badge { font-family: 'Permanent Marker', cursive; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; color: #000000; border: 1px solid rgba(0,0,0,0.15); padding: 6px 14px; border-radius: 100px; }
 
   /* Live "N Shakers" pill — same numbers the app shows */
-  .shakers-pill { display: inline-flex; align-items: center; gap: 10px; padding: 6px 16px 6px 8px; border-radius: 100px; background: rgba(255,255,255,.9); border: 1px solid rgba(0,0,0,.08); box-shadow: 0 6px 18px rgba(60,30,120,.12); color: #1a1033; font-size: .85rem; white-space: nowrap; }
+  .shakers-pill { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 18px 8px 14px; border-radius: 26px; background: rgba(255,255,255,.9); border: 1px solid rgba(0,0,0,.08); box-shadow: 0 6px 18px rgba(60,30,120,.12); color: #1a1033; font-size: .85rem; white-space: nowrap; }
+  .shakers-row { display: inline-flex; align-items: center; gap: 10px; }
+  .shakers-label { font-family: 'Sue Ellen Francisco', cursive; font-size: 1.05rem; line-height: 1; color: #5b4b7a; }
   .shakers-avatars { display: inline-flex; }
   .shakers-avatars img { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; margin-left: -8px; object-fit: cover; background: #eee; }
   .shakers-avatars img:first-child { margin-left: 0; }
@@ -616,7 +619,8 @@
     nav { padding: 28px 0 24px; flex-direction: column; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
     .logo { position: static; transform: none; order: 1; }
     .shakers-pill { order: 2; }
-    .nav-badge { order: 3; }
+    nav > .nav-badge { display: none; }
+    .mobile-version-wrap { display: flex; justify-content: center; margin-top: 16px; }
     .logo-s { width: 80px; height: 96px; }
     .logo-wordmark strong { font-size: 1.1rem; }
     .nav-badge { font-size: 0.75rem; padding: 5px 10px; margin-top: 4px; }
@@ -1269,8 +1273,11 @@
         </div>
       </div>
       <div class="shakers-pill" id="shakersPill" aria-live="polite" style="visibility:hidden">
-        <span class="shakers-avatars" id="shakersAvatars"></span>
-        <span class="shakers-text">👀 <b id="shakersCount">0</b> Shakers</span>
+        <span class="shakers-row">
+          <span class="shakers-avatars" id="shakersAvatars"></span>
+          <span class="shakers-text">👀 <b id="shakersCount">0</b></span>
+        </span>
+        <span class="shakers-label">Shakers nearby</span>
       </div>
     </nav>
 
@@ -1348,6 +1355,7 @@
             <a href="https://www.shakeapp.today/" class="btn-secondary" target="_blank" rel="noopener noreferrer">Open Web App →</a>
           </div>
         </div>
+        <div class="mobile-version-wrap"><span class="nav-badge mobile-version-badge">Version 3.0 is live ✨</span></div>
       </div>
     </div>
   </section>
