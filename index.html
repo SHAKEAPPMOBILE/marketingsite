@@ -293,7 +293,7 @@
   /* Live "N Shakers" pill — same numbers the app shows */
   .shakers-pill { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 18px 8px 14px; border-radius: 26px; background: rgba(255,255,255,.9); border: 1px solid rgba(0,0,0,.08); box-shadow: 0 6px 18px rgba(60,30,120,.12); color: #1a1033; font-size: .85rem; white-space: nowrap; }
   .shakers-row { display: inline-flex; align-items: center; gap: 10px; }
-  .shakers-label { font-family: 'Sue Ellen Francisco', cursive; font-size: 1.05rem; line-height: 1; color: #5b4b7a; }
+  .shakers-label { font-family: inherit; font-size: .85rem; font-weight: 500; line-height: 1.1; color: #1a1033; }
   .shakers-avatars { display: inline-flex; }
   .shakers-avatars img { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; margin-left: -8px; object-fit: cover; background: #eee; }
   .shakers-avatars img:first-child { margin-left: 0; }
@@ -620,7 +620,8 @@
     .logo { position: static; transform: none; order: 1; }
     .shakers-pill { order: 2; }
     nav > .nav-badge { display: none; }
-    .mobile-version-wrap { display: flex; justify-content: center; margin-top: 16px; }
+    .hero-cta-fullwidth { flex-direction: column; align-items: center; }
+    .mobile-version-wrap { display: flex; justify-content: center; width: 100%; margin-top: 16px; }
     .logo-s { width: 80px; height: 96px; }
     .logo-wordmark strong { font-size: 1.1rem; }
     .nav-badge { font-size: 0.75rem; padding: 5px 10px; margin-top: 4px; }
