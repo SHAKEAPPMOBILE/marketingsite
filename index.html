@@ -330,6 +330,10 @@
     pointer-events: none;
   }
   .hero-video.shake-hover, .hero-video:hover { animation: none !important; transform: none !important; }
+  /* Standalone video at the bottom of the page */
+  .video-band { display: flex; justify-content: center; padding: clamp(40px, 6vw, 80px) 20px; background: #f8f7ff; }
+  .bottom-video { display: block; width: min(420px, 100%); height: auto; border-radius: 20px; box-shadow: 0 24px 60px rgba(60,30,120,.18); pointer-events: none; }
+  .bottom-video.shake-hover, .bottom-video:hover { animation: none !important; transform: none !important; }
   .hero-cta-viewport {
     grid-column: 1 / -1;
     width: 100vw;
@@ -1374,10 +1378,6 @@
     </div>
   </section>
 
-
-    <video class="hero-video" autoplay loop muted playsinline>
-      <source src="hero-video.mp4" type="video/mp4">
-    </video>
   </div>
 </section>
 
@@ -1574,6 +1574,12 @@
     </div>
     </div>
   </div>
+</section>
+
+<section class="video-band">
+  <video class="bottom-video" autoplay loop muted playsinline preload="metadata">
+    <source src="hero-video.mp4" type="video/mp4">
+  </video>
 </section>
 
 <div style="background: linear-gradient(180deg, #f8f7ff 0%, #f0f7ff 100%);">
